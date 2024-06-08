@@ -45,6 +45,7 @@ const Project = ({ name, body, project_image, skill_tag }) => {
       <h2>프로젝트 설명</h2>
       <hr />
       <div>
+        <ImageSlider images={project_image} />
         <MDEditor.Markdown source={body} />
       </div>
     </div>
