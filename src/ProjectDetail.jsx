@@ -59,7 +59,7 @@ const ProjectDetail = () => {
           />
           <hr />
           <h3>댓글</h3>
-          <Comment body={comment} />
+          <Comment comment={comment} />
         </div>
       )}
     </div>

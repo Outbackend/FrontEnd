@@ -1,7 +1,13 @@
 import React from "react";
 
-const Comment = () => {
-  return <div></div>;
+const Comment = ({ comment }) => {
+  return (
+    <div>
+      {comment.map((c) => {
+        <p>{c}</p>;
+      })}
+    </div>
+  );
 };
 
 export default Comment;
