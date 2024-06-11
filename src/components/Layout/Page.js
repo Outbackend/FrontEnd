@@ -1,13 +1,13 @@
 import React from 'react'
 import Header from './header/Header';
 
-const Layout = (props) => {
+const Layout = ({children}) => {
+    const user = null;
+    //const user = getUser();
     return (
         <div>
-            <Header/>
-            <main>
-                {props.children}
-            </main>
+            <Header user={user}/>
+            <div>{children}</div>
         </div>
     );
 }
