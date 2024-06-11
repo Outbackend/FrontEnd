@@ -1,7 +1,7 @@
 import React from "react";
-import Header from "./components/Header";
-import Project from "./components/Project";
-import Comment from "./components/Comment";
+import Header from "../Layout/header/Header";
+import Project from "./Project";
+import Comment from "./Comment";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
