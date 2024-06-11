@@ -1,13 +1,16 @@
+import Layout from './components/Layout/Page';
 import ProjectDetail from "./ProjectDetail";
-
-import logo from "./logo.svg";
-import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <ProjectDetail />
-    </div>
+    <Layout>
+      <div className="App">
+        <h1 className="text-3xl font-bold underline">
+          Hello world!
+        </h1>
+        <ProjectDetail />
+      </div>
+    </Layout>
   );
 }
 
