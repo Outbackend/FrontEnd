@@ -1,6 +1,7 @@
 import React from "react";
 import MDEditor from "@uiw/react-md-editor";
-import ImageSlider from "../components/ImageSlider";
+
+import ImageSlider from "./Project/ImageSlider";
 
 const Project = ({ name, body, project_image, skill_tag }) => {
   const type = [

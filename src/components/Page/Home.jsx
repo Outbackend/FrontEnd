@@ -1,6 +1,6 @@
-import Categories from "./Category"
-import ProjectList from "./ProjectList"
-import Search from "./Search"
+import Categories from "./Home/Category"
+import ProjectList from "./Home/ProjectList"
+import Search from "./Home/Search"
 
 const Home = () => {
     return (

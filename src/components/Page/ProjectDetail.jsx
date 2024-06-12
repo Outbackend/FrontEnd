@@ -1,7 +1,6 @@
 import React from "react";
-import Header from "../Layout/header/Header";
 import Project from "./Project";
-import Comment from "./Comment";
+import Comment from "./Project/Comment";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -46,14 +45,13 @@ const ProjectDetail = () => {
 
   return (
     <div>
-      <Header />
-      {loading ? (
+      {/* {loading ? (
         <h1>loading...</h1>
-      ) : (
+      ) : ( */}
         <div>
           <Project
             name={name}
-            body={body}
+            body="test"
             project_image={img}
             skill_tag={skills}
           />
@@ -61,7 +59,7 @@ const ProjectDetail = () => {
           <h3>댓글</h3>
           <Comment comment={comment} />
         </div>
-      )}
+      {/* )} */}
     </div>
   );
 };

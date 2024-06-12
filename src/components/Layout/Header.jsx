@@ -1,8 +1,8 @@
 import {useNavigate} from "react-router-dom";
 import React, { useState, useCallback } from "react";
-import Logo from './Logo';
-import UserImg from './LogoUser';
-import Navigation from "./Navigation";
+import Logo from './header/Logo';
+import UserImg from './header/LogoUser';
+import Navigation from "./header/Navigation";
 
 
 const Header = ({user}) => {
@@ -16,7 +16,7 @@ const Header = ({user}) => {
     
     return(
         <>
-            <div className="fixed w-full bg-white z-10 shadow-sm py-2 border-b-[1px]">
+            <div className="w-full h-[150px] bg-white z-10 shadow-sm py-2 border-b-[1px]">
                 <div className="flex flex-row items-center justify-between">
                     <div>
                         <Logo />

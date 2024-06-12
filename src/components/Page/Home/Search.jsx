@@ -4,7 +4,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import qs from 'query-string'
 
 import {AllItem} from "./getItem"
-import Button from "./Button"
+import SearchButton from "../../Assets/SearchButton"
 
 const groupStyles = {
     display: 'flex',
@@ -82,7 +82,7 @@ const Search = () => {
                     })}
                     onChange={(e)=>{handler(e)}}
                 />
-                <Button
+                <SearchButton
                     onClick={onSubmit}
                 />
             </div>

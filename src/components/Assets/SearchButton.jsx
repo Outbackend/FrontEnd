@@ -1,4 +1,4 @@
-const Button = ({
+const SearchButton = ({
     onClick,
 }) => {
     return (
@@ -19,4 +19,4 @@ const Button = ({
     )
 }
 
-export default Button
+export default SearchButton
