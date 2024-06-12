@@ -1,7 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import React, { useState, useCallback } from "react";
 import Logo from './Logo';
-import UserImg from './UserImg';
+import UserImg from './LogoUser';
 import Navigation from "./Navigation";
 
 
