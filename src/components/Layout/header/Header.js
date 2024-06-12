@@ -5,7 +5,7 @@ import Navigation from './Navigation';
 
 const Header = () => {
     return (
-        <div className="bg-white flex flex-row justify-center w-full">
+        <div className="bg-black flex flex-row justify-center w-full h-[150px]">
             <LogoUser />
             <Navigation />
         </div>

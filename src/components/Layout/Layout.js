@@ -1,15 +1,18 @@
-import React from 'react'
-import Header from './header/Header';
+import React from 'react';
+import { Outlet } from 'react-router';
 
-const Layout = (props) => {
-    return (
+import Header from './Header/Header';
+
+const PageLayout = (props) => {
+    return(
         <div>
-            <Header/>
-            <main>
-                {props.children}
-            </main>
+            <Header />
+            <div className='w-[1180px] m-auto'>
+                <Outlet />
+            </div> 
         </div>
     );
+
 }
 
-export default Layout;
+export default PageLayout
