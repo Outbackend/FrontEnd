@@ -1,9 +1,6 @@
-import { useState } from 'react'
+import React from 'react'
 
-const UserIcon = () => {
-    const [ name, nameState ] = useState("닉네임");
-    const [ note, noteState ] = useState("소개글입니다.");
-
+const UserIcon = ({ name, note }) => {
     return (
         <div className='w-1/3 h-[530px] m-auto relative float-left'>
             <div className='absolute w-[250px] h-[250px] top-[77px] left-[67px] bg-[#d9d9d9] rounded-[125px]'>

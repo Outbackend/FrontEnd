@@ -1,12 +1,8 @@
-import { useState } from 'react';
+import React from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-const UserDescription = () => {
-    const output = '저는 현재 리액트에서 \`react-markdown\`를 이용하여 **마크다운**을 랜더링하고 있습니다.\n';
-
-    const [description, descriptionState] = useState(output);
-
+const UserDescription = ({ description }) => {
     return (
         <div className='w-full h-auto relative m-auto float-left border-t-2 border-b-2 border-[#dfdfdf]'>
             <div className='h-[80px] relative'>

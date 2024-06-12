@@ -2,7 +2,7 @@ import React from 'react';
 
 import ProjectLog from './ProjectLog';
 
-const UserProjectLog = () => {
+const UserProjectLog = ({ projectList }) => {
     return( 
         <div className='relative w-full h-[1000px] m-auto float-left'>
             <div className='h-[60px] relative'>
@@ -11,21 +11,13 @@ const UserProjectLog = () => {
                 </div>
             </div>
             <div>
-                <ProjectLog
-                    name="프로젝트 이름"
-                    description="저는 현재 리액트에서 \`react-markdown\`를 이용하여 **마크다운**을 랜더링하고 있습니다.\n"
-                    status="진행중"
-                />
-                <ProjectLog
-                    name="프로젝트 이름"
-                    description="저는 현재 리액트에서 \`react-markdown\`를 이용하여 **마크다운**을 랜더링하고 있습니다.\n"
-                    status="진행중"
-                />
-                <ProjectLog
-                    name="프로젝트 이름"
-                    description="저는 현재 리액트에서 \`react-markdown\`를 이용하여 **마크다운**을 랜더링하고 있습니다.\n"
-                    status="진행중"                
-                />
+                {projectList.map((project) => 
+                    <ProjectLog
+                        name={ project.name }
+                        description={ project.description }
+                        status={ project.status }
+                    />
+                )}
             </div>
         </div>
     );

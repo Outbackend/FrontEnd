@@ -1,10 +1,10 @@
-import React from 'react'
-
-import StackWrapper from './StackWrapper';
-import ModifyButton from '../../Assets/ModifyButton';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-const UserStack = () => {
+import StackWrapper from '../UserInfo/StackWrapper';
+import ModifyButton from '../../Assets/ModifyButton';
+
+const UserStackModify = () => {
     return(
         <div className='w-2/3 h-[560px] m-auto relative float-right'>
             <div className='w-1/2 h-[110px] float-left relative'>
@@ -14,8 +14,8 @@ const UserStack = () => {
             </div>
             <div className='w-1/2 h-[110px] float-right relative'>
                 <div className='absolute inset-y-0 right-5 top-[30%]'>
-                    <Link to='/userinfomodify'>
-                        <ModifyButton placeholder="수정"/>
+                    <Link to='/userinfo'>
+                        <ModifyButton placeholder="저장"/>
                     </Link>
                 </div>
             </div>
@@ -55,6 +55,6 @@ const UserStack = () => {
             </div>
         </div>
     );
-}
+};
 
-export default UserStack;
+export default UserStackModify
