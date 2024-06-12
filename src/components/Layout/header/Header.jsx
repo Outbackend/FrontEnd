@@ -2,6 +2,7 @@ import {useNavigate} from "react-router-dom";
 import React, { useState, useCallback } from "react";
 import Logo from './Logo';
 import UserImg from './UserImg';
+import Navigation from "./Navigation";
 
 
 const Header = ({user}) => {
@@ -86,6 +87,7 @@ const Header = ({user}) => {
                         </div>   
                     </div>
                 )}
+                <Navigation/>
             </div>
         </>
 );
