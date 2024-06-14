@@ -49,7 +49,7 @@ const CategoryBox = ({label, selected}) => {
                 ${selected?'text-gray-900':'text-black'}      
             `}
             >
-            <div className="font-medium text-sm">
+            <div className="font-medium text-s">
                 {label}
             </div>
         </div>
