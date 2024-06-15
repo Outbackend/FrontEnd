@@ -3,6 +3,7 @@ const Logo = () => {
         <img
             src="/logo192.png"
             alt="logo"
+            className="hidden md:block"
             style={{
                 width:'50px',
                 height:'50px',

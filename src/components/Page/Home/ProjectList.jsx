@@ -11,14 +11,10 @@ const ProjectList = () => {
     return(
         <Container>
         <div className="
-            pt-24
+            pt-20
             grid 
-            grid-cols-1 
-            sm:grid-cols-2 
-            md:grid-cols-3 
-            lg:grid-cols-4
-            xl:grid-cols-5
-            2xl:grid-cols-6
+            grid-cols-auto-fill
+            justify-center
             gap-8
             my-10px
             py-10px">
