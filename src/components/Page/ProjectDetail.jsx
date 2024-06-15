@@ -37,7 +37,7 @@ const ProjectDetail = () => {
       {loading ? (
         <h1>loading...</h1>
       ) : (
-        <div className="p-8">
+        <div className="p-8 max-w-[1170px] m-auto pt-28">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-3xl flex-grow font-bold">{project.name}</h2>
             <button
@@ -53,8 +53,8 @@ const ProjectDetail = () => {
           <div>
             <h2 className="text-2xl font-bold mb-4">프로젝트 설명</h2>
             <SimpleImageSlider
-              width={896}
-              height={504}
+              width={400}
+              height={300}
               images={project.project_image}
               showBullets={true}
               showNavs={true}
