@@ -7,7 +7,7 @@ const PageLayout = (props) => {
     return(
         <div>
             <Header />
-            <div className='w-[1180px] m-auto'>
+            <div className='mw-[2500px] m-auto'>
                 <Outlet />
             </div> 
         </div>

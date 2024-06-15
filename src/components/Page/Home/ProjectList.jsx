@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import ProjectBox from "./ProjectBox";
 import getProjects from "./getProjects"
+import Container from "../../Assets/Container";
 
 const ProjectList = () => {
     //cont Projects = getProjects({searchParams})
@@ -8,7 +9,8 @@ const ProjectList = () => {
     const [params, getParams] = useSearchParams();
 
     return(
-        <div  className="
+        <Container>
+        <div className="
             pt-24
             grid 
             grid-cols-1 
@@ -27,6 +29,7 @@ const ProjectList = () => {
                 )
             )}
         </div>
+        </Container>
     )
 }
 
