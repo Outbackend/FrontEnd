@@ -1,5 +1,7 @@
 import { useSearchParams } from "react-router-dom"
 import CategoryBox from "./CategoryBox";
+import Container from "../../Assets/Container"
+import searchOpen from "./searchOpen"
 
 export const skillTags = [
     {label: 'ALL'},
@@ -22,10 +24,16 @@ export const skillTags = [
 const Category = () => {
 
     const [params, setParams] = useSearchParams();
-    const skillTag = params?.get("category")
+    const skillTag = params?.get("skillTag")
+    const window = searchOpen();
 
+    if (window.isOpen){
+        return null;
+    }
     return (
+        <Container>
         <div className="
+            pt-5
             flex
             flex-row
             items-center
@@ -40,6 +48,7 @@ const Category = () => {
             ))               
             }
         </div>
+        </Container>
     )
 }
 
