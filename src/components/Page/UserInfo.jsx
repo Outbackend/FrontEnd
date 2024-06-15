@@ -24,7 +24,7 @@ const UserInfo = (props) => {
         },
     ]
     return (
-        <div>
+        <div className="pt-[100px]">
             <UserIcon 
                 name="닉네임"
                 note="소개글입니다."
