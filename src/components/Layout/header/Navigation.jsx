@@ -9,13 +9,13 @@ export const Navigation = () => {
 
   return (
     <Container>
-        <div className="flex justify-center items-center gap-6">
+        <div className="flex justify-center items-center gap-6 font-medium text-white">
           <div>
             <Link to="/" onClick={window.onClose}>Home</Link>
           </div>
           <div onClick={window.onOpen}
             className="cursor-pointer">
-            프로젝트 찾기
+            Search Project
           </div>
         </div>
     </Container>
