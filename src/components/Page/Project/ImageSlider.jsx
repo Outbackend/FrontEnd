@@ -6,7 +6,7 @@ const ImageSlider = ({ images }) => {
     <div>
       <Slide>
         {images.map((image) => (
-          <img src={image} />
+          <img key={image} src={image} />
         ))}
       </Slide>
     </div>

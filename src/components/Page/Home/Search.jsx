@@ -29,10 +29,6 @@ const Search = () => {
     // const [stack, setStack] = useState();
     // const [range, setRange ] = useState();
 
-    // useEffect(()=>{
-    //     setShowWindow(window.isOpen);
-    // },[window.isOpen])
-
     const handler = (event) => {
         const selected = []
         event.map((value) => (
