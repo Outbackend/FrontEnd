@@ -1,15 +1,13 @@
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import React, { useState, useCallback } from "react";
-import Logo from './header/Logo';
-import UserImg from './header/LogoUser';
-import {Navigation} from "./header/Navigation";
+import Logo from "./header/Logo";
+import UserImg from "./header/LogoUser";
+import { Navigation } from "./header/Navigation";
 import Container from "../Assets/Container";
 import MenuItem from "../Assets/MenuItem";
 
-
-const Header = ({user}) => {
-
-    const navigate = useNavigate();
+const Header = ({ user }) => {
+  const navigate = useNavigate();
 
     const [isOpen, setIsOpen] = useState(false);
     const toggleOpen = useCallback(() =>{
