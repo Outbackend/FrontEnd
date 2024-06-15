@@ -3,7 +3,7 @@ import axios from "axios";
 import Project from "./Project/Project";
 import Comment from "./Project/Comment";
 import MDEditor from "@uiw/react-md-editor";
-import ImageSlider from "./Project/ImageSlider";
+import SimpleImageSlider from "react-simple-image-slider";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -37,11 +37,14 @@ const ProjectDetail = () => {
       {loading ? (
         <h1>loading...</h1>
       ) : (
-        <div className="p-8">
+        <div className="p-8 max-w-[1170px] m-auto pt-28">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-3xl font-bold">{project.name}</h2>
-            <button className="border-b-2 border-black px-4 py-2">
-              수정하기
+            <h2 className="text-3xl flex-grow font-bold">{project.name}</h2>
+            <button
+              type="button"
+              className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+            >
+              Edit
             </button>
             <div className="bg-gray-200 px-4 py-2 rounded-full">모집중</div>
           </div>
@@ -49,7 +52,13 @@ const ProjectDetail = () => {
           <hr className="my-8" />
           <div>
             <h2 className="text-2xl font-bold mb-4">프로젝트 설명</h2>
-            <ImageSlider images={project.project_image} />
+            <SimpleImageSlider
+              width={400}
+              height={300}
+              images={project.project_image}
+              showBullets={true}
+              showNavs={true}
+            />
             <MDEditor.Markdown source={project.body} />
           </div>
           <h3 className="text-2xl font-bold mt-8 mb-4">댓글</h3>
