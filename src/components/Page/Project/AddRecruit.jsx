@@ -114,6 +114,7 @@ const AddRecruit = ({ before }) => {
           onChange={(e) => setWanted(e.target.value)}
           className="w-24 border-none border-gray-300 rounded focus:outline-none "
         >
+          <option className="text-gray-400">인원</option>
           {Array.from({ length: 4 }, (_, i) => (
             <option className="hover:bg-blue-100 " key={i + 1} value={i + 1}>
               {i + 1}

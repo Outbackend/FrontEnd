@@ -63,7 +63,7 @@ const SearchableTags = ({ before }) => {
         isClearable
         options={tags}
         onChange={handleTagSelect}
-        placeholder="태그를 선택하거나 추가하세요"
+        placeholder="추가할 태그를 선택하세요"
         styles={{
           control: (provided) => ({
             ...provided,

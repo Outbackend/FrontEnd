@@ -18,5 +18,6 @@
     { "type": "Frontend", "wanted": 2 },
     { "type": "Designer", "wanted": 1 }
   ],
-  "status": "모집중"
+  "status": "모집중",
+  "field": "Web"
 }
