@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Project from "./Project/Project";
+import EditProject from "./Project/EditProject";
 import Comment from "./Project/Comment";
-import MDEditor from "@uiw/react-md-editor";
-import SimpleImageSlider from "react-simple-image-slider";
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const ProjectDetail = () => {
@@ -12,11 +10,13 @@ const ProjectDetail = () => {
   const [loading, setLoading] = useState(true);
   const [project, setProject] = useState(null);
   const [comment, setComment] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
 
   const getProject = async () => {
     const json = await axios.get(`/dummy/projects.json`);
     setProject(json.data);
   };
+
   const getComment = async () => {
     const json = await axios.get(`/dummy/comments.json`);
     setComment(json.data);
@@ -32,6 +32,14 @@ const ProjectDetail = () => {
     fetchData();
   }, []);
 
+  const handleEditButtonClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleSaveButtonClick = () => {
+    setIsEditing(false);
+  };
+
   return (
     <div>
       {loading ? (
@@ -40,29 +48,27 @@ const ProjectDetail = () => {
         <div className="p-8 max-w-[1170px] m-auto pt-28">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-3xl flex-grow font-bold">{project.name}</h2>
-            <button
-              type="button"
-              className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-            >
-              Edit
-            </button>
-            <div className="bg-gray-200 px-4 py-2 rounded-full">모집중</div>
+            {!isEditing && (
+              <button
+                type="button"
+                onClick={handleEditButtonClick}
+                className="float-right mt-4 px-6 py-2 text-gray-500 rounded-full hover:font-bold"
+              >
+                수정
+              </button>
+            )}
+            <div className="bg-gray-200 px-4 py-2 mt-4 rounded-full">
+              {project.status}
+            </div>
           </div>
-          <Project project={project} />
-          <hr className="my-8" />
-          <div>
-            <h2 className="text-2xl font-bold mb-4">프로젝트 설명</h2>
-            <SimpleImageSlider
-              width={400}
-              height={300}
-              images={project.project_image}
-              showBullets={true}
-              showNavs={true}
-            />
-            <MDEditor.Markdown source={project.body} />
-          </div>
-          <h3 className="text-2xl font-bold mt-8 mb-4">댓글</h3>
-          <Comment comments={comment} />
+          {isEditing ? (
+            <EditProject project={project} onSave={handleSaveButtonClick} />
+          ) : (
+            <div>
+              <Project project={project} />
+              <Comment comments={comment} />
+            </div>
+          )}
         </div>
       )}
     </div>
