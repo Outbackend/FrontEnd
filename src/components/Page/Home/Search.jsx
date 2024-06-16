@@ -76,7 +76,8 @@ const Search = () => {
                 classNames={{
                     control:()=>'p-2 border-2',
                     input:() =>'pe-3 text-lg',
-                    option:() =>'text-lg'}} 
+                    option:() =>'text-lg',
+                }} 
                 theme={(theme)=>({
                     ...theme,
                     borderRadius:20,
@@ -85,6 +86,12 @@ const Search = () => {
                     primary:'black',
                     }
                 })}
+                styles={{
+                    multiValueRemove:(styles)=>({
+                        ...styles,
+                        ':hover':{backgroundColor: '#5C9CDD'}
+                    }),
+                }}
                 onChange={(e)=>{handler(e)}}
             />
             <SearchButton

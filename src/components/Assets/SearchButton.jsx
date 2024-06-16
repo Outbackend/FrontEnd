@@ -10,8 +10,9 @@ const SearchButton = ({
                 transition
                 px-6
                 py-2
-                bg-gray-900
+                bg-[#5C9CDD]
                 text-white
+                font-semibold
              `}
                 >
             Search

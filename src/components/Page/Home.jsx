@@ -6,8 +6,8 @@ import Search from "./Home/Search"
 const Home = () => {
     return (
         <Container>
-            <div className="text-center pt-28">
-                <h3 className="text-2xl mb-3">
+            <div className="text-center pt-32">
+                <h3 className="text-2xl font-semibold">
                     지금 당신을 찾고 있는 프로젝트들
                 </h3>
             </div>
