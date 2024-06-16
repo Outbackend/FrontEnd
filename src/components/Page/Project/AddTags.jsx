@@ -24,7 +24,10 @@ const SearchableTags = ({ before }) => {
         const existingSelectedIndex = prevSelected.findIndex(
           (elem) => elem.value === selectedOption.value
         );
-        if (existingSelectedIndex !== -1) {
+        const existingSelectedIndex2 = prevSelected.findIndex(
+          (elem) => elem === selectedOption.value
+        );
+        if (existingSelectedIndex !== -1 || existingSelectedIndex2 !== -1) {
           setErrorMessage("이미 존재하는 태그입니다");
           return [...prevSelected];
         } else {
@@ -37,13 +40,13 @@ const SearchableTags = ({ before }) => {
 
   const handleTagRemove = (tagToRemove) => {
     setSelectedTags((prevSelected) =>
-      prevSelected.filter((tag) => tag.value !== tagToRemove.value)
+      prevSelected.filter((tag) => tag !== tagToRemove)
     );
   };
 
   return (
-    <div>
-      <div className="mt-4 space-x-2 space-y-2">
+    <div className="">
+      <div className="mt-4 space-x-2 space-y-2 overflow-auto max-h-[220px]">
         {selectedTags.map((tag) => (
           <span
             key={tag.value}
