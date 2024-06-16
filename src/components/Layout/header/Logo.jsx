@@ -1,12 +1,12 @@
 const Logo = () => {
     return (
         <img
-            src="/logo192.png"
+            src="/logo.png"
             alt="logo"
-            className="hidden md:block"
+            className="hidden md:block p-0"
             style={{
-                width:'50px',
-                height:'50px',
+                width:'170px',
+                height:'40px',
             }}
         >
         </img>

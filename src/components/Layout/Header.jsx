@@ -15,7 +15,7 @@ const Header = ({ user }) => {
     }, []);
     
     return(
-        <div className="fixed w-full bg-white py-2 Z-100">
+        <div className="fixed w-full bg-white py-2 z-10">
             <Container>
             <div className="relative flex flex-row items-center justify-between pb-2">
                 <div>
@@ -79,7 +79,7 @@ const Header = ({ user }) => {
                 </div>
             </div>
             </Container>
-            <div className="shadow-md bg-[#5C9CDD] p-2 -mb-4">
+            <div className="shadow-md bg-[#5C9CDD] p-2 -mb-4 z-50">
                 <Navigation/>
             </div>
         </div>
