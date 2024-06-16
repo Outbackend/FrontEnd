@@ -1,16 +1,22 @@
 {
   "project_id": 12345,
   "name": "토이프로젝트 구인 웹",
-  "body": "이런이런 프로젝트입니다.",
+  "body": "### 이런이런 프로젝트입니다.",
   "project_image": [
     "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
     "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
     "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"
   ],
-  "skill_tag": ["React", "Sprintboot"],
-  "recrute": [
-    { "type": "백엔드", "wanted": 3, "current": 1 },
-    { "type": "프론트엔드", "wanted": 3, "current": 2 },
-    { "type": "디자이너", "wanted": 3, "current": 1 }
-  ]
+  "skill_tag": ["React", "Springboot"],
+  "recruit": [
+    { "type": "Frontend", "wanted": 3 },
+    { "type": "Backend", "wanted": 3 },
+    { "type": "Designer", "wanted": 3 }
+  ],
+  "current": [
+    { "type": "Backend", "wanted": 1 },
+    { "type": "Frontend", "wanted": 2 },
+    { "type": "Designer", "wanted": 1 }
+  ],
+  "status": "모집중"
 }

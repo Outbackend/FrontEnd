@@ -1,42 +1,31 @@
 import React from "react";
 import Recruit from "./Recruit";
-import MDEditor from "@uiw/react-md-editor";
+import AddRecruit from "./AddRecruit";
 import SimpleImageSlider from "react-simple-image-slider";
+import MDEditor from "@uiw/react-md-editor";
+import SelectableTags from "./AddTags";
 
-const Project = ({ project }) => {
+const EditProject = ({ project }) => {
+  const [value, setValue] = React.useState(project.body);
+
   return (
     <div className="p-8">
       <div className="flex flex-row space-x-8">
         <div className="flex-1">
           <h3 className="text-2xl font-bold mb-4 text-center">현재 구인인원</h3>
-          {project.recruit.map((elem, index) => (
-            <div key={index}>
-              <Recruit elem={elem.type} check={elem.wanted}></Recruit>
-            </div>
-          ))}
+          <AddRecruit before={project.recruit} />
         </div>
         <div className="flex-1">
           <h3 className="text-2xl font-bold mb-4 text-center">이걸 써요!</h3>
-          <div className="w-full list-none text-center items-center space-y-4">
-            {project.skill_tag.map((skill) => (
-              <div
-                key={skill}
-                className="inline-flex items-center bg-blue-100 text-black px-4 py-2 rounded-full mr-2 mb-2"
-              >
-                {skill}
-              </div>
-            ))}
+          <div className="list-none text-center items-center space-y-4">
+            <SelectableTags before={project.skill_tag} />
           </div>
         </div>
         <div className="flex-1">
           <h3 className="text-2xl font-bold mb-4 text-center">
             지금 프로젝트는...
           </h3>
-          {project.current.map((elem, index) => (
-            <div key={index}>
-              <Recruit elem={elem.type} check={elem.wanted}></Recruit>
-            </div>
-          ))}
+          <AddRecruit before={project.current} />
         </div>
       </div>
       <hr className="my-8" />
@@ -49,10 +38,10 @@ const Project = ({ project }) => {
           showBullets={true}
           showNavs={true}
         />
-        <MDEditor.Markdown source={project.body} />
+        <MDEditor value={value} onChange={setValue} />
       </div>
     </div>
   );
 };
 
-export default Project;
+export default EditProject;
