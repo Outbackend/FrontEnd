@@ -57,12 +57,21 @@ const ProjectDetail = () => {
                 수정
               </button>
             )}
+            {isEditing && (
+              <button
+                type="button"
+                onClick={handleSaveButtonClick}
+                className="float-right mt-4 px-6 py-2 text-gray-500 rounded-full hover:font-bold"
+              >
+                저장
+              </button>
+            )}
             <div className="bg-gray-200 px-4 py-2 mt-4 rounded-full">
               {project.status}
             </div>
           </div>
           {isEditing ? (
-            <EditProject project={project} onSave={handleSaveButtonClick} />
+            <EditProject project={project} />
           ) : (
             <div>
               <Project project={project} />

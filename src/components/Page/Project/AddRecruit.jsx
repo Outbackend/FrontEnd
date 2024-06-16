@@ -10,6 +10,10 @@ const AddRecruit = ({ before }) => {
 
   const handleAddRecruit = () => {
     if (type && wanted) {
+      if (recruits.length >= 5) {
+        setErrorMessage("모집 분야는 최대 5개까지 추가할 수 있습니다.");
+        return;
+      }
       setRecruits((prevRecruits) => {
         const existingRecruitIndex = prevRecruits.findIndex(
           (recruit) => recruit.type.value === type.value
@@ -78,9 +82,7 @@ const AddRecruit = ({ before }) => {
               >
                 -
               </button>
-              <span className="font-medium text-gray-700">
-                {recruit.wanted}명
-              </span>
+              <span className="text-gray-700">{recruit.wanted}명</span>
               <button
                 onClick={() => incrementWanted(index)}
                 className="px-1 py-1 text-gray-500 hover:font-bold font-semibold rounded focus:outline-none"
