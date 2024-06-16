@@ -9,19 +9,20 @@ import MenuItem from "../Assets/MenuItem";
 const Header = ({ user }) => {
   const navigate = useNavigate();
 
-    const [isOpen, setIsOpen] = useState(false);
-    const toggleOpen = useCallback(() =>{
-        setIsOpen(value => !value)
-    }, []);
-    
-    return(
-        <div className="fixed w-full bg-white py-2 Z-100">
-            <Container>
-            <div className="relative flex flex-row items-center justify-between pb-2">
-                <div>
-                    <Logo />
-                </div>
-                <div className="
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleOpen = useCallback(() => {
+    setIsOpen((value) => !value);
+  }, []);
+
+  return (
+    <div className="fixed w-full bg-white py-2 z-50">
+      <Container>
+        <div className="relative flex flex-row items-center justify-between pb-2">
+          <div>
+            <Logo />
+          </div>
+          <div
+            className="
                         hidden
                         md:flex
                         p-4
@@ -33,11 +34,13 @@ const Header = ({ user }) => {
                         cursor-pointer 
                         hover:shadow-md 
                         transition
-                        " 
-                    onClick={toggleOpen}>
-                    <UserImg src={user?.profile_img} />
-                    {isOpen && (
-                        <div className="
+                        "
+            onClick={toggleOpen}
+          >
+            <UserImg src={user?.profile_img} />
+            {isOpen && (
+              <div
+                className="
                             absolute
                             rounded-xl 
                             shadow-md
@@ -46,44 +49,44 @@ const Header = ({ user }) => {
                             right-0 
                             top-12 
                             text-sm
-                            ">
-                            <div className="flex flex-col cursor-pointer">
-                                {user ? (
-                                        <>
-                                            <MenuItem 
-                                                onClick={()=>navigate('/profile')}
-                                                label="Profile"
-                                            />
-                                            <MenuItem 
-                                                onClick={()=>navigate('/create')}
-                                                label="Create Project"
-                                            />
-                                            <hr />
-                                            <MenuItem 
-                                                onClick={()=>navigate('/logout')}
-                                                label="Logout"
-                                            />
-                                        </>
-                                        ) : (
-                                        <>
-                                            <MenuItem 
-                                                onClick={()=>navigate('/login')}
-                                                label="Login"
-                                            />
-                                        </>
-                                    )
-                                }   
-                            </div>   
-                        </div>
-                    )}
+                            "
+              >
+                <div className="flex flex-col cursor-pointer">
+                  {user ? (
+                    <>
+                      <MenuItem
+                        onClick={() => navigate("/profile")}
+                        label="Profile"
+                      />
+                      <MenuItem
+                        onClick={() => navigate("/create")}
+                        label="Create Project"
+                      />
+                      <hr />
+                      <MenuItem
+                        onClick={() => navigate("/logout")}
+                        label="Logout"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <MenuItem
+                        onClick={() => navigate("/login")}
+                        label="Login"
+                      />
+                    </>
+                  )}
                 </div>
-            </div>
-            </Container>
-            <div className="shadow-md bg-[#5C9CDD] p-2 -mb-4">
-                <Navigation/>
-            </div>
+              </div>
+            )}
+          </div>
         </div>
-);
-}
+      </Container>
+      <div className="shadow-md bg-[#5C9CDD] p-2 -mb-4">
+        <Navigation />
+      </div>
+    </div>
+  );
+};
 
 export default Header;

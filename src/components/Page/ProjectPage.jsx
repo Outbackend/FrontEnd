@@ -45,7 +45,7 @@ const ProjectDetail = () => {
       {loading ? (
         <h1>loading...</h1>
       ) : (
-        <div className="p-8 max-w-[1170px] m-auto pt-28">
+        <div className="p-8 max-w-[1170px] min-w-[722px] m-auto pt-32">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-3xl flex-grow font-bold">{project.name}</h2>
             {!isEditing && (

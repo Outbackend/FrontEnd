@@ -47,7 +47,7 @@ const SearchableTags = ({ before }) => {
         {selectedTags.map((tag) => (
           <span
             key={tag.value}
-            className="inline-flex items-center bg-blue-100 text-black px-2 py-2 rounded-full mr-2 mb-2"
+            className="inline-flex items-center font-semibold bg-blue-100 text-black px-4 py-2 rounded-full mr-2 mb-2"
           >
             {tag.label || tag}
             <button
@@ -59,11 +59,11 @@ const SearchableTags = ({ before }) => {
           </span>
         ))}
       </div>
+      <div className="mt-4"></div>
       <CreatableSelect
         isClearable
         options={tags}
         onChange={handleTagSelect}
-        placeholder="추가할 태그를 선택하세요"
         styles={{
           control: (provided) => ({
             ...provided,
