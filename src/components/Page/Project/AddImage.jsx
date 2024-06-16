@@ -36,9 +36,9 @@ const AddImage = ({ image }) => {
         </button>
       </div>
       {errorMessage && <p className="mt-2 mb-2 text-red-500">{errorMessage}</p>}
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-row space-x-8">
         {images.map((img, index) => (
-          <div key={index} className="flex items-center space-x-4">
+          <div key={index} className="flex flex-col items-center space-y-2">
             <img
               src={img}
               alt={`image-${index}`}
@@ -52,9 +52,6 @@ const AddImage = ({ image }) => {
             </button>
           </div>
         ))}
-      </div>
-      <div className="mt-8">
-        <ImageSlider images={images} />
       </div>
     </div>
   );
