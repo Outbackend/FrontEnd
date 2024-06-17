@@ -6,8 +6,9 @@ const LoginStore = create(
         ({
             isAuthenticated: false,
             user: null,
-            login: (token) => set({ isAuthenticated: true, user: token }),
-            logout: () => set({ isAuthenticated: false, user: null }),
+            token: null,
+            login: (token, user) => set({ isAuthenticated: true, token: token, user: user }),
+            logout: () => set({ isAuthenticated: false, token: null, user: null }),
         }),
         {
             name: 'auth-storage'

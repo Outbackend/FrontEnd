@@ -1,5 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useCallback } from "react";
+
+import LoginStore from "../../variables/States/LoginStore";
+
 import Logo from "./header/Logo";
 import UserImg from "./header/LogoUser";
 import { Navigation } from "./header/Navigation";
@@ -7,12 +10,19 @@ import Container from "../Assets/Container";
 import MenuItem from "../Assets/MenuItem";
 
 const Header = ({ user }) => {
+  const { isAuthenticated, logout } = LoginStore();
+
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
+
+  const handleLogout = () => {
+    logout();
+    window.location.reload();
+  }
 
   return (
     <div className="fixed w-full bg-white py-2 z-50">
@@ -52,7 +62,7 @@ const Header = ({ user }) => {
                             "
               >
                 <div className="flex flex-col cursor-pointer">
-                  {user ? (
+                  {isAuthenticated ? (
                     <>
                       <MenuItem
                         onClick={() => navigate("/profile")}
@@ -64,7 +74,7 @@ const Header = ({ user }) => {
                       />
                       <hr />
                       <MenuItem
-                        onClick={() => navigate("/logout")}
+                        onClick={ handleLogout }
                         label="Logout"
                       />
                     </>
