@@ -33,12 +33,14 @@ const Category = () => {
     return (
         <Container>
         <div className="
-            pt-5
+            p-3
+            mt-5
             flex
             flex-row
             items-center
             justify-between
-            overflow-x-auto">
+            overflow-x-auto    
+            ">
             {skillTags.map((item) => (
                 <CategoryBox
                     key={item.label}

@@ -1,6 +1,6 @@
 const Container = ({children}) => {
     return (
-        <div className="max-w-[2500px]
+        <div className="max-w-[1400px]
         mx-auto
         py-10px
         my-10px
