@@ -1,28 +1,38 @@
 import React, { useState } from "react";
-
 import { SlArrowRight } from "react-icons/sl";
+
+import LoginStore from "../../variables/States/LoginStore";
 
 import UserInput from "./Login/LoginUserInput";
 import LoginButton from "./Login/LoginButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = (props) => {
-  const [userInfo, setUserInfo] = useState({
+  const { login } = LoginStore();
+
+  const [ loginForm, setLoginForm] = useState({
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUserInfo((userInfo) => ({
-      ...userInfo,
+    setLoginForm((LoginForm) => ({
+      ...LoginForm,
       [name]: value,
     }));
   };
 
   const loginProgcess = () => {
-    let email = userInfo.email;
-    let password = userInfo.password;
+    if (loginForm.email == "asdf@asdf.com" && loginForm.password == "asdf") {
+      login("tokenexmaple");
+      navigate("/");
+    }
+    else {
+      alert("아이디와 비밀번호를 확인해주세요.");
+      return;
+    }
   };
 
   return (
@@ -40,22 +50,27 @@ const LoginPage = (props) => {
           </div>
         </div>
         <div
-          className="absolute bottom-0 w-[360px] h-[180px]"
+          className="absolute bottom-0 w-[360px] h-[200px]"
           onChange={ handleInputChange }
         >
           <UserInput
             type="text"
             placeholder="이메일"
-            value={ userInfo.email }
+            value={ loginForm.email }
             name="email"
           />
           <UserInput
             type="password"
             placeholder="비밀번호"
-            value={ userInfo.password }
+            value={ loginForm.password }
             name="password"
           />
           <LoginButton text="로그인" onClick={ loginProgcess } />
+          <Link to={'/'}>
+            <div className="w-full text-center">
+              홈으로
+            </div>
+          </Link>
         </div>
       </div>
     </div>

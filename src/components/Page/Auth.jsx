@@ -38,7 +38,7 @@ const AuthPage = () => {
             alert("이메일 인증이 완료되지 않았습니다.");
             return;
         }
-        else if (authForm.password != authForm.passwordCheck) {
+        else if (authForm.password !== authForm.passwordCheck) {
             alert("비밀번호가 일치하지 않습니다.");
             return;
         }
@@ -108,6 +108,11 @@ const AuthPage = () => {
                         text="회원가입"
                         onClick={ authProcess }
                     />
+                    <Link to={'/'}>
+                        <div className="w-full text-center">
+                        홈으로
+                        </div>
+                    </Link>
                 </div>
             </div>
         </div>
