@@ -13,10 +13,8 @@ export const Navigation = () => {
           <div>
             <Link to="/" onClick={window.onClose}>HOME</Link>
           </div>
-          <div onClick={window.onOpen}
-            className="cursor-pointer">
-            SEARCH
-          </div>
+          <Link to="/" onClick={window.onOpen}>SEARCH</Link>
+
         </div>
     </Container>
   );

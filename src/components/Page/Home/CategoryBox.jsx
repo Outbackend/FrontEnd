@@ -46,7 +46,7 @@ const CategoryBox = ({label, selected}) => {
                 cursor-pointer    
             `}
             >
-            <div className={`font-medium text-s bg-white rounded-2xl px-4 py-1 border-2
+            <div className={`font-medium text-s rounded-2xl px-4 py-1 border-2
                 ${selected?'text-white':'text-black'}
                 ${selected?'bg-gray-500':'bg-white'}
                 `}>
