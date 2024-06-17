@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import queryString from 'query-string'
 
-const CategoryBox = ({label, selected}) => {
+const CategoryBox = ({item, selected}) => {
     const navigate = useNavigate();
     const [params, setParams] = useSearchParams();
     const handleClick = useCallback(() => {
@@ -10,14 +10,19 @@ const CategoryBox = ({label, selected}) => {
         if(params){
             Query = queryString.parse(params.toString())
         }
-        const updateQuery = {
-            ...Query,
-            skillTag: label
-        }
 
-        if(params?.get('skillTag') === label ||
-            label === 'ALL'){
-            delete updateQuery.skillTag
+        let updateQuery = {...Query}
+
+        if(params?.get(`${item.group}`) === item.value){
+            delete updateQuery[item.group]
+        }
+        else{
+            delete updateQuery.position
+            delete updateQuery.stack
+            delete updateQuery.range
+            if (item.value !== 'ALL') {
+                updateQuery[item.group] = item.value;
+            }
         }
 
         const url = queryString.stringifyUrl(
@@ -29,7 +34,7 @@ const CategoryBox = ({label, selected}) => {
         )
 
         navigate(url)
-    }, [label, params, navigate])
+    }, [item, params, navigate])
     
     return(
         <div
@@ -50,7 +55,7 @@ const CategoryBox = ({label, selected}) => {
                 ${selected?'text-white':'text-black'}
                 ${selected?'bg-gray-500':'bg-white'}
                 `}>
-                {label}
+                {item.label}
             </div>
         </div>
     )
