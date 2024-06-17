@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import UserIconModify from './UserInfoModify/UserIconModify';
 import UserStackModify from './UserInfoModify/UserStackModify';
@@ -6,7 +6,7 @@ import UserDescriptionModify from './UserInfoModify/UserDescriptionModify';
 
 const UserInfoModify = (props) => {
     return (
-        <div>
+        <div className='pt-[100px]'>
             <UserIconModify />
             <UserStackModify />
             <UserDescriptionModify />
