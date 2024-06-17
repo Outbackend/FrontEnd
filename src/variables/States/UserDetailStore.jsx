@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import axios from "axios";
-import positionList from "../PositionList";
 
 const userDetailStore = create((set) => ({
     userInfo: {
