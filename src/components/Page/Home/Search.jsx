@@ -75,8 +75,8 @@ const Search = () => {
                 formatOptionLabel={formatGroupLabel}
                 classNames={{
                     control:()=>'p-2 border-2',
-                    input:() =>'pe-3 text-lg',
-                    option:() =>'text-lg',
+                    input:() =>'pe-3 text-xl',
+                    option:() =>'text-xl',
                 }} 
                 theme={(theme)=>({
                     ...theme,

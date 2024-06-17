@@ -17,7 +17,7 @@ const ProjectBox = ({
                  border-2
                  group-hover:scale-110
                  ">
-                <div className="flex flex-row top-3 left-3 p-2">
+                <div className="flex flex-row top-3 left-3 p-2 bg-blue-100">
                     <img  src={data.profile_img}  //유저 프로필 이미지
                         alt="User"
                         style={{width:'40px',
