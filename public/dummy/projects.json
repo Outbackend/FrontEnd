@@ -1,5 +1,8 @@
 {
   "project_id": 12345,
+  "creator_id": 123,
+  "status": "모집중",
+  "field": "Web",
   "name": "토이프로젝트 구인 웹",
   "body": "### 이런이런 프로젝트입니다.",
   "project_image": [
@@ -17,7 +20,5 @@
     { "type": "Backend", "wanted": 1 },
     { "type": "Frontend", "wanted": 2 },
     { "type": "Designer", "wanted": 1 }
-  ],
-  "status": "모집중",
-  "field": "Web"
+  ]
 }
