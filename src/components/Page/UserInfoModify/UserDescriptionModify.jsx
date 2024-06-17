@@ -17,7 +17,7 @@ const UserDescriptionModify = () => {
                     <p className='text-2xl font-bold select-none'>설명</p>
                 </div>
             </div>
-            <div className='h-[1000px] px-4 pb-8'>
+            <div className='px-4 pb-8'>
                 <MarkdownEditor
                     value={ userInfo.description }
                     onChange={ handleInputChange }
