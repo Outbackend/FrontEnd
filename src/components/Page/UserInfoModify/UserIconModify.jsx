@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
 
+import userDetailStore from '../../../variables/States/UserDetailStore';
+
 import UserInfoInput from './UserInfoInput';
 
 const UserIconModify = (props) => {
-    const [ userInfo, setUserInfo ] = useState({
-        name: '',
-        note: '',
-    });
+    const { userInfo, updateItem } = userDetailStore();
 
-    const handleInputChange = event => {
-        const { name, value } = event.target;
-        setUserInfo(userInfo => ({
-            ...userInfo,
-            [name]: value
-        }));
+    const handleInputChange = (key, e) => {
+        const { value } = e.target;
+        updateItem(key, value)
     }
 
     return(
@@ -22,20 +18,22 @@ const UserIconModify = (props) => {
                 <div className='w-[250px] h-[250px] bg-[#d9d9d9] rounded-[125px] m-auto'></div>
             </div>
             <div className='w-full h-[150px]'>
-                <div className='w-3/4 h-auto text-center mx-auto' onChange={handleInputChange}>
+                <div className='w-3/4 h-auto text-center mx-auto'>
                     <UserInfoInput 
                         type="text"
-                        placeholder="닉네임을 입력해주세요."
+                        placeholder={ userInfo.name }
                         value={ userInfo.name }
                         name="name"
+                        onChange={(e) => handleInputChange('name', e)}
                     />
                 </div>
                 <div className='w-3/4 h-auto text-center mx-auto'>
                     <UserInfoInput 
                         type="text"
-                        placeholder="소개글을 입력해주세요."
+                        placeholder={ userInfo.note }
                         value={ userInfo.note }
                         name="note"
+                        onChange={(e) => handleInputChange('note', e)}
                     />
                 </div>
             </div>
