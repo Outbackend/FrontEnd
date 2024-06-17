@@ -33,11 +33,13 @@ const Header = ({ user }) => {
                         cursor-pointer 
                         hover:shadow-md 
                         transition
-                        " 
-                    onClick={toggleOpen}>
-                    <UserImg src={user?.profile_img} />
-                    {isOpen && (
-                        <div className="
+                        "
+            onClick={toggleOpen}
+          >
+            <UserImg src={user?.profile_img} />
+            {isOpen && (
+              <div
+                className="
                             absolute
                             rounded-xl 
                             shadow-md
@@ -79,7 +81,7 @@ const Header = ({ user }) => {
                 </div>
             </div>
             </Container>
-            <div className="shadow-md bg-[#5C9CDD] p-2 -mb-4 z-50">
+            <div className="shadow-md bg-[#5C9CDD] p-2 -mb-4">
                 <Navigation/>
             </div>
         </div>
