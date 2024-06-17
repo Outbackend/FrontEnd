@@ -11,12 +11,10 @@ export const Navigation = () => {
     <Container>
         <div className="flex justify-center items-center gap-6 font-medium text-white">
           <div>
-            <Link to="/" onClick={window.onClose}>Home</Link>
+            <Link to="/" onClick={window.onClose}>HOME</Link>
           </div>
-          <div onClick={window.onOpen}
-            className="cursor-pointer">
-            Search Project
-          </div>
+          <Link to="/" onClick={window.onOpen}>SEARCH</Link>
+
         </div>
     </Container>
   );

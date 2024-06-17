@@ -40,16 +40,16 @@ const CategoryBox = ({label, selected}) => {
                 items-center
                 justify-center
                 gap-2
-                p-3
-                border-b-2
+                px-1
                 hover:text-[#304cad]
                 transition
                 cursor-pointer    
-                ${selected?'border-gray-900':'border-transparent'}
-                ${selected?'text-gray-900':'text-black'}      
             `}
             >
-            <div className="font-medium text-s">
+            <div className={`font-medium text-s rounded-2xl px-4 py-1 border-2
+                ${selected?'text-white':'text-black'}
+                ${selected?'bg-gray-500':'bg-white'}
+                `}>
                 {label}
             </div>
         </div>

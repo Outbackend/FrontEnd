@@ -5,20 +5,20 @@ import searchOpen from "./searchOpen"
 
 export const skillTags = [
     {label: 'ALL'},
-    {label: 'Web'},
+    {label: 'WEB'},
     {label: 'APP'},
     {label: 'Game'},
     {label: 'AI'},
-    {label: 'React'},
+    {label: '3D'},
     {label: 'Disigner'},
-    {label: 'Springboot'},
-    {label: 'skilltag1'},
-    {label: 'skilltag2'},
-    {label: 'skilltag3'},
-    {label: 'skilltag4'},
-    {label: 'skilltag5'},
-    {label: 'skilltag6'},
-    {label: 'skilltag7'},
+    {label: 'Java'},
+    {label: 'AWS'},
+    {label: 'Python'},
+    {label: 'Django'},
+    {label: 'React'},
+    {label: 'Unity'},
+    {label: 'Figma'},
+    {label: 'Nodejs'},
 ]
 
 const Category = () => {
@@ -33,13 +33,16 @@ const Category = () => {
     return (
         <Container>
         <div className="
-            p-3
-            mt-5
+            p-2
+            mt-7
             flex
             flex-row
             items-center
             justify-between
-            overflow-x-auto    
+            overflow-x-auto 
+            scrollbar-hide
+            bg-gray-200
+            rounded-lg
             ">
             {skillTags.map((item) => (
                 <CategoryBox

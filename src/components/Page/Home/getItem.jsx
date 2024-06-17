@@ -1,29 +1,18 @@
+import positionList from "../../../variables/PositionList"
+import stackList from "../../../variables/StackList"
+import rangeList from "../../../variables/RangeList"
 
-export const Range = [       
-    {value: 'Web', label: 'Web'},
-    {value: 'APP', label: 'APP'},
-    {value: 'Game', label: 'Game'},
-    {value: 'AI', label: 'AI'},
-]
+export const Position = positionList.map((item) => {
+    return {value: item, label: item}
+})
 
-export const Stack = [
-    {value: 'React', label: 'React'},
-    {value: 'Springboot', label: 'Springboot'},
-    {value: 'skilltag1', label: 'skilltag1'},
-    {value: 'skilltag2', label: 'skilltag2'},
-    {value: 'skilltag3', label: 'skilltag3'},
-    {value: 'skilltag4', label: 'skilltag4'},
-    {value: 'skilltag5', label: 'skilltag5'},
-    {value: 'skilltag6', label: 'skilltag6'},
-    {value: 'skilltag7', label: 'skilltag7'}
-]
+export const Stack = stackList.map((item) => {
+    return {value: item, label: item}
+})
 
-export const Position = [
-    {value: 'Backend', label: 'Backend'},
-    {value: 'Frontend', label: 'Frontend'},
-    {value: 'Disigner', label: 'Disigner'},
-    {value: 'DevOps', label: 'DevOps'}
-]
+export const Range= rangeList.map((item) => {
+    return {value: item, label: item}
+})
 
 export const AllItem = [
     {label: '포지션',
