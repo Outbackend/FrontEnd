@@ -47,13 +47,9 @@ const EditProject = ({ project }) => {
     const updatedProject = {
       title: title,
       content: value,
+      deadline: deadline,
       skillTagList: skillTag,
       positionTagList: positionTag,
-      deadline: deadline,
-      field: field,
-      recruit: recruit,
-      current: current,
-      project_image: images,
     };
 
     try {
@@ -139,11 +135,11 @@ const EditProject = ({ project }) => {
             option={positionTags}
           />
         </div>
-        <div className="border-l border-gray-300 mx-4"></div>
+        {/*<div className="border-l border-gray-300 mx-4"></div>
         <div className="flex-1">
           <h2 className="text-2xl font-bold mb-4 text-center">분야</h2>
           <FieldSelect initialField={field} onFieldChange={setField} />
-        </div>
+        </div>*/}
       </div>
       <hr className="my-8" />
       <h2 className="text-2xl font-bold mb-4">프로젝트 설명</h2>

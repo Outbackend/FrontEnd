@@ -49,7 +49,7 @@ const Project = ({ project }) => {
               <Recruit elem={elem.type} check={elem.wanted}></Recruit>
             </div>
           ))}*/}
-          <h2 className="text-2xl font-bold mb-4 text-center">모집 분야</h2>
+          {/*<h2 className="text-2xl font-bold mb-4 text-center">모집 분야</h2>
           <div className="w-full list-none text-center items-center space-y-4">
             {project.positionTagList.map((position) => (
               <div
@@ -60,6 +60,7 @@ const Project = ({ project }) => {
               </div>
             ))}
           </div>
+          */}
         </div>
       </div>
       <hr className="my-8" />
