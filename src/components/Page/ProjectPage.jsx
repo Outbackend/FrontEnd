@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Project from "./Project/Project";
-import EditProject from "./Project/EditProject";
+import EditProject from "./EditProject";
 import Comment from "./Project/Comment";
 import useLoginStore from "../../variables/States/LoginStore";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const ProjectDetail = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [project, setProject] = useState(null);
   const [comment, setComment] = useState([]);
@@ -19,12 +18,26 @@ const ProjectDetail = () => {
   }));
 
   const getProject = async () => {
-    const response = await axios.get(`/dummy/projects.json`);
-    setProject(response.data);
+    try {
+      if (id == null) {
+        setProject(null);
+        return;
+      }
+      //const response = await axios.get(`/dummy/projects.json`);
+      const response = await axios.get(`/api/projects/${id}`);
+      setProject(response.data);
+    } catch (error) {
+      setProject(null);
+    }
   };
 
   const getComment = async () => {
-    const response = await axios.get(`/dummy/comments.json`);
+    if (id == null) {
+      setProject(null);
+      return;
+    }
+    //const response = await axios.get(`/dummy/comments.json`);
+    const response = await axios.get(`api/projects/${id}/comments`);
     setComment(response.data);
   };
 
@@ -42,25 +55,14 @@ const ProjectDetail = () => {
     setIsEditing(true);
   };
 
-  const handleDeleteButton = () => {
-    navigate("/");
-  };
-
   return (
     <div>
       {loading ? (
         <h1>loading...</h1>
-      ) : (
+      ) : project ? (
         <div className="max-w-[1400px] min-w-[722px] m-auto pt-32">
           {isEditing ? (
             <div>
-              <button
-                type="button"
-                onClick={handleDeleteButton}
-                className="float-right mt-4 px-6 py-2 text-red-500 rounded-full hover:font-bold"
-              >
-                삭제
-              </button>
               <EditProject project={project} />
             </div>
           ) : (
@@ -96,6 +98,10 @@ const ProjectDetail = () => {
               />
             </div>
           )}
+        </div>
+      ) : (
+        <div className="max-w-[1400px] min-w-[722px] m-auto pt-32">
+          <EditProject />
         </div>
       )}
     </div>
