@@ -4,27 +4,29 @@ import Container from "../../Assets/Container"
 import searchOpen from "./searchOpen"
 
 export const skillTags = [
-    {label: 'ALL'},
-    {label: 'WEB'},
-    {label: 'APP'},
-    {label: 'Game'},
-    {label: 'AI'},
-    {label: '3D'},
-    {label: 'Disigner'},
-    {label: 'Java'},
-    {label: 'AWS'},
-    {label: 'Python'},
-    {label: 'Django'},
-    {label: 'React'},
-    {label: 'Unity'},
-    {label: 'Figma'},
-    {label: 'Nodejs'},
+    {label: 'ALL', value:'ALL'},
+    {label: 'WEB', value: '웹', group: 'range'},
+    {label: 'APP', value: '앱', group: 'range'},
+    {label: 'Game', value: '게임', group: 'range'},
+    {label: 'AI', value:'AI', group:'position'},
+    {label: '3D', value:'3D', group:'position'},
+    {label: 'Disigner', value:'디자이너', group:'position'},
+    {label: 'Java', value:'Java', group:'stack'},
+    {label: 'AWS', value:'AWS', group:'stack'},
+    {label: 'Python', value:'Python', group:'stack'},
+    {label: 'Django', value:'Django', group:'stack'},
+    {label: 'React', value:'React', group:'stack'},
+    {label: 'Unity', value:'Unity', group:'stack'},
+    {label: 'Figma', value:'Figma', group:'stack'},
+    {label: 'Nodejs', value:'Nodejs', group:'stack'},
 ]
 
 const Category = () => {
 
     const [params, setParams] = useSearchParams();
-    const skillTag = params?.get("skillTag")
+    const position = params?.get("position")
+    const stack = params?.get("stack")
+    const range = params?.get("range")
     const window = searchOpen();
 
     if (window.isOpen){
@@ -47,8 +49,8 @@ const Category = () => {
             {skillTags.map((item) => (
                 <CategoryBox
                     key={item.label}
-                    label={item.label}
-                    selected={skillTag===item.label}
+                    item={item}
+                    selected={position===item.value || stack===item.value || range===item.value}
                 />
             ))               
             }
