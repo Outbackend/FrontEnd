@@ -10,7 +10,7 @@ const Project = ({ project }) => {
         <div className="flex-1">
           <h3 className="text-2xl font-bold mb-4 text-center">사용 스택</h3>
           <div className="w-full list-none text-center items-center space-y-4">
-            {project.skill_tag.map((skill) => (
+            {project.skillTagList.map((skill) => (
               <div
                 key={skill}
                 className="inline-flex items-center font-semibold bg-blue-100 text-black px-4 py-2 rounded-full mr-2 mb-2"

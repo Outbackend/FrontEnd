@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import Select from "react-select";
 import { Range } from "../Home/getItem";
 
-const FieldSelect = ({ before }) => {
-  const [selectedField, setSelectedField] = useState(before);
+const FieldSelect = ({ initialField = "", onFieldChange }) => {
+  const [selectedField, setSelectedField] = useState(initialField);
 
   const handleSelectChange = (selectedOption) => {
     setSelectedField(selectedOption);
+    onFieldChange(selectedOption.value);
   };
 
   return (
@@ -14,7 +15,7 @@ const FieldSelect = ({ before }) => {
       value={selectedField}
       onChange={handleSelectChange}
       options={Range}
-      placeholder={before}
+      placeholder={initialField}
       isClearable
       styles={{
         control: (provided) => ({

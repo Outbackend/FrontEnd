@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Comment = ({ comments: initialComments, user }) => {
-  const [comments, setComments] = useState(initialComments);
-  const [newComment, setNewComment] = useState("");
+const Comment = ({ projectId, initialComments, user }) => {
+  const [comments, setComments] = useState([]);
 
+  const [newComment, setNewComment] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const filteredComments = initialComments.filter(
+      (comment) => comment.projectId === projectId
+    );
+    setComments(filteredComments);
+  }, [initialComments, projectId]);
 
   const handleCommentChange = (e) => {
     setNewComment(e.target.value);
@@ -14,9 +21,10 @@ const Comment = ({ comments: initialComments, user }) => {
   const handleAddComment = () => {
     if (newComment.trim() !== "") {
       const newCommentObject = {
-        comment_id: comments.length + 1,
-        userid: user.id,
+        id: comments.length + 1,
+        memberId: user.id,
         body: newComment,
+        projectId: projectId,
       };
       setComments([...comments, newCommentObject]);
       setNewComment("");
@@ -26,7 +34,6 @@ const Comment = ({ comments: initialComments, user }) => {
   return (
     <div className="mt-8 w-full">
       <h3 className="text-2xl font-bold mb-4">댓글</h3>
-      {/* 로그인 여부 확인 */}
       {user ? (
         <div className="mb-4 flex">
           <textarea
@@ -36,7 +43,7 @@ const Comment = ({ comments: initialComments, user }) => {
             onChange={handleCommentChange}
           />
           <button
-            className="ml-2 w-[120px] bg-blue-100 text-gray-500 font-semibold  px-1 py-0 rounded-full hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-200"
+            className="ml-2 w-[120px] bg-blue-100 text-gray-500 font-semibold px-1 py-0 rounded-full hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-200"
             onClick={handleAddComment}
           >
             댓글달기
@@ -51,7 +58,7 @@ const Comment = ({ comments: initialComments, user }) => {
           .reverse()
           .map((c) => (
             <div
-              key={c.comment_id}
+              key={c.id}
               className="p-4 flex border rounded-lg bg-white shadow-md"
             >
               <div className="flex items-center">
@@ -62,9 +69,9 @@ const Comment = ({ comments: initialComments, user }) => {
                 />
                 <div
                   className="text-sm font-medium text-gray-900 cursor-pointer hover:text-blue-500"
-                  onClick={() => navigate(`/User/${c.userid}`)}
+                  onClick={() => navigate(`/User/${c.memberId}`)}
                 >
-                  user {c.userid}
+                  user {c.memberId}
                 </div>
               </div>
               <div className="ml-4 flex-auto text-gray-600">{c.body}</div>

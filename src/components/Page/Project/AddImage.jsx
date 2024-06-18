@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import ImageSlider from "./ImageSlider";
 
-const AddImage = ({ image }) => {
+const AddImage = ({ image, onImagesChange }) => {
   const [images, setImages] = useState(Array.isArray(image) ? image : []);
   const [imageUrl, setImageUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -14,11 +13,13 @@ const AddImage = ({ image }) => {
       setErrorMessage("");
     }
     setImages([...images, imageUrl]);
+    onImagesChange(images);
     setImageUrl("");
   };
 
   const handleDeleteImage = (index) => {
     setImages(images.filter((_, i) => i !== index));
+    onImagesChange(images);
   };
 
   return (
