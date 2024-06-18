@@ -22,7 +22,7 @@ const Header = ({ user }) => {
   const handleLogout = () => {
     logout();
     window.location.reload();
-  }
+  };
 
   return (
     <div className="fixed w-full bg-white py-2 z-50">
@@ -69,14 +69,11 @@ const Header = ({ user }) => {
                         label="Profile"
                       />
                       <MenuItem
-                        onClick={() => navigate("/create")}
+                        onClick={() => navigate("/project")}
                         label="Create Project"
                       />
                       <hr />
-                      <MenuItem
-                        onClick={ handleLogout }
-                        label="Logout"
-                      />
+                      <MenuItem onClick={handleLogout} label="Logout" />
                     </>
                   ) : (
                     <>
