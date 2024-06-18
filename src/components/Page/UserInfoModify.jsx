@@ -6,7 +6,7 @@ import UserDescriptionModify from './UserInfoModify/UserDescriptionModify';
 
 const UserInfoModify = (props) => {
     return (
-        <div className='pt-[100px] max-w-[1170px]'>
+        <div className='pt-[100px] w-[1170px]'>
             <UserIconModify />
             <UserStackModify />
             <UserDescriptionModify />

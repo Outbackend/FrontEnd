@@ -5,25 +5,27 @@ const userDetailStore = create((set) => ({
     userInfo: {
         name: '닉네임',
         note: '소개글',
-        description: '저는 현재 리액트에서 \`react-markdown\`를 이용하여 **마크다운**을 랜더링하고 있습니다.',
+        description: `
+안녕하세요! 아무튼 풀스택 개발자 닉네임입니다. \n
+
+**사용 가능한 스택**
+- React
+- Springboot
+- Flask
+        `,
         rangeList: ['웹'],
         positionList: ['프론트엔드', '백엔드'],
         stackList: ['JavaScript', 'React', 'Spring', 'Python'],
         projectList: [
           {
-            name: "프로젝트 이름",
-            description:"저는 현재 리액트에서 \`react-markdown\`를 이용하여 **마크다운**을 랜더링하고 있습니다.\n",
+            name: "토이프로젝트 구인 플랫폼",
+            description:"토이프로젝트 인원을 구하는 플랫폼",
             status: "진행중"
           },
           {
-            name: "프로젝트 이름",
-            description:"저는 현재 리액트에서 \`react-markdown\`를 이용하여 **마크다운**을 랜더링하고 있습니다.\n",
-            status: "진행중"
-          },
-          {
-            name: "프로젝트 이름",
-            description:"저는 현재 리액트에서 \`react-markdown\`를 이용하여 **마크다운**을 랜더링하고 있습니다.\n",
-            status: "진행중"
+            name: "동아리 홍보 플랫폼",
+            description:"동아리 홍보 게시판",
+            status: "완료"
           },
         ],
     },
