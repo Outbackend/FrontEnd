@@ -53,7 +53,7 @@ const Header = ({ user }) => {
                                 {user ? (
                                         <>
                                             <MenuItem 
-                                                onClick={()=>navigate('/profile')}
+                                                onClick={()=>navigate('/userinfo')}
                                                 label="Profile"
                                             />
                                             <MenuItem 
@@ -62,7 +62,11 @@ const Header = ({ user }) => {
                                             />
                                             <hr />
                                             <MenuItem 
-                                                onClick={()=>navigate('/logout')}
+                                                onClick={()=>{
+                                                    localStorage.removeItem('accsessToken')
+                                                    localStorage.removeItem('refreshToken')
+                                                    navigate('/')
+                                                }}
                                                 label="Logout"
                                             />
                                         </>

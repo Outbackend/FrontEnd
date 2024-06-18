@@ -1,12 +1,11 @@
 import { useSearchParams } from "react-router-dom";
 import ProjectBox from "./ProjectBox";
-import getProjects from "./getProjects"
+import getProject from "./getProjects"
 import Container from "../../Assets/Container";
 
 const ProjectList = () => {
-    //cont Projects = getProjects({searchParams})
-    const Projects = getProjects;
     const [params, getParams] = useSearchParams();
+    const Projects = getProject({params})
 
     return(
         <Container>
@@ -18,7 +17,7 @@ const ProjectList = () => {
             gap-8
             my-10px
             py-10px">
-            {Projects.map(project => (
+            {Projects?.map(project => (
                 <ProjectBox
                     data={project}
                 />

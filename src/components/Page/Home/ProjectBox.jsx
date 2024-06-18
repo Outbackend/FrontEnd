@@ -29,7 +29,7 @@ const ProjectBox = ({
                         {data.user_name}
                     </div>
                     <div className="text-sm px-6 pt-0.5 my-2 ml-auto bg-white rounded-lg font-light border-2">
-                        {data.range}
+                        {/* {data.range} */}
                     </div>
                 </div>
                 <hr/>
@@ -38,13 +38,13 @@ const ProjectBox = ({
                 </div>
                 <hr className="w-3/5 h-0.5 bg-gray-200 rounded mx-auto"/>
                 <div className="flex flex-wrap flex-row gap-2 font-semibold text-neutral-500 p-3">
-                    {data.position.map(tmp => (
+                    {data.positionList.map(tmp => (
                         <div className="px-3 py-1 text-xs bg-gray-200 rounded-full text-gray-700">{tmp}</div>
                     )) }
                 </div>
                 <hr className="w-3/5 h-0.5 bg-gray-200 rounded mx-auto"/>
                 <div className="flex flex-wrap flex-row gap-2 font-semibold text-neutral-500 p-3">
-                    {data.skill_tag.map(tmp => (
+                    {data.skillTagList.map(tmp => (
                             <div className="px-3 py-1 text-xs bg-gray-100 rounded-full text-sky-800">{tmp}</div>
                     ))}
                 </div>
