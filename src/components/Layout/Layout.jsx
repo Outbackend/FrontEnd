@@ -2,10 +2,8 @@ import React from 'react';
 import { Outlet } from 'react-router';
 
 import Header from './Header';
-import userDetailStore from '../../variables/States/UserDetailStore';
 
 const PageLayout = (props) => {
-    const { userInfo } = userDetailStore;
     return(
         <div>
             <Header />
