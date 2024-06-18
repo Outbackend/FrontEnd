@@ -10,7 +10,10 @@ import { useNavigate } from "react-router-dom";
 const EditProject = ({ project }) => {
   const [title, setTitle] = useState(project ? project.title : "");
   const [value, setValue] = useState(project ? project.content : "");
-  const [tags, setTags] = useState(project ? project.skillTagList : []);
+  const [skillTag, setSkillTag] = useState(project ? project.skillTagList : []);
+  const [positionTag, setPositionTag] = useState(
+    project ? project.positionTagList : []
+  );
   const [field, setField] = useState(project ? project.field : "");
   const [recruit, setRecruit] = useState(project ? project.recruit : []);
   const [current, setCurrent] = useState(project ? project.current : []);
@@ -18,11 +21,32 @@ const EditProject = ({ project }) => {
   const navigate = useNavigate();
   const isNewProject = !project;
 
+  const skillTags = [
+    { value: "javascript", label: "JavaScript" },
+    { value: "html-css", label: "HTML/CSS" },
+    { value: "react", label: "React" },
+    { value: "java", label: "Java" },
+    { value: "spring", label: "Spring" },
+    { value: "nodejs", label: "Node.js" },
+    { value: "vuejs", label: "Vue.js" },
+    { value: "typescript", label: "TypeScript" },
+    { value: "jquery", label: "jQuery" },
+    // 나머지 태그들도 추가
+  ];
+
+  const positionTags = [
+    { value: "Backend", label: "Backend" },
+    { value: "FrontEnd", label: "FrontEnd" },
+    { value: "Designer", label: "Designer" },
+    { value: "DevOpsDeveloper", label: "DevOps Developer" },
+  ];
+
   const handleSave = async () => {
     const updatedProject = {
       title: title,
       content: value,
-      skillTagList: tags,
+      skillTagList: skillTag,
+      positionTagList: positionTag,
       field: field,
       recruit: recruit,
       current: current,
@@ -30,6 +54,7 @@ const EditProject = ({ project }) => {
     };
 
     try {
+      navigate(`/project`);
       if (isNewProject) {
         await axios.post("/api/projects", updatedProject);
       } else {
@@ -60,22 +85,35 @@ const EditProject = ({ project }) => {
       </div>
 
       <div className="flex flex-row space-x-6">
-        <div className="flex-1">
+        <div className="flex-1 ">
           <h3 className="text-2xl font-bold mb-4 text-center">사용 스택</h3>
-          <SelectableTags tags={tags} onTagsChange={setTags} />
-          <hr className="my-4" />
+
+          <SelectableTags
+            tags={skillTag}
+            onTagsChange={setSkillTag}
+            option={skillTags}
+          />
+          {/* <hr className="my-4" /> */}
+          {/* <h2 className="text-2xl font-bold mb-4 text-center">분야</h2>
+          <FieldSelect initialField={field} onFieldChange={setField} /> */}
+        </div>
+        <div className="border-l border-gray-300 mx-4"></div>
+        <div className="flex-1">
+          {/* <h3 className="text-2xl font-bold mb-4 text-center">모집 인원</h3>
+          <AddRecruit recruit={recruit} onRecruitChange={setRecruit} /> */}
+          <h3 className="text-2xl font-bold mb-4 text-center">모집 분야</h3>
+          <SelectableTags
+            tags={positionTag}
+            onTagsChange={setPositionTag}
+            option={positionTags}
+          />
+        </div>
+        <div className="border-l border-gray-300 mx-4"></div>
+        <div className="flex-1">
+          {/* <h3 className="text-2xl font-bold mb-4 text-center">현재 인원</h3>
+          <AddRecruit recruit={current} onRecruitChange={setCurrent} /> */}
           <h2 className="text-2xl font-bold mb-4 text-center">분야</h2>
           <FieldSelect initialField={field} onFieldChange={setField} />
-        </div>
-        <div className="border-l border-gray-300 mx-4"></div>
-        <div className="flex-1">
-          <h3 className="text-2xl font-bold mb-4 text-center">모집 인원</h3>
-          <AddRecruit recruit={recruit} onRecruitChange={setRecruit} />
-        </div>
-        <div className="border-l border-gray-300 mx-4"></div>
-        <div className="flex-1">
-          <h3 className="text-2xl font-bold mb-4 text-center">현재 인원</h3>
-          <AddRecruit recruit={current} onRecruitChange={setCurrent} />
         </div>
       </div>
       <hr className="my-8" />

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 import { Range } from "../Home/getItem";
 
 const FieldSelect = ({ initialField = "", onFieldChange }) => {
@@ -11,7 +11,7 @@ const FieldSelect = ({ initialField = "", onFieldChange }) => {
   };
 
   return (
-    <Select
+    <CreatableSelect
       value={selectedField}
       onChange={handleSelectChange}
       options={Range}

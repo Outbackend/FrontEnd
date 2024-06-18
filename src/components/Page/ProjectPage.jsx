@@ -12,7 +12,7 @@ const ProjectDetail = () => {
   const [loading, setLoading] = useState(true);
   const [project, setProject] = useState(null);
   const [comment, setComment] = useState([]);
-  const [isEditing, setIsEditing] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
   const { isAuthenticated, user } = useLoginStore((state) => ({
     isAuthenticated: state.isAuthenticated,
     user: state.user,
@@ -52,38 +52,38 @@ const ProjectDetail = () => {
         <h1>loading...</h1>
       ) : (
         <div className="max-w-[1400px] min-w-[722px] m-auto pt-32">
-          <div className="flex justify-between items-center mb-8">
-            {isAuthenticated &&
-              project.creator_id === user.id &&
-              (!isEditing ? (
-                <div>
-                  <button
-                    type="button"
-                    onClick={handleEditButtonClick}
-                    className="float-right mt-4 px-6 py-2 text-gray-500 rounded-full hover:font-bold"
-                  >
-                    수정
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleDeleteButton}
-                    className="float-right mt-4 px-6 py-2 text-red-500 rounded-full hover:font-bold"
-                  >
-                    삭제
-                  </button>
-                </div>
-              ) : (
-                {}
-              ))}
-          </div>
-          {!isEditing ? (
-            <EditProject project={project} />
+          {isEditing ? (
+            <div>
+              <button
+                type="button"
+                onClick={handleDeleteButton}
+                className="float-right mt-4 px-6 py-2 text-red-500 rounded-full hover:font-bold"
+              >
+                삭제
+              </button>
+              <EditProject project={project} />
+            </div>
           ) : (
             <div className="">
               <div className="flex items-center">
                 <h2 className="text-3xl flex-grow font-bold">
                   {project.title}
                 </h2>
+                <div className="flex text-center justify-between items-center">
+                  {isAuthenticated &&
+                    project.creator_id === user.id &&
+                    (!isEditing ? (
+                      <button
+                        type="button"
+                        onClick={handleEditButtonClick}
+                        className="float-right mt-4 px-6 py-2 items-center text-center text-gray-500  hover:font-bold"
+                      >
+                        수정
+                      </button>
+                    ) : (
+                      {}
+                    ))}
+                </div>
                 <div className="bg-gray-200 px-4 py-2 mt-4 rounded-full font-semibold float-right">
                   ~{project.deadline}
                 </div>

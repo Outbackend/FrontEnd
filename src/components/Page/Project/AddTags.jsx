@@ -1,29 +1,16 @@
 import React, { useState } from "react";
 import CreatableSelect from "react-select/creatable";
 
-const Tags = [
-  { value: "javascript", label: "JavaScript" },
-  { value: "html-css", label: "HTML/CSS" },
-  { value: "react", label: "React" },
-  { value: "java", label: "Java" },
-  { value: "spring", label: "Spring" },
-  { value: "nodejs", label: "Node.js" },
-  { value: "vuejs", label: "Vue.js" },
-  { value: "typescript", label: "TypeScript" },
-  { value: "jquery", label: "jQuery" },
-  // 나머지 태그들도 추가
-];
-
-const SearchableTags = ({ tags = [], onTagsChange }) => {
+const SearchableTags = ({ tags = [], onTagsChange, option }) => {
   const [selectedTags, setSelectedTags] = useState(tags);
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleTagSelect = (selectedOption) => {
     if (
       selectedOption &&
-      !selectedTags.some((tag) => tag === selectedOption.value)
+      !selectedTags.some((tag) => tag === selectedOption.label)
     ) {
-      const updatedTags = [...selectedTags, selectedOption.value];
+      const updatedTags = [...selectedTags, selectedOption.label];
       setSelectedTags(updatedTags);
       onTagsChange(updatedTags);
       setErrorMessage("");
@@ -40,7 +27,7 @@ const SearchableTags = ({ tags = [], onTagsChange }) => {
 
   return (
     <div>
-      <div className="flex-1 mt-4 space-x-2 space-y-2 overflow-auto max-h-[220px]">
+      <div className="flex-auto mt-4 space-x-2 space-y-2 overflow-auto max-h-[220px] ">
         {selectedTags.map((tag) => (
           <span
             key={tag}
@@ -59,7 +46,7 @@ const SearchableTags = ({ tags = [], onTagsChange }) => {
       <div className="mt-4"></div>
       <CreatableSelect
         isClearable
-        options={Tags}
+        options={option}
         onChange={handleTagSelect}
         styles={{
           control: (provided) => ({
