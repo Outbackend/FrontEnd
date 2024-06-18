@@ -6,7 +6,7 @@ const ProjectBox = ({
     const navigate = useNavigate()
     return (
         <div
-            onClick={()=>navigate(`/Project/${data.project_id}`)} //프로젝트 id
+            onClick={()=>navigate(`/project/${data.project_id}`)} //프로젝트 id
             className="col-span-1 cursor-pointer group">
             <div className="flex flex-col gap-2 w-full">
                 <div className="
