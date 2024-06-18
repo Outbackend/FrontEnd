@@ -8,8 +8,8 @@ const PageLayout = (props) => {
     const { userInfo } = userDetailStore;
     return(
         <div>
-            <Header user={userInfo}/>
-            <div className='m-w-[1400px] m-auto'>
+            <Header />
+            <div className='m-w-[1400px] m-auto flex justify-center'>
                 <Outlet />
             </div> 
         </div>

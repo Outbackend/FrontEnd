@@ -1,12 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
+import LoginStore from '../../../variables/States/LoginStore';
 import userDetailStore from '../../../variables/States/UserDetailStore';
 
 import StackWrapper from './StackWrapper';
 import ModifyButton from '../../Assets/ModifyButton';
 
 const UserStack = () => {
+    const { isAuthenticated, user } = LoginStore();
     const { userInfo } = userDetailStore();
 
     return(
@@ -17,11 +19,15 @@ const UserStack = () => {
                 </div>
             </div>
             <div className='w-1/2 h-[110px] float-right relative'>
-                <div className='absolute inset-y-0 right-5 top-[30%]'>
+                {isAuthenticated ? 
+                    <div className='absolute inset-y-0 right-5 top-[30%]'>
                     <Link to='/userinfomodify'>
                         <ModifyButton placeholder="수정"/>
                     </Link>
-                </div>
+                    </div>
+                    :
+                    <></>
+                }
             </div>
             <div className='w-full top-[110px] relative'>
                 <div className='h-[420px] rounded-2xl border-2 border-solid border-[#dfdfdf]'>
