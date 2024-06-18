@@ -8,6 +8,7 @@ import UserInfoModify from "./components/Page/UserInfoModify";
 import Home from "./components/Page/Home";
 import ProjectPage from "./components/Page/ProjectPage";
 import AuthPage from "./components/Page/Auth";
+import EditProject from "./components/Page/EditProject";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
           <Route path="/project" element={<ProjectPage />}></Route>
         </Route>
         <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/auth" element={<AuthPage/>}></Route>
+        <Route path="/auth" element={<AuthPage />}></Route>
         <Route path="/*" element={<div>404</div>}></Route>
       </Routes>
     </div>
