@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import userDetailStore from "../../variables/States/UserDetailStore";
 
@@ -8,21 +8,28 @@ import UserProjectLog from "./UserInfo/UserProjectLog";
 import UserStack from "./UserInfo/UserStack";
 
 const UserInfo = (props) => {
-    const { userInfo, fetchData, updateItem } = userDetailStore();
+    const { userInfo, fetchData, loading, error} = userDetailStore();
 
     return (
         <div className="pt-[100px] w-[1170px]">
-            <UserIcon 
-                name={ userInfo.name }
-                note={ userInfo.note }
-            />
-            <UserStack />
-            <UserDescription 
-                description={ userInfo.description }
-            />
-            <UserProjectLog
-                projectList={ userInfo.projectList }
-            />
+            {loading && <p>Loading...</p>}
+            {error && <p>Error: {error}</p>}
+            {userInfo && (
+                <div>
+                    <UserIcon 
+                        name={ userInfo.nickName }
+                        note={ userInfo.intro }
+                    />
+                    <UserStack />
+                    <UserDescription 
+                        description={ userInfo.about }
+                    />
+                    <UserProjectLog
+                        projectList={ userInfo.projectList }
+                    />
+                </div>
+            )}
+            
         </div>
     );
 }

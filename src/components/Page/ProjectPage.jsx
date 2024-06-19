@@ -23,8 +23,8 @@ const ProjectDetail = () => {
         setProject(null);
         return;
       }
-      //const response = await axios.get(`/dummy/projects.json`);
-      const response = await axios.get(`/api/projects/${id}`);
+      const response = await axios.get(`/dummy/projects.json`);
+      // const response = await axios.get(`/api/projects/${id}`);
       setProject(response.data);
     } catch (error) {
       setProject(null);
@@ -36,8 +36,8 @@ const ProjectDetail = () => {
       setProject(null);
       return;
     }
-    //const response = await axios.get(`/dummy/comments.json`);
-    const response = await axios.get(`api/projects/${id}/comments`);
+    const response = await axios.get(`/dummy/comments.json`);
+    // const response = await axios.get(`api/projects/${id}/comments`);
     setComment(response.data);
   };
 
@@ -57,7 +57,7 @@ const ProjectDetail = () => {
 
   return (
     <div>
-      {loading ? (
+      {id ? (
         <h1>loading...</h1>
       ) : project ? (
         <div className="max-w-[1400px] min-w-[722px] m-auto pt-32">

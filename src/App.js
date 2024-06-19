@@ -18,8 +18,8 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/userinfo" element={<UserInfo />}></Route>
           <Route path="/userinfomodify" element={<UserInfoModify />}></Route>
-          <Route path="/project" element={<ProjectPage />}></Route>
           <Route path="/project/:id" element={<ProjectPage />}></Route>
+          <Route path="/editproject" element={<ProjectPage />}></Route>
         </Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/auth" element={<AuthPage />}></Route>

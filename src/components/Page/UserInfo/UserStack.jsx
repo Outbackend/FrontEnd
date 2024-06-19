@@ -56,7 +56,7 @@ const UserStack = () => {
                             <p className='text-xl font-bold'>Stack</p>
                         </div>
                         <div className='absolute max-h-[80px] top-[50px] left-4 flex flex-wrap overflow-auto'>
-                            {userInfo.stackList.map((item) => (
+                            {userInfo.skillTagList.map((item) => (
                                 <StackWrapper name={ item }/>
                             ))}
                         </div>

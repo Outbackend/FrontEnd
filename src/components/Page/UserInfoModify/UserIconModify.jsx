@@ -21,19 +21,19 @@ const UserIconModify = (props) => {
                 <div className='w-3/4 h-auto text-center mx-auto'>
                     <UserInfoInput 
                         type="text"
-                        placeholder={ userInfo.name }
-                        value={ userInfo.name }
-                        name="name"
-                        onChange={(e) => handleInputChange('name', e)}
+                        placeholder={ userInfo.nickName }
+                        value={ userInfo.nickName }
+                        name="nickName"
+                        onChange={(e) => handleInputChange('nickName', e)}
                     />
                 </div>
                 <div className='w-3/4 h-auto text-center mx-auto'>
                     <UserInfoInput 
                         type="text"
-                        placeholder={ userInfo.note }
-                        value={ userInfo.note }
-                        name="note"
-                        onChange={(e) => handleInputChange('note', e)}
+                        placeholder={ userInfo.intro }
+                        value={ userInfo.intro }
+                        name="intro"
+                        onChange={(e) => handleInputChange('intro', e)}
                     />
                 </div>
             </div>
