@@ -14,9 +14,7 @@ const Project = ({ project }) => {
               {project.field}
             </div>
           </div>
-        </div>
-        <div className="border-l border-gray-300 mx-4"></div>{" "}
-        <div className="flex-1">
+          <hr className="my-4" />
           <h3 className="text-2xl font-bold mb-4 text-center">사용 스택</h3>
           <div className="w-full list-none text-center items-center space-y-4">
             {project.skillTagList.map((skill) => (
@@ -28,11 +26,8 @@ const Project = ({ project }) => {
               </div>
             ))}
           </div>
-          {/*<hr className="my-4" />*/}
         </div>
         <div className="border-l border-gray-300 mx-4"></div>{" "}
-        {/* Vertical line */}
-        {/*}
         <div className="flex-1">
           <h3 className="text-2xl font-bold mb-4 text-center">모집 인원</h3>
           {project.recruit.map((elem, index) => (
@@ -40,27 +35,15 @@ const Project = ({ project }) => {
               <Recruit elem={elem.type} check={elem.wanted}></Recruit>
             </div>
           ))}
-        </div>*/}
-        {/* Vertical line */}
+        </div>
+        <div className="border-l border-gray-300 mx-4"></div>{" "}
         <div className="flex-1">
-          {/* <h3 className="text-2xl font-bold mb-4 text-center">현재 인원</h3>
+          <h3 className="text-2xl font-bold mb-4 text-center">현재 인원</h3>
           {project.current.map((elem, index) => (
             <div key={index}>
               <Recruit elem={elem.type} check={elem.wanted}></Recruit>
             </div>
-          ))}*/}
-          {/*<h2 className="text-2xl font-bold mb-4 text-center">모집 분야</h2>
-          <div className="w-full list-none text-center items-center space-y-4">
-            {project.positionTagList.map((position) => (
-              <div
-                key={position}
-                className="inline-flex items-center font-semibold bg-blue-100 text-black px-4 py-2 rounded-full mr-2 mb-2"
-              >
-                {position}
-              </div>
-            ))}
-          </div>
-          */}
+          ))}
         </div>
       </div>
       <hr className="my-8" />
