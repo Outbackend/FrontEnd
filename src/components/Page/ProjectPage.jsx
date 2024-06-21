@@ -27,13 +27,14 @@ const ProjectDetail = () => {
       const response = await axios.get(`/api/projects/${id}`);
       setProject(response.data);
     } catch (error) {
+      console.log(error);
       setProject(null);
     }
   };
 
   const getComment = async () => {
     if (id == null) {
-      setProject(null);
+      setComment(null);
       return;
     }
     //const response = await axios.get(`/dummy/comments.json`);
@@ -101,7 +102,8 @@ const ProjectDetail = () => {
         </div>
       ) : (
         <div className="max-w-[1400px] min-w-[722px] m-auto pt-32">
-          <EditProject />
+          <EditProject />{" "}
+          {/* 해당 id를 가진 project가 없는 경우 프로젝트 생성*/}
         </div>
       )}
     </div>

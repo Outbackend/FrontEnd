@@ -1,9 +1,20 @@
 import React, { useState } from "react";
 import CreatableSelect from "react-select/creatable";
+import stackList from "../../../variables/StackList";
 
-const SearchableTags = ({ tags = [], onTagsChange, option }) => {
-  const [selectedTags, setSelectedTags] = useState(tags);
+const SearchableTags = ({ tags = [], onTagsChange }) => {
+  const [selectedTags, setSelectedTags] = useState(
+    tags.map((r) => ({
+      value: r,
+      label: r,
+    }))
+  );
   const [errorMessage, setErrorMessage] = useState("");
+
+  const Stack = stackList.map((stack) => ({
+    value: stack,
+    label: stack,
+  }));
 
   const handleTagSelect = (selectedOption) => {
     if (
@@ -46,7 +57,7 @@ const SearchableTags = ({ tags = [], onTagsChange, option }) => {
       <div className="mt-4"></div>
       <CreatableSelect
         isClearable
-        options={option}
+        options={Stack}
         onChange={handleTagSelect}
         styles={{
           control: (provided) => ({

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CreatableSelect from "react-select/creatable";
-import { Position } from "../Home/getItem";
+import positionList from "../../../variables/PositionList";
 
 const AddRecruit = ({ recruit = [], onRecruitChange }) => {
   const [type, setType] = useState(null);
@@ -12,6 +12,10 @@ const AddRecruit = ({ recruit = [], onRecruitChange }) => {
     }))
   );
   const [errorMessage, setErrorMessage] = useState("");
+  const Position = positionList.map((position) => ({
+    value: position,
+    label: position,
+  }));
 
   const handleAddRecruit = () => {
     if (type && wanted) {
