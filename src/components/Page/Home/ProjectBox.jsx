@@ -45,7 +45,7 @@ const ProjectBox = ({
                     <div className="font-semibold text-lg p-2">
                         {publisher.nickname}
                     </div>
-                    <div className="text-sm px-6 pt-0.5 my-2 ml-auto bg-white rounded-lg font-light border-2">
+                    <div className="text-sm px-6 pt-1 my-2 ml-auto bg-white rounded-lg font-light border-2">
                         {data.category}
                     </div>
                 </div>

@@ -15,6 +15,7 @@ export const GetProjects = () => {
         console.log(params)
         const fetchData = async () => {
             try{
+                //const response = await axios.get('/dummy/ProjectList.json')
                 const response = await axios.get('http://47.128.234.198:5000/project/list',
                     {
                         params: {

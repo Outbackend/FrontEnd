@@ -81,39 +81,37 @@ const Search = () => {
     }
 
     return(
-        <Container>
-            <div className="pt-7 flex justify-center gap-3">
-                <Select
-                    placeholder="검색어를 입력하세요"
-                    isMulti
-                    options={AllItem}
-                    formatOptionLabel={formatGroupLabel}
-                    classNames={{
-                        control:()=>'p-2 border-2 w-96',
-                        input:() =>'pe-3 text-lg',
-                        option:() =>'text-lg',
-                    }} 
-                    theme={(theme)=>({
-                        ...theme,
-                        borderRadius:20,
-                        colors:{
-                        ...theme.colors,
-                        primary:'black',
-                        }
-                    })}
-                    styles={{
-                        multiValueRemove:(styles)=>({
-                            ...styles,
-                            ':hover':{backgroundColor: '#5C9CDD'}
-                        }),
-                    }}
-                    onChange={handler}
-                />
-                <SearchButton
-                    onClick={onSubmit}
-                />
-            </div>
-        </Container>
+        <div className="pt-7 flex justify-center gap-3">
+            <Select
+                placeholder="검색어를 입력하세요"
+                isMulti
+                options={AllItem}
+                formatOptionLabel={formatGroupLabel}
+                classNames={{
+                    control:()=>'p-2 border-2 w-96',
+                    input:() =>'pe-3 text-lg',
+                    option:() =>'text-lg',
+                }} 
+                theme={(theme)=>({
+                    ...theme,
+                    borderRadius:20,
+                    colors:{
+                    ...theme.colors,
+                    primary:'black',
+                    }
+                })}
+                styles={{
+                    multiValueRemove:(styles)=>({
+                        ...styles,
+                        ':hover':{backgroundColor: '#5C9CDD'}
+                    }),
+                }}
+                onChange={handler}
+            />
+            <SearchButton
+                onClick={onSubmit}
+            />
+        </div>
     )
 }
 
