@@ -1,11 +1,9 @@
-import { useSearchParams } from "react-router-dom";
 import ProjectBox from "./ProjectBox";
 import { GetProjects }  from "./getProjects"
 import Container from "../../Assets/Container";
 
 const ProjectList = () => {
-    const [params, getParams] = useSearchParams();
-    const Projects = GetProjects({params})
+    const Projects = GetProjects()
 
     return(
         <Container>
@@ -16,10 +14,11 @@ const ProjectList = () => {
             justify-center
             gap-8
             my-10px
-            py-10px">
+            py-10px
+            bg-black">
             {Projects?.map(project => (
                 <ProjectBox
-                    key={project.project_id}
+                    key={project.uuid}
                     data={project}
                 />
                 )

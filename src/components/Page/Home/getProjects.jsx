@@ -1,19 +1,21 @@
 import axios from 'axios'
 import qs from 'qs'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
-export const GetProjects = ({params}) => {
+export const GetProjects = () => {
 
+    const [params, getParams] = useSearchParams();
     const [Project, setProject] = useState([])
     const position = params?.getAll("position")
     const stack = params?.getAll("stack")
     const range = params?.getAll("range")
 
     useEffect(() => {
+        console.log(params)
         const fetchData = async () => {
             try{
-                //const response = await axios.get('dummy/ProjectList.json')
-                const response = await axios.get('api/projects',
+                const response = await axios.get('http://47.128.234.198:5000/project/list',
                     {
                         params: {
                             position,
@@ -31,7 +33,8 @@ export const GetProjects = ({params}) => {
             }
         }
         fetchData()
-    })
+    },[params])
+
     return Project
 }
 

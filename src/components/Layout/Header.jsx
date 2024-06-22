@@ -8,9 +8,11 @@ import UserImg from "./header/LogoUser";
 import { Navigation } from "./header/Navigation";
 import Container from "../Assets/Container";
 import MenuItem from "../Assets/MenuItem";
+import userDetailStore from "../../variables/States/UserDetailStore";
 
-const Header = ({ user }) => {
+const Header = () => {
   const { isAuthenticated, logout } = LoginStore();
+  const {userInfo} = userDetailStore();
 
   const navigate = useNavigate();
 
@@ -47,7 +49,7 @@ const Header = ({ user }) => {
                         "
             onClick={toggleOpen}
           >
-            <UserImg src={user?.profile_img} />
+            <UserImg src={userInfo?.profile_img} />
             {isOpen && (
               <div
                 className="
@@ -61,9 +63,12 @@ const Header = ({ user }) => {
                             text-sm
                             "
               >
-                <div className="flex flex-col cursor-pointer">
+                <div className="flex flex-col">
                   {isAuthenticated ? (
                     <>
+                      <div className = "px-4 py-3 rounded-xl font-semibold">
+                        {userInfo.nickname}님
+                      </div>
                       <MenuItem
                         onClick={() => navigate("/userinfo")}
                         label="Profile"
