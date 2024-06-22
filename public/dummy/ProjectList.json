@@ -11,7 +11,7 @@
             {"stack" : "DevOps",
             "paersonal": 0}
         ],
-        "stack": ["React", "Python", "MySQL", "Java"],
+        "stack": ["React", "Python", "AWS", "Java"],
         "category": "웹"
     },
     {
@@ -21,13 +21,13 @@
         "wanted": [
             {"stack" : "백엔드",
             "paersonal": 0},
-            {"stack" : "프론트엔드",
+            {"stack" : "AI",
             "paersonal": 0},
-            {"stack" : "DevOps",
+            {"stack" : "3D",
             "paersonal": 0}
         ],
         "stack": ["React", "Python", "MySQL", "Java"],
-        "category": "웹"
+        "category": "게임"
     },    {
         "id": 213654,
         "name": "프로젝트 이름이 엄청 길면 어떻게 될까요",
@@ -41,7 +41,7 @@
             "paersonal": 0}
         ],
         "stack": ["React", "Python", "MySQL", "Java"],
-        "category": "웹"
+        "category": "앱"
     },    {
         "id": 213654,
         "name": "프로젝트 이름이 엄청 길면 어떻게 될까요",

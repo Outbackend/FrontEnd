@@ -1,33 +1,15 @@
 import axios from 'axios'
-import qs from 'qs'
-import { useEffect, useState, useCallback, useRef } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useEffect, useState} from 'react'
 
-export const GetProjects = () => {
+export const GetProjects = ({params}) => {
 
-    const [params, getParams] = useSearchParams();
     const [Project, setProject] = useState([])
-    const position = params?.getAll("position")
-    const stack = params?.getAll("stack")
-    const range = params?.getAll("range")
 
     useEffect(() => {
-        console.log(params)
         const fetchData = async () => {
             try{
-                //const response = await axios.get('/dummy/ProjectList.json')
-                const response = await axios.get('http://47.128.234.198:5000/project/list',
-                    {
-                        params: {
-                            position,
-                            stack,
-                            range,
-                        },
-                        paramsSerializer: params => {
-                            return qs.stringify(params)
-                        }
-                    }
-                )
+                const response = await axios.get('/dummy/ProjectList.json')
+                // const response = await axios.get('http://47.128.234.198:5000/project/list')
                 setProject(response.data)
             } catch (error) {
                 console.error(error)
