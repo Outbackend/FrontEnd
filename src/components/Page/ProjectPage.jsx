@@ -61,7 +61,7 @@ const ProjectDetail = () => {
 
   return (
     <div>
-      {loading ? (
+      {id ? (
         <h1>loading...</h1>
       ) : project ? (
         <div className="max-w-[1400px] min-w-[722px] m-auto pt-32">

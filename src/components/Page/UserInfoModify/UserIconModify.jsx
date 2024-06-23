@@ -4,7 +4,7 @@ import userDetailStore from '../../../variables/States/UserDetailStore';
 
 import UserInfoInput from './UserInfoInput';
 
-const UserIconModify = (props) => {
+const UserIconModify = () => {
     const { userInfo, updateItem } = userDetailStore();
 
     const handleInputChange = (key, e) => {
@@ -21,10 +21,10 @@ const UserIconModify = (props) => {
                 <div className='w-3/4 h-auto text-center mx-auto'>
                     <UserInfoInput 
                         type="text"
-                        placeholder={ userInfo.name }
-                        value={ userInfo.name }
-                        name="name"
-                        onChange={(e) => handleInputChange('name', e)}
+                        placeholder={ userInfo.nickname }
+                        value={ userInfo.nickname }
+                        name="nickname"
+                        onChange={(e) => handleInputChange('nickname', e)}
                     />
                 </div>
                 <div className='w-3/4 h-auto text-center mx-auto'>
