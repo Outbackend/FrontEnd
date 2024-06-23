@@ -17,6 +17,8 @@ const ProjectDetail = () => {
     user: state.user,
   }));
 
+  const baseUrl = "http://47.128.234.198:5000";
+
   const getProject = async () => {
     try {
       if (id == null) {
@@ -24,7 +26,7 @@ const ProjectDetail = () => {
         return;
       }
       //const response = await axios.get(`/dummy/projects.json`);
-      const response = await axios.get(`/api/projects/${id}`);
+      const response = await axios.get(`${baseUrl}/project/${id}`);
       setProject(response.data);
     } catch (error) {
       console.log(error);
@@ -38,7 +40,8 @@ const ProjectDetail = () => {
       return;
     }
     //const response = await axios.get(`/dummy/comments.json`);
-    const response = await axios.get(`api/projects/${id}/comments`);
+    const response = await axios.get(`${baseUrl}/project/${id}/comment`);
+    console.log(response);
     setComment(response.data);
   };
 
@@ -64,14 +67,26 @@ const ProjectDetail = () => {
         <div className="max-w-[1400px] min-w-[722px] m-auto pt-32">
           {isEditing ? (
             <div>
-              <EditProject project={project} />
+              <EditProject project={project} id={id} />
             </div>
           ) : (
             <div className="">
-              <div className="flex items-center">
-                <h2 className="text-3xl flex-grow font-bold">
-                  {project.title}
-                </h2>
+              <div className="flex items-center space-x-2 pt-4">
+                <div className="flex items-center space-x-2 w-full">
+                  <span
+                    className={`px-2 py-1 rounded-full font-semibold ${
+                      project.status === "모집중"
+                        ? "bg-blue-200 text-blue-800"
+                        : "bg-gray-200 text-gray-800"
+                    }`}
+                  >
+                    {project.status}
+                  </span>
+                  <h2 className="text-3xl font-bold">{project.name}</h2>
+                  <div className="px-1 py-2 font-semibold text-gray-700 items-center">
+                    ( ~{project.endDate} )
+                  </div>
+                </div>
                 <div className="flex text-center justify-between items-center">
                   {isAuthenticated &&
                     project.creator_id === user.id &&
@@ -79,7 +94,7 @@ const ProjectDetail = () => {
                       <button
                         type="button"
                         onClick={handleEditButtonClick}
-                        className="float-right mt-4 px-6 py-2 items-center text-center text-gray-500  hover:font-bold"
+                        className="float-right px-4 py-2 w-20 items-center text-center text-gray-500  hover:font-bold"
                       >
                         수정
                       </button>
@@ -87,24 +102,19 @@ const ProjectDetail = () => {
                       {}
                     ))}
                 </div>
-                <div className="bg-gray-200 px-4 py-2 mt-4 rounded-full font-semibold float-right">
-                  ~{project.deadline}
-                </div>
               </div>
               <Project project={project} />
-              <Comment
-                projectId={project.project_id}
-                initialComments={comment}
-                user={user}
-              />
+              <Comment projectId={id} initialComments={comment} />
             </div>
           )}
         </div>
-      ) : (
+      ) : user ? (
         <div className="max-w-[1400px] min-w-[722px] m-auto pt-32">
-          <EditProject />{" "}
+          {/* <EditProject />{" "} */}
           {/* 해당 id를 가진 project가 없는 경우 프로젝트 생성*/}
         </div>
+      ) : (
+        {}
       )}
     </div>
   );
