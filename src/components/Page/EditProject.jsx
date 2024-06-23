@@ -6,6 +6,7 @@ import FieldSelect from "./Project/FieldSelect";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ConfirmationModal from "../Modals/Confirmation";
+import StatusSelect from "./Project/StatusSelect"; // 새로운 StatusSelect 컴포넌트를 임포트
 
 const EditProject = ({ project, id }) => {
   const [title, setTitle] = useState(project ? project.name : ""); // 제목
@@ -34,7 +35,7 @@ const EditProject = ({ project, id }) => {
       wanted: recruit,
       inNow: current,
       status: status,
-      publisher: 123,
+      publisher: 132, //user id
     };
 
     console.log("변경 내용", updatedProject);
@@ -97,15 +98,24 @@ const EditProject = ({ project, id }) => {
           </button>
         )}
       </div>
-      <div className="flex mb-6 ml-[75%] items-center text-center ">
-        <h2 className="text-2xl font-bold">마감일</h2>
-        <input
-          type="date"
-          value={deadline}
-          onChange={(e) => setDeadline(e.target.value)}
-          className="p-2 rounded-lg focus:outline-none "
-        />
+      <div className="flex-1 items-center justify-between mb-6">
+        <div className="flex items-center space-x-8">
+          <div className="flex items-center space-x-4">
+            <h2 className="text-2xl font-bold">모집 상태</h2>
+            <StatusSelect status={status} onStatusChange={setStatus} />
+          </div>
+          <div className="flex items-center space-x-4 float-right">
+            <h2 className="text-2xl font-bold">마감일</h2>
+            <input
+              type="date"
+              value={deadline}
+              onChange={(e) => setDeadline(e.target.value)}
+              className="p-2 rounded-lg  border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+        </div>
       </div>
+
       <div className="flex flex-row space-x-6 p-2">
         <div className="flex-1 pl-4">
           <h2 className="text-2xl font-bold mb-4 text-center">분야</h2>

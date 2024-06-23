@@ -103,7 +103,7 @@ const ProjectDetail = () => {
                     ))}
                 </div>
               </div>
-              <Project project={project} />
+              <Project project={project} id={id} />
               <Comment projectId={id} initialComments={comment} />
             </div>
           )}
