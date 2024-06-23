@@ -3,44 +3,48 @@ import AddRecruit from "./Project/AddRecruit";
 import MDEditor from "@uiw/react-md-editor";
 import SelectableTags from "./Project/AddTags";
 import FieldSelect from "./Project/FieldSelect";
-import AddImage from "./Project/AddImage";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import ConfirmationModal from "../Modals/Confirmation";
 
-const EditProject = ({ project }) => {
-  const [title, setTitle] = useState(project ? project.title : ""); // 제목
-  const [value, setValue] = useState(project ? project.content : ""); // 설명
-  const [skillTag, setSkillTag] = useState(project ? project.skillTagList : []); // 사용 스킬
-  const [deadline, setDeadline] = useState(project ? project.deadline : ""); // 마감일
-  const [field, setField] = useState(project ? project.field : ""); // 프로젝트 분야
-  const [recruit, setRecruit] = useState(project ? project.recruit : []); // 구인 분야 및 인원
-  const [current, setCurrent] = useState(project ? project.current : []); // 현재 분야 및 인원
-  const [images, setImages] = useState(project ? project.project_image : []); // 프로젝트 관련 이미지
+const EditProject = ({ project, id }) => {
+  const [title, setTitle] = useState(project ? project.name : ""); // 제목
+  const [value, setValue] = useState(project ? project.description : ""); // 설명
+  const [skillTag, setSkillTag] = useState(project ? project.stack : []); // 사용 스킬
+  const [deadline, setDeadline] = useState(project ? project.endDate : ""); // 마감일
+  const [field, setField] = useState(project ? project.category : ""); // 프로젝트 분야
+  const [recruit, setRecruit] = useState(project ? project.wanted : []); // 구인 분야 및 인원
+  const [current, setCurrent] = useState(project ? project.inNow : []); // 현재 분야 및 인원
+  const [status, setStatus] = useState(project ? project.status : "");
+
+  const baseUrl = "http://47.128.234.198:5000";
+
   const navigate = useNavigate();
   const isNewProject = !project;
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
-  // 프로젝트 생성 및 수정
+  // 프로젝트 저장
   const handleSave = async () => {
     const updatedProject = {
-      title: title,
-      content: value,
-      deadline: deadline,
-      skillTagList: skillTag,
-      field: field,
-      recruit: recruit,
-      current: current,
+      name: title,
+      description: value,
+      endDate: deadline,
+      stack: skillTag,
+      category: field,
+      wanted: recruit,
+      inNow: current,
+      status: status,
+      publisher: 123,
     };
 
+    console.log("변경 내용", updatedProject);
     try {
       if (isNewProject) {
-        await axios.post("/api/projects", updatedProject); // 프로젝트 생성
+        await axios.post(`${baseUrl}/project/add`, updatedProject); // 프로젝트 생성
       } else {
-        await axios.patch(
-          `/api/projects/${project.project_id}`,
-          updatedProject
-        ); //수정
+        await axios.post(`${baseUrl}/project/${id}`, updatedProject); // 수정
       }
-      navigate(`/projects/${project.project_id}`);
+      navigate(`/projects/${id}`);
     } catch (error) {
       console.error("프로젝트 저장 중 오류 발생:", error);
     }
@@ -49,13 +53,21 @@ const EditProject = ({ project }) => {
   // 프로젝트 삭제
   const handleDelete = async () => {
     if (!isNewProject) {
-      try {
-        await axios.delete(`/api/projects/${project.project_id}`); //삭제
-        navigate("/"); // Navigate to the home page or another appropriate page
-      } catch (error) {
-        console.error("프로젝트 삭제 중 오류 발생:", error);
-      }
+      setShowConfirmation(true);
     }
+  };
+
+  const confirmDelete = async () => {
+    try {
+      await axios.delete(`${baseUrl}/project/${id}`); // 삭제
+      navigate("/"); // 홈 페이지나 다른 적절한 페이지로 이동
+    } catch (error) {
+      console.error("프로젝트 삭제 중 오류 발생:", error);
+    }
+  };
+
+  const cancelDelete = () => {
+    setShowConfirmation(false);
   };
 
   return (
@@ -71,7 +83,7 @@ const EditProject = ({ project }) => {
         <button
           type="button"
           onClick={handleSave}
-          className=" float-right w-[100px] mt-4 px-6 py-2 text-gray-500 rounded-full hover:font-bold"
+          className="float-right w-[100px] mt-4 px-6 py-2 text-gray-500 rounded-full hover:font-bold"
         >
           저장
         </button>
@@ -115,10 +127,17 @@ const EditProject = ({ project }) => {
       </div>
       <hr className="my-8" />
       <h2 className="text-2xl font-bold mb-4">프로젝트 설명</h2>
-      <AddImage image={images} onImagesChange={setImages} />
       <br />
       <MDEditor value={value} onChange={setValue} />
       <div className="pb-10"></div>
+
+      {showConfirmation && (
+        <ConfirmationModal
+          message="정말로 삭제하시겠습니까?"
+          onCancel={cancelDelete}
+          onConfirm={confirmDelete}
+        />
+      )}
     </div>
   );
 };
