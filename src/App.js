@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 import PageLayout from "./components/Layout/Layout";
 import UserInfo from "./components/Page/UserInfo";
 import LoginPage from "./components/Page/LoginPage";
@@ -8,9 +8,10 @@ import UserInfoModify from "./components/Page/UserInfoModify";
 import Home from "./components/Page/Home";
 import ProjectPage from "./components/Page/ProjectPage";
 import AuthPage from "./components/Page/Auth";
-import EditProject from "./components/Page/EditProject";
 
 function App() {
+  const { id } = useParams();
+
   return (
     <div className="App">
       <Routes>

@@ -14,7 +14,6 @@ export const Navigation = () => {
             <Link to="/" onClick={window.onClose}>HOME</Link>
           </div>
           <Link to="/" onClick={window.onOpen}>SEARCH</Link>
-
         </div>
     </Container>
   );

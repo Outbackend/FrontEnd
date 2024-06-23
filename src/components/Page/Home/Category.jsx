@@ -33,7 +33,6 @@ const Category = () => {
         return null;
     }
     return (
-        <Container>
         <div className="
             p-2
             mt-7
@@ -45,6 +44,7 @@ const Category = () => {
             scrollbar-hide
             bg-gray-200
             rounded-lg
+            bg-black
             ">
             {skillTags.map((item) => (
                 <CategoryBox
@@ -55,7 +55,6 @@ const Category = () => {
             ))               
             }
         </div>
-        </Container>
     )
 }
 

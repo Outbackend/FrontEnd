@@ -6,6 +6,7 @@ import qs from 'query-string'
 import {AllItem} from "./getItem"
 import SearchButton from "../../Assets/SearchButton"
 import searchWindow from "./searchOpen";
+import Container from "../../Assets/Container";
 
 const groupStyles = {
     display: 'flex',
@@ -87,9 +88,9 @@ const Search = () => {
                 options={AllItem}
                 formatOptionLabel={formatGroupLabel}
                 classNames={{
-                    control:()=>'p-2 border-2',
-                    input:() =>'pe-3 text-xl',
-                    option:() =>'text-xl',
+                    control:()=>'p-2 border-2 w-96',
+                    input:() =>'pe-3 text-lg',
+                    option:() =>'text-lg',
                 }} 
                 theme={(theme)=>({
                     ...theme,
@@ -111,7 +112,6 @@ const Search = () => {
                 onClick={onSubmit}
             />
         </div>
-
     )
 }
 
