@@ -16,8 +16,8 @@ function App() {
       <Routes>
         <Route element={<PageLayout />}>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/userinfo" element={<UserInfo />}></Route>
-          <Route path="/userinfomodify" element={<UserInfoModify />}></Route>
+          <Route path="/userinfo/:id" element={<UserInfo />}></Route>
+          <Route path="/userinfomodify/:id" element={<UserInfoModify />}></Route>
           <Route path="/project/:id" element={<ProjectPage />}></Route>
           <Route path="/editproject" element={<ProjectPage />}></Route>
         </Route>

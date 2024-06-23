@@ -1,4 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router";
+import axios from "axios";
 
 import userDetailStore from "../../variables/States/UserDetailStore";
 
@@ -8,24 +10,35 @@ import UserProjectLog from "./UserInfo/UserProjectLog";
 import UserStack from "./UserInfo/UserStack";
 
 const UserInfo = (props) => {
-    const { userInfo, fetchData, loading, error} = userDetailStore();
+    const { id } = useParams();
+    const { userInfo, fetchData, loading, error } = userDetailStore();
+    const [ isInitialRender, setIsInitialRender ] = useState(true);
+
+    useEffect(() => {
+        if (isInitialRender) {
+            setIsInitialRender(false);
+            fetchData(id)
+        }
+    }, [isInitialRender]);
 
     return (
         <div className="pt-[100px] w-[1170px]">
-            {loading && <p>Loading...</p>}
-            {error && <p>Error: {error}</p>}
-            {userInfo && (
+            { loading && <p className="flex items-center justify-center">Loading...</p> }
+            { error && <p className="flex items-center justify-center">Error: {error}</p> }
+            { !loading && userInfo && (
                 <div>
                     <UserIcon 
-                        name={ userInfo.nickName }
-                        note={ userInfo.intro }
+                        name={ userInfo.nickname }
+                        note={ userInfo.note }
                     />
-                    <UserStack />
+                    <UserStack 
+                        link={ id }
+                    />
                     <UserDescription 
-                        description={ userInfo.about }
+                        description={ userInfo.description }
                     />
                     <UserProjectLog
-                        projectList={ userInfo.projectList }
+                        projectList={ userInfo.projectLog }
                     />
                 </div>
             )}

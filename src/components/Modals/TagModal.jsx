@@ -119,8 +119,8 @@ const TagModal = ( props ) => {
                         {stackList.map((item) => (
                             <TagsWrapper
                                 type={ handleStackList }
-                                toggle={userInfo.stackList.includes(item)}
-                                name={item}
+                                toggle={ userInfo.stackList.includes(item) }
+                                name={ item }
                             />
                         ))}
                     </div>

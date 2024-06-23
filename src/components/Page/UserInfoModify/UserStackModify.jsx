@@ -7,10 +7,14 @@ import ModifyButton from '../../Assets/ModifyButton';
 
 import userDetailStore from '../../../variables/States/UserDetailStore';
 
-const UserStackModify = () => {
-    const { userInfo, updateItem } = userDetailStore();
+const UserStackModify = ( { link } ) => {
+    const { userInfo, updateData } = userDetailStore();
 
     const [ modalOpen, setModalOpen ] = useState(false);
+
+    const updateHandler = () => {
+        updateData(link);
+    }
 
     const toggleModal = () => {
         setModalOpen(!modalOpen);
@@ -24,10 +28,20 @@ const UserStackModify = () => {
                 </div>
             </div>
             <div className='w-1/2 h-[110px] float-right relative'>
-                <div className='absolute inset-y-0 right-5 top-[30%]'>
-                    <Link to='/userinfo'>
-                        <ModifyButton placeholder="저장"/>
-                    </Link>
+                <div className='w-[220px] absolute inset-y-0 right-3 top-[30%] flex'>
+                    <div className='w-[120px] h-[45px] py-2.5 px-5 me-2 mb-2 align-bottom'>
+                        <Link to={ '/userinfo/' + link }>
+                            <div className='text-base font-bold'>
+                                <a>돌아가기</a>
+                            </div>
+                        </Link>
+                    </div>
+                    <div className=''>
+                        <ModifyButton
+                            placeholder="저장"
+                            onlick={updateHandler}
+                        />
+                    </div>
                 </div>
             </div>
             <div className='w-full top-[110px] relative'>
@@ -71,7 +85,7 @@ const UserStackModify = () => {
                             <p className='text-xl font-bold'>Stack</p>
                         </div>
                         <div className='absolute max-h-[80px] top-[50px] left-4 flex flex-wrap overflow-auto'>
-                            {userInfo.skillTagList.map((item) => (
+                            {userInfo.stackList.map((item) => (
                                 <StackWrapper name={item} />
                             ))}
                         </div>

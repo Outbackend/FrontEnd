@@ -7,7 +7,7 @@ const UserDescriptionModify = () => {
     const { userInfo, updateItem } = userDetailStore();
 
     const handleInputChange = (value) => {
-        updateItem('about', value)
+        updateItem('description', value)
     }
 
     return (
@@ -19,7 +19,7 @@ const UserDescriptionModify = () => {
             </div>
             <div className='px-4 pb-8'>
                 <MarkdownEditor
-                    value={ userInfo.about }
+                    value={ userInfo.description }
                     onChange={ handleInputChange }
                 />
             </div>
