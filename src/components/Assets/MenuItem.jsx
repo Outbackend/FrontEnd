@@ -6,7 +6,8 @@ const MenuItem = ({ onClick, label }) => {
             py-3 
             rounded-xl 
             hover:bg-neutral-100
-            font-semibold"
+            font-semibold
+            cursor-pointer"
         >
             {label}
         </div>
