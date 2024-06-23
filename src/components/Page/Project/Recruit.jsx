@@ -1,6 +1,6 @@
 import React from "react";
 
-const Recruit = ({ elem, check }) => {
+const Recruit = ({ elem, personal }) => {
   return (
     <div>
       <table className="mb-2 list-none items-center relative w-full">
@@ -8,7 +8,7 @@ const Recruit = ({ elem, check }) => {
           {elem}
         </tl>
         <tl className="px-4 py-2 bg-gray-100 rounded-full float-right">
-          {check}명
+          {personal}명
         </tl>
       </table>
     </div>
