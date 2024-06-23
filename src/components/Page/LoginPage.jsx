@@ -26,7 +26,7 @@ const LoginPage = (props) => {
 
   const loginProgcess = () => {
     if (loginForm.email == "asdf@asdf.com" && loginForm.password == "asdf") {
-      login("tokenexmaple");
+      login("tokenexmaple", "testuser");
       navigate("/");
     }
     else {

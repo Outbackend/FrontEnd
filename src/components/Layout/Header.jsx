@@ -65,7 +65,7 @@ const Header = ({ user }) => {
                   {isAuthenticated ? (
                     <>
                       <MenuItem
-                        onClick={() => navigate("/profile")}
+                        onClick={() => navigate("/userinfo")}
                         label="Profile"
                       />
                       <MenuItem

@@ -23,18 +23,27 @@ const Search = () => {
 
     const [params, setParams] = useSearchParams();
     const navigate = useNavigate();
-    const [skillTag, setSkilltag] = useState([]);
     const window = searchWindow();
-    // const [position, setPosition] = useState();
-    // const [stack, setStack] = useState();
-    // const [range, setRange ] = useState();
+    const [position, setPosition] = useState([]);
+    const [stack, setStack] = useState([]);
+    const [range, setRange ] = useState([]);
 
     const handler = (event) => {
-        const selected = []
-        event.map((value) => (
-            selected.push(value.value)
-        ))
-        setSkilltag(selected)
+        const updatedPosition = []
+        const updatedStack = []
+        const updatedRange = []
+        event.forEach((value) => {
+            if(value.group === '포지션') {
+                updatedPosition.push(value.value);
+            } else if(value.group === '스택') {
+                updatedStack.push(value.value);
+            } else if(value.group === '분야') {
+                updatedRange.push(value.value);
+            }
+    })
+        setPosition(updatedPosition)
+        setStack(updatedStack)
+        setRange(updatedRange)
     }
 
     const onSubmit = useCallback(async () => {
@@ -46,7 +55,9 @@ const Search = () => {
         }
         const updatedQuery = {
           ...currentQuery,
-          skillTag
+            position: position,
+            stack: stack,
+            range: range,
         };
         
         const url = qs.stringifyUrl({
@@ -57,7 +68,9 @@ const Search = () => {
         navigate(url)
       }, 
       [
-        skillTag,
+        position,
+        stack,
+        range,
         navigate, 
         params
       ]);
@@ -92,7 +105,7 @@ const Search = () => {
                         ':hover':{backgroundColor: '#5C9CDD'}
                     }),
                 }}
-                onChange={(e)=>{handler(e)}}
+                onChange={handler}
             />
             <SearchButton
                 onClick={onSubmit}
