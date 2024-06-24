@@ -6,6 +6,7 @@ import LoginStore from "../../variables/States/LoginStore";
 import UserInput from "./Login/LoginUserInput";
 import LoginButton from "./Login/LoginButton";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const LoginPage = (props) => {
   const { login } = LoginStore();
@@ -24,15 +25,21 @@ const LoginPage = (props) => {
     }));
   };
 
-  const loginProgcess = () => {
-    if (loginForm.email == "asdf@asdf.com" && loginForm.password == "asdf") {
-      login("tokenexmaple", "testuser");
-      navigate("/");
-    }
-    else {
-      alert("아이디와 비밀번호를 확인해주세요.");
-      return;
-    }
+  const loginProgcess = async () => {
+    await axios.post(
+      process.env.REACT_APP_API_URL + '/user/login',
+      {
+        email: loginForm.email,
+        password: loginForm.password
+      }
+    )
+    .then((response) => {
+      login(response.data['token'], response.data['userid']);
+      navigate('/');
+    })
+    .catch((error) => {
+      alert(error.response.data['message']);
+    });
   };
 
   return (

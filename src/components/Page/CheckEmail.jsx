@@ -14,6 +14,17 @@ const CheckEmail = () => {
         setVerifiyCode(e.target.value);
     }
 
+    const resendVerifyEmail = async () => {
+        try {
+            const response = await axios.post(
+                process.env.REACT_APP_API_URL + '/user/resend',
+                { email : location.state.email }
+            )
+        } catch (e) {
+            alert(e);
+        }
+    }
+
     const verifyProcess = async () => {
         try {
             const response = await axios.post(
@@ -41,9 +52,17 @@ const CheckEmail = () => {
                     className="absolute bottom-0 w-[360px] h-[320px]"
                     onChange={ handleInputChange }
                 >
+                    <div className='w-full h-[30px] select-none'>
+                        <div 
+                            className='w-[200px] absolute right-0 text-right'
+                            onClick={ resendVerifyEmail }
+                        >
+                            <a className='text-gray-500'>이메일 다시 전송하기</a>
+                        </div>
+                    </div>
                     <UserInput
                         type="text"
-                        placeholder="이메일 확인"
+                        placeholder="이메일 인증 번호"
                         name="verifiyCode"
                         value={ verifiyCode }
                     />

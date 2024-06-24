@@ -12,8 +12,9 @@ const UserStackModify = ( { link } ) => {
 
     const [ modalOpen, setModalOpen ] = useState(false);
 
-    const updateHandler = () => {
+    const updateHandler = async () => {
         updateData(link);
+        alert("저장되었습니다.");
     }
 
     const toggleModal = () => {
@@ -39,7 +40,7 @@ const UserStackModify = ( { link } ) => {
                     <div className=''>
                         <ModifyButton
                             placeholder="저장"
-                            onlick={updateHandler}
+                            onclick={ updateHandler }
                         />
                     </div>
                 </div>
@@ -53,20 +54,18 @@ const UserStackModify = ( { link } ) => {
                                 <button type="button" 
                                     className="w-[70px] h-[25px] text-white focus:outline-none bg-[#7eb7ec] rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-[#7eb7ec] 
                                     dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                    onClick={toggleModal}
+                                    onClick={ toggleModal }
                                 >
                                     <p className='text-xs select-none'>수정</p>
                                 </button>
                                 {modalOpen && (
-                                    <TagModal open={modalOpen} close={toggleModal}>
-                                        fdsfsdsdg
-                                    </TagModal>
+                                    <TagModal open={modalOpen} close={ toggleModal } />
                                 )}
                             </div>
                         </div>
                         <div className='absolute max-h-[80px] top-[50px] left-4 flex flex-wrap overflow-auto'>
                             {userInfo.rangeList.map((item) => (
-                                <StackWrapper name={item} />
+                                <StackWrapper name={ item } />
                             ))}
                         </div>
                     </div>
@@ -76,7 +75,7 @@ const UserStackModify = ( { link } ) => {
                         </div>
                         <div className='absolute max-h-[80px] top-[50px] left-4 flex flex-wrap overflow-auto'>
                             {userInfo.positionList.map((item) => (
-                                <StackWrapper name={item} />
+                                <StackWrapper name={ item } />
                             ))}
                         </div>
                     </div>
@@ -86,7 +85,7 @@ const UserStackModify = ( { link } ) => {
                         </div>
                         <div className='absolute max-h-[80px] top-[50px] left-4 flex flex-wrap overflow-auto'>
                             {userInfo.stackList.map((item) => (
-                                <StackWrapper name={item} />
+                                <StackWrapper name={ item } />
                             ))}
                         </div>
                     </div>
