@@ -17,7 +17,7 @@ const TagModal = ( props ) => {
         deleteRangeList, deletePositionList, deleteStackList
     } = userDetailStore();
 
-    const { open, close, children } = props
+    const { close } = props
 
     const [ keyword, setKeyword ] = useState('');
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import PageLayout from "./components/Layout/Layout";
 import UserInfo from "./components/Page/UserInfo";
 import LoginPage from "./components/Page/LoginPage";
@@ -8,9 +8,9 @@ import UserInfoModify from "./components/Page/UserInfoModify";
 import Home from "./components/Page/Home";
 import ProjectPage from "./components/Page/ProjectPage";
 import AuthPage from "./components/Page/Auth";
+import CheckEmail from "./components/Page/CheckEmail";
 
 function App() {
-  const { id } = useParams();
 
   return (
     <div className="App">
@@ -24,6 +24,7 @@ function App() {
         </Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/auth" element={<AuthPage />}></Route>
+        <Route path='/checkemail' element={<CheckEmail />}></Route>
         <Route path="/*" element={<div>404</div>}></Route>
       </Routes>
     </div>
