@@ -1,9 +1,16 @@
+import React, { useState } from "react";
+
 import Categories from "./Home/Category";
 import ProjectList from "./Home/ProjectList";
 import Container from "../Assets/Container";
 import Search from "./Search/Search";
 
 const Home = () => {
+  const [searchTerm, setSearchTerm] = useState('')
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  }
+
   return (
     <Container>
       <div className="text-center pt-32">
@@ -12,8 +19,8 @@ const Home = () => {
         </h3>
       </div>
       <Categories />
-      <Search />
-      <ProjectList />
+      <Search onSearch={handleSearch}/>
+      <ProjectList searchTerm={searchTerm}/>
     </Container>
   );
 };

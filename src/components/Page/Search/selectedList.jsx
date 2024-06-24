@@ -27,19 +27,19 @@ const SelectedList = () => {
         <div className="flex gap-2 mt-1 h-6">
             기 &nbsp; 술 ||
             {stackList.map((stack) => (
-            <div className="rounded-full bg-white mt-1 px-2 text-sm shadow">{stack}</div>
+            <div className="rounded-full bg-white mt-1 px-4 text-sm shadow">{stack}</div>
             ))}
         </div>
         <div className="flex gap-2 mt-1 h-6">
             포지션 ||
             {positionList.map((position) => (
-            <div className="rounded-full bg-white mt-1 px-2 text-sm shadow">{position}</div>
+            <div className="rounded-full bg-white mt-1 px-4 text-sm shadow">{position}</div>
             ))}
         </div>
         <div className="flex gap-2 mt-1 h-6">
             분 &nbsp; 야 ||
             {rangeList.map((range) => (
-            <div className="rounded-full bg-white mt-1 px-2 text-sm shadow">{range}</div>
+            <div className="rounded-full bg-white mt-1 px-4 text-sm shadow">{range}</div>
             ))}
         </div>
         <div className="cursor-pointer rounded-lg w-24 text-center bg-white mt-4 text-sm shadow-md"
