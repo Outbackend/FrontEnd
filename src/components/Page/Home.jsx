@@ -1,9 +1,12 @@
+import React, { useState } from "react";
+
 import Categories from "./Home/Category";
 import ProjectList from "./Home/ProjectList";
 import Container from "../Assets/Container";
-import Search from "./Home/Search";
+import Search from "./Search/Search";
 
 const Home = () => {
+
   return (
     <Container>
       <div className="text-center pt-32">
@@ -12,8 +15,8 @@ const Home = () => {
         </h3>
       </div>
       <Categories />
-      <Search />
-      <ProjectList />
+      <Search/>
+      <ProjectList/>
     </Container>
   );
 };

@@ -18,7 +18,7 @@ const EditProject = ({ project, id, onEditChange }) => {
   const [current, setCurrent] = useState(project ? project.inNow : []); // 현재 분야 및 인원
   const [status, setStatus] = useState(project ? project.status : "");
 
-  const baseUrl = "http://47.128.234.198:5000";
+  const baseUrl = "http://13.212.106.4:5000";
 
   const navigate = useNavigate();
   const isNewProject = !project;
