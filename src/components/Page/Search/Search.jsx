@@ -1,15 +1,16 @@
 import Select from "react-select"
 import { IoIosArrowDown } from "react-icons/io";
-import { useCallback, useEffect, useState} from "react";
+import { useCallback, useState} from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import qs from 'query-string'
 
-import {AllItem} from "../Home/getItem"
+import {AllItem} from "./getItem"
 import SearchButton from "../../Assets/SearchButton"
 import searchWindow from "../Home/searchOpen";
 import StackSelectList from "./StackSelectList";
 import PositionSelectList from "./PositionSelectList";
 import RangeSelectList from "./RangeSelectList";
+import SelectedList from "./selectedList";
 
 const groupStyles = {
     display: 'flex',
@@ -90,6 +91,7 @@ const Search = () => {
     }
 
     return(
+        <div>
         <div className="pt-7 flex justify-center gap-3 truncate">
             <div className="flex gap-3">
                 <div className="pt-3 overflow-hidden">
@@ -146,6 +148,8 @@ const Search = () => {
             <SearchButton
                 onClick={onSubmit}
             />
+        </div>
+            <SelectedList/>
         </div>
     )
 }

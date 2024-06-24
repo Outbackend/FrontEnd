@@ -45,6 +45,7 @@ const Category = () => {
             bg-gray-200
             rounded-lg
             bg-black
+            shadow-md
             ">
             {skillTags.map((item) => (
                 <CategoryBox

@@ -14,12 +14,11 @@ const ProjectList = () => {
 
     return(
         <div className="
-            pt-12
             grid 
             grid-cols-auto-fill
             justify-center
             gap-8
-            my-10px
+            my-5
             py-10px">
             {Projects.filter((project) => {
                 if(positionList.length === 0 && stackList.length === 0 && rangeList.length === 0) return true
