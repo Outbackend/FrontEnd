@@ -107,7 +107,7 @@ const ProjectDetail = () => {
                     ))}
                 </div>
               </div>
-              <Project project={project} id={id} />
+              <Project project={project} id={id} onEditChange={setIsEditing} />
               <Comment projectId={id} initialComments={comment} />
             </div>
           )}
