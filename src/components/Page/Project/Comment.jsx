@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useLoginStore from "../../../variables/States/LoginStore";
@@ -7,8 +7,6 @@ const Comment = ({ projectId, initialComments }) => {
   const [comments, setComments] = useState(initialComments);
   const [newComment, setNewComment] = useState("");
   const [replyComment, setReplyComment] = useState("");
-  const [editingComment, setEditingComment] = useState(null);
-  const [editCommentText, setEditCommentText] = useState("");
   const [parentCommentId, setParentCommentId] = useState(null);
   const { user } = useLoginStore((state) => ({ user: state.user }));
   const navigate = useNavigate();
@@ -21,10 +19,6 @@ const Comment = ({ projectId, initialComments }) => {
 
   const handleReplyCommentChange = (e) => {
     setReplyComment(e.target.value);
-  };
-
-  const handleEditCommentChange = (e) => {
-    setEditCommentText(e.target.value);
   };
 
   const formatDate = (datetime) => {
@@ -83,38 +77,6 @@ const Comment = ({ projectId, initialComments }) => {
     setParentCommentId(commentId);
   };
 
-  const handleEditComment = (comment) => {
-    setEditingComment(comment.id);
-    setEditCommentText(comment.content);
-  };
-
-  // 댓글 수정
-  const handleSaveEditComment = async (commentId) => {
-    try {
-      const updatedCommentObject = {
-        content: editCommentText,
-        projectId: projectId,
-        parentId: comments.find((comment) => comment.id === commentId).parentId,
-        userId: user.id,
-      };
-      await axios.put(
-        `${baseUrl}/project/${projectId}/comment`,
-        updatedCommentObject
-      );
-      setComments(
-        comments.map((comment) =>
-          comment.id === commentId
-            ? { ...comment, content: editCommentText }
-            : comment
-        )
-      );
-      setEditingComment(null);
-      setEditCommentText("");
-    } catch (error) {
-      console.error("Error updating comment:", error);
-    }
-  };
-
   // 댓글 삭제
   const handleDeleteComment = async (commentId) => {
     try {
@@ -122,8 +84,6 @@ const Comment = ({ projectId, initialComments }) => {
         data: { commentId: commentId },
       });
       setComments(comments.filter((comment) => comment.id !== commentId));
-      setEditingComment(null);
-      setEditCommentText("");
     } catch (error) {
       console.error("Error deleting comment:", error);
     }
@@ -179,54 +139,28 @@ const Comment = ({ projectId, initialComments }) => {
                   </div>
                 </div>
                 <div className="ml-13 text-gray-700">
-                  {editingComment === c.id ? (
-                    <div>
-                      <textarea
-                        className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-200"
-                        value={editCommentText}
-                        onChange={handleEditCommentChange}
-                      />
-                      <div className="mt-2 space-x-2">
-                        <button
-                          className="px-3 py-1 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 transition duration-200"
-                          onClick={() => handleSaveEditComment(c.id)}
-                        >
-                          저장
-                        </button>
-                        <button
-                          className="px-3 py-1 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50 transition duration-200"
-                          onClick={() => handleDeleteComment(c.id)}
-                        >
-                          삭제
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    <div>
-                      <div className="mb-1">{c.content}</div>
-                      <div className="text-xs text-gray-500">
-                        {formatDate(c.datetime)}
-                      </div>
-                    </div>
-                  )}
+                  <div className="mb-1">{c.content}</div>
+                  <div className="text-xs text-gray-500">
+                    {formatDate(c.datetime)}
+                  </div>
                 </div>
                 <div className="mt-2 space-x-2">
                   {user && (
                     <div className="mt-2 space-x-2">
-                      {user.id === c.userId && editingComment !== c.id && (
-                        <button
-                          className="text-sm text-blue-500 hover:text-blue-600 transition duration-200"
-                          onClick={() => handleEditComment(c)}
-                        >
-                          수정
-                        </button>
-                      )}
                       <button
                         className="text-sm text-blue-500 hover:text-blue-600 transition duration-200"
                         onClick={() => handleReplyComment(c.id)}
                       >
                         답글달기
                       </button>
+                      {user.id === c.userId && (
+                        <button
+                          className="text-sm text-red-500 hover:text-red-600 transition duration-200"
+                          onClick={() => handleDeleteComment(c.id)}
+                        >
+                          삭제
+                        </button>
+                      )}
                     </div>
                   )}
                 </div>
@@ -236,7 +170,37 @@ const Comment = ({ projectId, initialComments }) => {
                     <div
                       key={reply.id}
                       className="ml-8 mt-4 p-3 bg-gray-50 border border-gray-200 rounded-lg"
-                    ></div>
+                    >
+                      <div className="flex items-center mb-2">
+                        <img
+                          src="/UserDefault.jpg"
+                          className="w-8 h-8 rounded-full mr-3"
+                          alt="User Avatar"
+                        />
+                        <div
+                          className="text-sm font-medium text-gray-900 cursor-pointer hover:text-blue-500 transition duration-200"
+                          onClick={() => navigate(`/User/${reply.userId}`)}
+                        >
+                          user {reply.userId}
+                        </div>
+                      </div>
+                      <div className="ml-13 text-gray-700">
+                        <div className="mb-1">{reply.content}</div>
+                        <div className="text-xs text-gray-500">
+                          {formatDate(reply.datetime)}
+                        </div>
+                      </div>
+                      <div className="mt-2 space-x-2">
+                        {user && user.id === reply.userId && (
+                          <button
+                            className="text-sm text-red-500 hover:text-red-600 transition duration-200"
+                            onClick={() => handleDeleteComment(reply.id)}
+                          >
+                            삭제
+                          </button>
+                        )}
+                      </div>
+                    </div>
                   ))}
               </div>
             ))
