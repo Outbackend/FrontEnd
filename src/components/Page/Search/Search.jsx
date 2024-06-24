@@ -1,12 +1,15 @@
 import Select from "react-select"
+import { IoIosArrowDown } from "react-icons/io";
 import { useCallback, useEffect, useState} from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import qs from 'query-string'
 
-import {AllItem} from "./getItem"
+import {AllItem} from "../Home/getItem"
 import SearchButton from "../../Assets/SearchButton"
-import searchWindow from "./searchOpen";
-import Container from "../../Assets/Container";
+import searchWindow from "../Home/searchOpen";
+import StackSelectList from "./StackSelectList";
+import PositionSelectList from "./PositionSelectList";
+import RangeSelectList from "./RangeSelectList";
 
 const groupStyles = {
     display: 'flex',
@@ -28,6 +31,12 @@ const Search = () => {
     const [position, setPosition] = useState([]);
     const [stack, setStack] = useState([]);
     const [range, setRange ] = useState([]);
+
+    const [isOpen, setIsOpen] = useState(null);
+    const toggleOpen = useCallback((selectName) => {
+        console.log(selectName)
+        setIsOpen((prevSelect) => (prevSelect === selectName ? null : selectName))
+    },[])
 
     const handler = (event) => {
         const updatedPosition = []
@@ -81,14 +90,40 @@ const Search = () => {
     }
 
     return(
-        <div className="pt-7 flex justify-center gap-3">
+        <div className="pt-7 flex justify-center gap-3 truncate">
+            <div className="flex gap-3">
+                <div className="pt-3 overflow-hidden">
+                    <div className={`flex gap-2 rounded-full border-2 py-1 pl-5 pr-3 mb-1 cursor-pointer 
+                            ${isOpen === 'stack' ? 'border-[#5C9CDD]' : 'border-gray'} `}
+                        onClick={()=>toggleOpen('stack')}>기술
+                        <IoIosArrowDown style={{margin:'5px'}} />
+                    </div>
+                    {isOpen === 'stack' && <StackSelectList/>}
+                </div>
+                <div className="pt-3">
+                    <div className={`flex gap-2 rounded-full border-2 py-1 pl-5 pr-3 mb-1 cursor-pointer 
+                            ${isOpen === 'position' ? 'border-[#5C9CDD]' : 'border-gray'} `}
+                        onClick={()=>toggleOpen('position')}>포지션
+                        <IoIosArrowDown style={{margin:'5px'}}/>
+                    </div>
+                    {isOpen === 'position' && <PositionSelectList/>}
+                </div>
+                <div className="pt-3">
+                    <div className={`flex gap-2 rounded-full border-2 py-1 pl-5 pr-3 mb-1 cursor-pointer 
+                            ${isOpen === 'range' ? 'border-[#5C9CDD]' : 'border-gray'} `}
+                        onClick={()=>toggleOpen('range')}>분야
+                        <IoIosArrowDown style={{margin:'5px'}}/>
+                    </div>
+                    {isOpen === 'range' && <RangeSelectList/>}
+                </div>
+            </div>
             <Select
                 placeholder="검색어를 입력하세요"
                 isMulti
                 options={AllItem}
                 formatOptionLabel={formatGroupLabel}
                 classNames={{
-                    control:()=>'p-2 border-2 w-96',
+                    control:()=>'p-2 border-2',
                     input:() =>'pe-3 text-lg',
                     option:() =>'text-lg',
                 }} 

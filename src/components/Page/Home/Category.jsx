@@ -1,6 +1,5 @@
-import { useSearchParams } from "react-router-dom"
+import React, { useState } from "react";
 import CategoryBox from "./CategoryBox";
-import Container from "../../Assets/Container"
 import searchOpen from "./searchOpen"
 
 export const skillTags = [
@@ -23,11 +22,12 @@ export const skillTags = [
 
 const Category = () => {
 
-    const [params, setParams] = useSearchParams();
-    const position = params?.get("position")
-    const stack = params?.get("stack")
-    const range = params?.get("range")
     const window = searchOpen();
+    const [selected, setSelected] = useState('ALL');
+
+    const handleSelect = (item) => {
+        setSelected(item);
+    }
 
     if (window.isOpen){
         return null;
@@ -50,7 +50,8 @@ const Category = () => {
                 <CategoryBox
                     key={item.label}
                     item={item}
-                    selected={position===item.value || stack===item.value || range===item.value}
+                    selected={selected === item.value}
+                    handleSelect={handleSelect}
                 />
             ))               
             }

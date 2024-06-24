@@ -1,7 +1,7 @@
 import Categories from "./Home/Category";
 import ProjectList from "./Home/ProjectList";
 import Container from "../Assets/Container";
-import Search from "./Home/Search";
+import Search from "./Search/Search";
 
 const Home = () => {
   return (
