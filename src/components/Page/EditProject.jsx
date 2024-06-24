@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import ConfirmationModal from "../Modals/Confirmation";
 import StatusSelect from "./Project/StatusSelect"; // 새로운 StatusSelect 컴포넌트를 임포트
 
-const EditProject = ({ project, id }) => {
+const EditProject = ({ project, id, onEditChange }) => {
   const [title, setTitle] = useState(project ? project.name : ""); // 제목
   const [value, setValue] = useState(project ? project.description : ""); // 설명
   const [skillTag, setSkillTag] = useState(project ? project.stack : []); // 사용 스킬
@@ -45,7 +45,7 @@ const EditProject = ({ project, id }) => {
       } else {
         await axios.post(`${baseUrl}/project/${id}`, updatedProject); // 수정
       }
-      navigate(`/projects/${id}`);
+      window.location.reload();
     } catch (error) {
       console.error("프로젝트 저장 중 오류 발생:", error);
     }
@@ -61,7 +61,7 @@ const EditProject = ({ project, id }) => {
   const confirmDelete = async () => {
     try {
       await axios.delete(`${baseUrl}/project/${id}`); // 삭제
-      navigate("/"); // 홈 페이지나 다른 적절한 페이지로 이동
+      navigate("/"); // 홈 페이지로 이동
     } catch (error) {
       console.error("프로젝트 삭제 중 오류 발생:", error);
     }
