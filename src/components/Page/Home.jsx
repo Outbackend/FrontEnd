@@ -6,10 +6,6 @@ import Container from "../Assets/Container";
 import Search from "./Search/Search";
 
 const Home = () => {
-  const [searchTerm, setSearchTerm] = useState('')
-  const handleSearch = (term) => {
-    setSearchTerm(term);
-  }
 
   return (
     <Container>
@@ -19,8 +15,8 @@ const Home = () => {
         </h3>
       </div>
       <Categories />
-      <Search onSearch={handleSearch}/>
-      <ProjectList searchTerm={searchTerm}/>
+      <Search/>
+      <ProjectList/>
     </Container>
   );
 };

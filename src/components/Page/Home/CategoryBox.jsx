@@ -10,8 +10,10 @@ const CategoryBox = ({item, selected, handleSelect}) => {
             resetStack()
             handleSelect('ALL')
         } else {
-            if(item.value === 'ALL')
+            if(item.value === 'ALL'){
                 resetStack();
+                handleSelect('ALL');
+            }
             else{
                 handleSelect(item.value);
                 if (item.group === 'stack') {

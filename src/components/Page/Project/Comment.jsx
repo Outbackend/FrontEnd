@@ -13,7 +13,7 @@ const Comment = ({ projectId, initialComments }) => {
   const { user } = useLoginStore((state) => ({ user: state.user }));
   const navigate = useNavigate();
 
-  const baseUrl = "http://47.128.234.198:5000";
+  const baseUrl = "http://13.212.106.4:5000";
 
   const handleCommentChange = (e) => {
     setNewComment(e.target.value);

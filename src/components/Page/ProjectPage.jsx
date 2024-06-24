@@ -17,7 +17,7 @@ const ProjectDetail = () => {
     user: state.user,
   }));
 
-  const baseUrl = "http://47.128.234.198:5000";
+  const baseUrl = "http://13.212.106.4:5000";
 
   const getProject = async () => {
     try {

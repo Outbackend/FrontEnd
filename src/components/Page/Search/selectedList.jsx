@@ -14,6 +14,7 @@ const SelectedList = () => {
       setStackList(state.stacks.stackList);
       setPositionList(state.stacks.positionList);
       setRangeList(state.stacks.rangeList);
+      
     });
 
     return () => {

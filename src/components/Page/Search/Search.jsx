@@ -7,11 +7,13 @@ import StackSelectList from "./StackSelectList";
 import PositionSelectList from "./PositionSelectList";
 import RangeSelectList from "./RangeSelectList";
 import SelectedList from "./selectedList";
+import useStackStore from "../../../variables/States/StackStore";
 
 const Search = ({onSearch}) => {
 
     const window = searchWindow();
-    const [searchTerm, setsearchTerm] = useState('');
+    const setSearchTerm = useStackStore((state) => state.setSearchTerm)
+    const [inputValue, setInputValue] = useState('');
 
     const [isOpen, setIsOpen] = useState(null);
     const toggleOpen = useCallback((selectName) => {
@@ -21,12 +23,12 @@ const Search = ({onSearch}) => {
 
     const handleSearch = (event) => {
         const value = event.target.value;
-        setsearchTerm(value);
+        setInputValue(value);
     }
 
     const onSubmit = useCallback(() => {
-        onSearch(searchTerm)
-    },[searchTerm, onSearch])
+        setSearchTerm(inputValue)
+    },[inputValue, setSearchTerm])
     
     if(!window.isOpen){
         return null;
@@ -65,11 +67,9 @@ const Search = ({onSearch}) => {
                 <input
                     type="text"
                     placeholder="검색어를 입력하세요"
-                    value={searchTerm}
                     onChange={handleSearch}
                     className="border-2 w-72 rounded-2xl pl-2 float-right"
-                    >
-                </input>
+                />
                 <SearchButton onClick={onSubmit}/>
             </div>
         </div>
