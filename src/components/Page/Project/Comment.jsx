@@ -101,7 +101,7 @@ const Comment = ({ projectId, initialComments }) => {
             onChange={handleCommentChange}
           />
           <button
-            className="mt-2 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 transition duration-200"
+            className="mt-2 px-4 py-2 bg-blue-200 text-gray-600 font-semibold rounded-lg hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 transition duration-200"
             onClick={handleAddComment}
           >
             댓글달기
@@ -215,7 +215,7 @@ const Comment = ({ projectId, initialComments }) => {
             onChange={handleReplyCommentChange}
           />
           <button
-            className="mt-2 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 transition duration-200"
+            className="mt-2 px-4 py-2 bg-blue-200 text-gray-700 font-semibold rounded-lg hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 transition duration-200"
             onClick={handleAddReplyComment}
           >
             답글달기

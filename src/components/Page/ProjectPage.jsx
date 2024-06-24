@@ -4,7 +4,7 @@ import Project from "./Project/Project";
 import EditProject from "./EditProject";
 import Comment from "./Project/Comment";
 import useLoginStore from "../../variables/States/LoginStore";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ProjectDetail = () => {
   const { id } = useParams();
@@ -12,6 +12,7 @@ const ProjectDetail = () => {
   const [project, setProject] = useState(null);
   const [comment, setComment] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate();
   const { isAuthenticated, user } = useLoginStore((state) => ({
     isAuthenticated: state.isAuthenticated,
     user: state.user,
@@ -61,8 +62,11 @@ const ProjectDetail = () => {
 
   return (
     <div>
-      {id ? (
-        <h1>loading...</h1>
+      {loading ? (
+        <div>
+          <h3>잠시만 기다려주세요.</h3>
+          <img src={"/Spin.gif"} alt="로딩" width="10%" />
+        </div>
       ) : project ? (
         <div className="max-w-[1400px] min-w-[722px] m-auto pt-32">
           {isEditing ? (
@@ -108,13 +112,22 @@ const ProjectDetail = () => {
             </div>
           )}
         </div>
-      ) : user ? (
-        <div className="max-w-[1400px] min-w-[722px] m-auto pt-32">
-          {/* <EditProject />{" "} */}
-          {/* 해당 id를 가진 project가 없는 경우 프로젝트 생성*/}
-        </div>
       ) : (
-        {}
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75 z-50">
+          <div className="bg-white p-8 rounded shadow-lg max-w-md">
+            <p className="text-lg text-gray-800 mb-4">
+              존재하지 않는 프로젝트입니다.
+            </p>
+            <div className="flex justify-end">
+              <button
+                onClick={() => navigate("/")}
+                className="px-4 py-2 mr-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded"
+              >
+                홈페이지로 이동
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

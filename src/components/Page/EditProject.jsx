@@ -45,7 +45,7 @@ const EditProject = ({ project, id }) => {
       } else {
         await axios.post(`${baseUrl}/project/${id}`, updatedProject); // 수정
       }
-      navigate(`/projects/${id}`);
+      navigate(`/project/${id}`);
     } catch (error) {
       console.error("프로젝트 저장 중 오류 발생:", error);
     }
@@ -61,7 +61,7 @@ const EditProject = ({ project, id }) => {
   const confirmDelete = async () => {
     try {
       await axios.delete(`${baseUrl}/project/${id}`); // 삭제
-      navigate("/"); // 홈 페이지나 다른 적절한 페이지로 이동
+      navigate("/"); // 홈 페이지로 이동
     } catch (error) {
       console.error("프로젝트 삭제 중 오류 발생:", error);
     }
