@@ -67,14 +67,14 @@ const ProjectDetail = () => {
           <img src={"/Spin.gif"} alt="로딩" width="10%" />
         </div>
       ) : project ? (
-        <div className="max-w-[1400px] min-w-[722px] m-auto pt-32 pb-10">
+        <div className="max-w-[1400px] min-w-[722px] m-auto pb-10">
           {isEditing ? ( //수정상태이면 EditProject
             <div>
               <EditProject project={project} id={id} />
             </div>
           ) : (
             // 수정하지 않는 상태이면 현상태 출력
-            <div className="">
+            <div className="pt-32">
               <div className="flex items-center space-x-2 pt-4">
                 <div className="flex items-center space-x-2 w-full">
                   <span
