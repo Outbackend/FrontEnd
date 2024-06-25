@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { SlArrowRight } from "react-icons/sl";
+import { Link, useNavigate } from "react-router-dom";
 
 import LoginStore from "../../variables/States/LoginStore";
 
 import UserInput from "./Login/LoginUserInput";
 import LoginButton from "./Login/LoginButton";
-import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const LoginPage = (props) => {

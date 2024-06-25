@@ -19,7 +19,7 @@ const UserStack = ({ link }) => {
                 </div>
             </div>
             <div className='w-1/2 h-[110px] float-right relative'>
-                {isAuthenticated ? 
+                {isAuthenticated && user == link ? 
                     <div className='absolute inset-y-0 right-5 top-[30%]'>
                     <Link to={ '/userinfomodify/' + link }>
                         <ModifyButton placeholder="수정"/>

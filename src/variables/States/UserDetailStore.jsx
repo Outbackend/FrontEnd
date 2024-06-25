@@ -35,7 +35,7 @@ const userDetailStore = create((set, get) => ({
         },
     })),
 
-    updateData: async (id) => {
+    updateData: async (token, id) => {
       try {
         const data = {
           "nickname": get().userInfo.nickname,
@@ -47,7 +47,8 @@ const userDetailStore = create((set, get) => ({
         }
         const response = await axios.post(
           process.env.REACT_APP_API_URL + '/user/' + id,
-          data
+          data,
+          { headers: { Authorization: `Bearer ${token}` } }
         )
       } catch (error) {
         set({ error: error.message, loading: false });

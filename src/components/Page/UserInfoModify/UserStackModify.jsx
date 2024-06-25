@@ -2,18 +2,24 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import TagModal from '../../Modals/TagModal';
 
+import userDetailStore from '../../../variables/States/UserDetailStore';
+import LoginStore from '../../../variables/States/LoginStore';
+
 import StackWrapper from '../UserInfo/StackWrapper';
 import ModifyButton from '../../Assets/ModifyButton';
 
-import userDetailStore from '../../../variables/States/UserDetailStore';
-
 const UserStackModify = ( { link } ) => {
-    const { userInfo, updateData } = userDetailStore();
+    const { userInfo, updateData, error } = userDetailStore();
+    const { token } = LoginStore();
 
     const [ modalOpen, setModalOpen ] = useState(false);
 
     const updateHandler = async () => {
-        updateData(link);
+        try {
+            updateData(token, link);
+        } catch (e) {
+            alert(error);
+        }
         alert("저장되었습니다.");
     }
 

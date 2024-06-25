@@ -18,11 +18,7 @@ const LoginStore = create(
                     try {
                         axios.post(
                             process.env.REACT_APP_API_URL + '/user/logout',
-                            {
-                                headers: {
-                                    Authorization: `Bearer ${get().token}`
-                                }
-                            }
+                            { headers: { Authorization: `Bearer ${get().token}` } }
                         )
                     } catch (error) {
                         alert('로그아웃에 실패했습니다.');
