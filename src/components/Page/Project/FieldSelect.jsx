@@ -27,7 +27,6 @@ const FieldSelect = ({ initialField = "", onFieldChange }) => {
       onChange={handleSelectChange}
       options={Range}
       placeholder={initialField}
-      isClearable
       styles={{
         control: (provided) => ({
           ...provided,
