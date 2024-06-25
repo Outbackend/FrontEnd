@@ -9,6 +9,7 @@ import Home from "./components/Page/Home";
 import ProjectPage from "./components/Page/ProjectPage";
 import AuthPage from "./components/Page/Auth";
 import CheckEmail from "./components/Page/CheckEmail";
+import EditProject from "./components/Page/EditProject";
 
 function App() {
 
@@ -20,7 +21,7 @@ function App() {
           <Route path="/userinfo/:id" element={<UserInfo />}></Route>
           <Route path="/userinfomodify/:id" element={<UserInfoModify />}></Route>
           <Route path="/project/:id" element={<ProjectPage />}></Route>
-          <Route path="/editproject" element={<ProjectPage />}></Route>
+          <Route path="/editproject" element={<EditProject />}></Route>
         </Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/auth" element={<AuthPage />}></Route>
