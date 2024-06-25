@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useLoginStore from "../../../variables/States/LoginStore";
+import userDetailStore from "../../../variables/States/UserDetailStore";
 
 const Comment = ({ projectId, initialComments }) => {
   const [comments, setComments] = useState(initialComments);
@@ -9,9 +10,8 @@ const Comment = ({ projectId, initialComments }) => {
   const [replyComment, setReplyComment] = useState("");
   const [parentCommentId, setParentCommentId] = useState(null);
   const { user } = useLoginStore((state) => ({ user: state.user }));
+  const { fetchData } = userDetailStore();
   const navigate = useNavigate();
-
-  const baseUrl = "http://13.212.106.4:5000";
 
   const handleCommentChange = (e) => {
     setNewComment(e.target.value);
@@ -31,14 +31,13 @@ const Comment = ({ projectId, initialComments }) => {
     if (newComment.trim() !== "") {
       const newCommentObject = {
         content: newComment,
-        userId: user.id,
         projectId: projectId,
         parentId: parentCommentId,
       };
 
       try {
         const response = await axios.post(
-          `${baseUrl}/project/${projectId}/comment`,
+          `${process.env.REACT_APP_API_URL}/project/${projectId}/comment`,
           newCommentObject
         );
         setComments([...comments, response.data]);
@@ -54,14 +53,13 @@ const Comment = ({ projectId, initialComments }) => {
     if (replyComment.trim() !== "") {
       const newReplyCommentObject = {
         content: replyComment,
-        userId: user.id,
         projectId: projectId,
         parentId: parentCommentId,
       };
 
       try {
         const response = await axios.post(
-          `${baseUrl}/project/${projectId}/comment`,
+          `${process.env.REACT_APP_API_URL}/project/${projectId}/comment`,
           newReplyCommentObject
         );
         setComments([...comments, response.data]);
@@ -73,6 +71,16 @@ const Comment = ({ projectId, initialComments }) => {
     }
   };
 
+  const fetchNickname = async (userId) => {
+    try {
+      const response = await fetchData(userId);
+      return response.userInfo.nickname;
+    } catch (error) {
+      console.error("Error fetching user nickname:", error);
+      return "Unknown";
+    }
+  };
+
   const handleReplyComment = (commentId) => {
     setParentCommentId(commentId);
   };
@@ -80,18 +88,35 @@ const Comment = ({ projectId, initialComments }) => {
   // 댓글 삭제
   const handleDeleteComment = async (commentId) => {
     try {
-      await axios.delete(`${baseUrl}/project/${projectId}/comment`, {
-        data: { commentId: commentId },
-      });
+      await axios.delete(
+        `${process.env.REACT_APP_API_URL}/project/${projectId}/comment`,
+        {
+          data: { commentId: commentId },
+        }
+      );
       setComments(comments.filter((comment) => comment.id !== commentId));
     } catch (error) {
       console.error("Error deleting comment:", error);
     }
   };
 
+  useEffect(() => {
+    const loadNicknames = async () => {
+      const updatedComments = await Promise.all(
+        comments.map(async (comment) => {
+          const nickname = await fetchNickname(comment.userId);
+          return { ...comment, nickname };
+        })
+      );
+      setComments(updatedComments);
+    };
+
+    loadNicknames();
+  }, [comments]);
+
   return (
-    <div className="mt-8 w-full max-w-2xl">
-      <h3 className="text-2xl font-bold mb-6 text-gray-800">댓글</h3>
+    <div className="mt-8 w-full">
+      <h3 className="text-xl font-bold mb-6 text-gray-800">댓글</h3>
       {user ? (
         <div className="mb-6">
           <textarea
@@ -135,7 +160,7 @@ const Comment = ({ projectId, initialComments }) => {
                     className="text-sm font-medium text-gray-900 cursor-pointer hover:text-blue-500 transition duration-200"
                     onClick={() => navigate(`/User/${c.userId}`)}
                   >
-                    user {c.userId}
+                    {c.nickname || `user ${c.userId}`}
                   </div>
                 </div>
                 <div className="ml-13 text-gray-700">
@@ -153,7 +178,7 @@ const Comment = ({ projectId, initialComments }) => {
                       >
                         답글달기
                       </button>
-                      {user.id === c.userId && (
+                      {user === c.userId && (
                         <button
                           className="text-sm text-red-500 hover:text-red-600 transition duration-200"
                           onClick={() => handleDeleteComment(c.id)}
@@ -181,7 +206,7 @@ const Comment = ({ projectId, initialComments }) => {
                           className="text-sm font-medium text-gray-900 cursor-pointer hover:text-blue-500 transition duration-200"
                           onClick={() => navigate(`/User/${reply.userId}`)}
                         >
-                          user {reply.userId}
+                          {reply.nickname || `user ${reply.userId}`}
                         </div>
                       </div>
                       <div className="ml-13 text-gray-700">
@@ -191,7 +216,7 @@ const Comment = ({ projectId, initialComments }) => {
                         </div>
                       </div>
                       <div className="mt-2 space-x-2">
-                        {user && user.id === reply.userId && (
+                        {user && user === reply.userId && (
                           <button
                             className="text-sm text-red-500 hover:text-red-600 transition duration-200"
                             onClick={() => handleDeleteComment(reply.id)}

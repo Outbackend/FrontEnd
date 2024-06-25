@@ -7,8 +7,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ConfirmationModal from "../Modals/Confirmation";
 import StatusSelect from "./Project/StatusSelect"; // 새로운 StatusSelect 컴포넌트를 임포트
+import LoginStore from "../../variables/States/LoginStore";
 
-const EditProject = ({ project, id, onEditChange }) => {
+const EditProject = ({ project, id }) => {
   const [title, setTitle] = useState(project ? project.name : ""); // 제목
   const [value, setValue] = useState(project ? project.description : ""); // 설명
   const [skillTag, setSkillTag] = useState(project ? project.stack : []); // 사용 스킬
@@ -17,8 +18,7 @@ const EditProject = ({ project, id, onEditChange }) => {
   const [recruit, setRecruit] = useState(project ? project.wanted : []); // 구인 분야 및 인원
   const [current, setCurrent] = useState(project ? project.inNow : []); // 현재 분야 및 인원
   const [status, setStatus] = useState(project ? project.status : "");
-
-  const baseUrl = "http://13.212.106.4:5000";
+  const { user } = LoginStore((state) => ({ user: state.user }));
 
   const navigate = useNavigate();
   const isNewProject = !project;
@@ -35,15 +35,20 @@ const EditProject = ({ project, id, onEditChange }) => {
       wanted: recruit,
       inNow: current,
       status: status,
-      publisher: 132, //user id
+      publisher: user, //user id
     };
 
-    console.log("변경 내용", updatedProject);
     try {
       if (isNewProject) {
-        await axios.post(`${baseUrl}/project/add`, updatedProject); // 프로젝트 생성
+        await axios.post(
+          `${process.env.REACT_APP_API_URL}/project/add`,
+          updatedProject
+        ); // 프로젝트 생성
       } else {
-        await axios.post(`${baseUrl}/project/${id}`, updatedProject); // 수정
+        await axios.post(
+          `${process.env.REACT_APP_API_URL}/project/${id}`,
+          updatedProject
+        ); // 수정
       }
       window.location.reload();
     } catch (error) {
@@ -60,7 +65,7 @@ const EditProject = ({ project, id, onEditChange }) => {
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`${baseUrl}/project/${id}`); // 삭제
+      await axios.delete(`${process.env.REACT_APP_API_URL}/project/${id}`); // 삭제
       navigate("/"); // 홈 페이지로 이동
     } catch (error) {
       console.error("프로젝트 삭제 중 오류 발생:", error);
