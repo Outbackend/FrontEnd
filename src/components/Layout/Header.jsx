@@ -11,22 +11,22 @@ import MenuItem from "../Assets/MenuItem";
 import userDetailStore from "../../variables/States/UserDetailStore";
 
 const Header = () => {
-  const { isAuthenticated, user, logout } = LoginStore();
+  const { isAuthenticated, user, token, logout } = LoginStore();
   const { userInfo, fetchData } = userDetailStore();
-  const [ isInitialRender, setIsInitialRender ] = useState(true);
+  const [isInitialRender, setIsInitialRender] = useState(true);
 
   useEffect(() => {
     if (isInitialRender) {
-        setIsInitialRender(false);
-        if (user !== null) {
-          fetchData(user);
-        }
+      setIsInitialRender(false);
+      if (user !== null) {
+        fetchData(user);
+      }
     }
   }, [isInitialRender]);
 
   const navigate = useNavigate();
 
-  const [ isOpen, setIsOpen ] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
@@ -74,21 +74,22 @@ const Header = () => {
                             "
               >
                 <div className="flex flex-col">
-                  { isAuthenticated ? (
+                  {console.log(isAuthenticated, user, token)}
+                  {isAuthenticated ? (
                     <>
-                      <div className = "px-4 py-3 rounded-xl font-semibold">
-                        { userInfo.nickname }님
+                      <div className="px-4 py-3 rounded-xl font-semibold">
+                        {userInfo.nickname}님
                       </div>
                       <MenuItem
                         onClick={() => navigate("/userinfo/" + user)}
                         label="Profile"
                       />
                       <MenuItem
-                        onClick={() => navigate("/project")}
+                        onClick={() => navigate("/addproject")}
                         label="Create Project"
                       />
                       <hr />
-                      <MenuItem onClick={ handleLogout } label="Logout" />
+                      <MenuItem onClick={handleLogout} label="Logout" />
                     </>
                   ) : (
                     <>
