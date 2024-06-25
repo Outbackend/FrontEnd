@@ -13,12 +13,7 @@ const ProjectDetail = () => {
   const [comment, setComment] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
-  const { isAuthenticated, user } = useLoginStore((state) => ({
-    isAuthenticated: state.isAuthenticated,
-    user: state.user,
-  }));
-
-  const baseUrl = "http://13.212.106.4:5000";
+  const { isAuthenticated, user } = useLoginStore();
 
   const getProject = async () => {
     try {
@@ -27,8 +22,11 @@ const ProjectDetail = () => {
         return;
       }
       //const response = await axios.get(`/dummy/projects.json`);
-      const response = await axios.get(`${baseUrl}/project/${id}`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/project/${id}`
+      );
       setProject(response.data);
+      console.log(user);
     } catch (error) {
       console.log(error);
       setProject(null);
@@ -41,7 +39,9 @@ const ProjectDetail = () => {
       return;
     }
     //const response = await axios.get(`/dummy/comments.json`);
-    const response = await axios.get(`${baseUrl}/project/${id}/comment`);
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/project/${id}/comment`
+    );
     console.log(response);
     setComment(response.data);
   };
@@ -69,11 +69,12 @@ const ProjectDetail = () => {
         </div>
       ) : project ? (
         <div className="max-w-[1400px] min-w-[722px] m-auto pt-32">
-          {isEditing ? (
+          {isEditing ? ( //수정상태이면 EditProject
             <div>
               <EditProject project={project} id={id} />
             </div>
           ) : (
+            // 수정하지 않는 상태이면 현상태 출력
             <div className="">
               <div className="flex items-center space-x-2 pt-4">
                 <div className="flex items-center space-x-2 w-full">
@@ -93,7 +94,7 @@ const ProjectDetail = () => {
                 </div>
                 <div className="flex text-center justify-between items-center">
                   {isAuthenticated &&
-                    project.creator_id === user.id &&
+                    project.publisher === user &&
                     (!isEditing ? (
                       <button
                         type="button"
@@ -107,12 +108,13 @@ const ProjectDetail = () => {
                     ))}
                 </div>
               </div>
-              <Project project={project} id={id} onEditChange={setIsEditing} />
+              <Project project={project} />
               <Comment projectId={id} initialComments={comment} />
             </div>
           )}
         </div>
       ) : (
+        // 해당 id를 가진 project가 없는 경우
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75 z-50">
           <div className="bg-white p-8 rounded shadow-lg max-w-md">
             <p className="text-lg text-gray-800 mb-4">
