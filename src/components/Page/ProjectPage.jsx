@@ -26,7 +26,6 @@ const ProjectDetail = () => {
         `${process.env.REACT_APP_API_URL}/project/${id}`
       );
       setProject(response.data);
-      console.log(user);
     } catch (error) {
       console.log(error);
       setProject(null);
@@ -68,7 +67,7 @@ const ProjectDetail = () => {
           <img src={"/Spin.gif"} alt="로딩" width="10%" />
         </div>
       ) : project ? (
-        <div className="max-w-[1400px] min-w-[722px] m-auto pt-32">
+        <div className="max-w-[1400px] min-w-[722px] m-auto pt-32 pb-10">
           {isEditing ? ( //수정상태이면 EditProject
             <div>
               <EditProject project={project} id={id} />
