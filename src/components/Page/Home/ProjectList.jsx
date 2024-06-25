@@ -7,6 +7,8 @@ const ProjectList = () => {
     const { stacks } = useStackStore()
     const {stackList, positionList, rangeList, searchTerm} = stacks
 
+    const sortedProjects = Projects.sort((a, b) => b.modifiedDate.localeCompare(a.modifiedDate));
+
     return(
         <div className="
             grid 
@@ -15,7 +17,7 @@ const ProjectList = () => {
             gap-8
             my-5
             py-10px">
-            {Projects.filter((project) => {
+            {sortedProjects.filter((project) => {
                 if(positionList.length === 0 && stackList.length === 0 && rangeList.length === 0 && !searchTerm) return true
                 const matchPosition = project.wanted.some(w => positionList.includes(w.stack))
                 const matchStack = stackList.some(stk => project.stack.includes(stk))
