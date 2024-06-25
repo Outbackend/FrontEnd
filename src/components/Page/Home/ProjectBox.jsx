@@ -21,6 +21,8 @@ const ProjectBox = ({
         fetchUser()
     }, [])
 
+    const status = data.status === '모집중' ? 'bg-white' : 'bg-gray-200 text-white'
+
     return (
         <div
             onClick={()=>navigate(`/project/${data.id}`)} //프로젝트 id
@@ -65,8 +67,13 @@ const ProjectBox = ({
                             <div className="px-3 py-1 text-xs bg-gray-100 rounded-full text-sky-800">{tmp}</div>
                     ))}
                 </div>
-                <div className="p-3 text-gray-500 text-sm">
-                    마감일 : {data.endDate}
+                <div className="flex justify-start m-3"> 
+                    <div className={`text-sm px-6 py-1 my-2 rounded-lg font-semibold border-2 ${status}`}>
+                            {data.status}
+                    </div>
+                    <div className="p-3 text-gray-500 text-sm">
+                        마감일 : {data.endDate}
+                    </div>
                 </div>
                 </div>
             </div>
