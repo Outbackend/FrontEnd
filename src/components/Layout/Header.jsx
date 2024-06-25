@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
+import axios from "axios";
 
 import LoginStore from "../../variables/States/LoginStore";
-
 import Logo from "./header/Logo";
 import UserImg from "./header/LogoUser";
 import { Navigation } from "./header/Navigation";
@@ -11,8 +11,8 @@ import MenuItem from "../Assets/MenuItem";
 import userDetailStore from "../../variables/States/UserDetailStore";
 
 const Header = () => {
-  const { isAuthenticated, logout } = LoginStore();
-  const {userInfo} = userDetailStore();
+  const { isAuthenticated, logout, user, token } = LoginStore();
+  const {userInfo, fetchData} = userDetailStore();
 
   const navigate = useNavigate();
 
@@ -21,9 +21,21 @@ const Header = () => {
     setIsOpen((value) => !value);
   }, []);
 
-  const handleLogout = () => {
-    logout();
-    window.location.reload();
+  useEffect(() => {
+    if(user){
+      fetchData(user)
+    }
+  },[user, fetchData])
+
+  const handleLogout = async () => {
+    try{
+        await axios.post(process.env.REACT_APP_API_URL + '/user/logout',null, 
+          {headers: {Authorization: 'Bearer ' + token}})
+        await logout()
+        window.location.reload()
+      } catch(e){
+      alert(e)
+    }
   };
 
   return (
@@ -67,17 +79,17 @@ const Header = () => {
                   {isAuthenticated ? (
                     <>
                       <div className = "px-4 py-3 rounded-xl font-semibold">
-                        {userInfo.nickname}님
+                        {userInfo.nickname} 님
                       </div>
+                      <hr />
                       <MenuItem
-                        onClick={() => navigate("/userinfo")}
+                        onClick={() => navigate(`/userinfo/${user}`)}
                         label="Profile"
                       />
                       <MenuItem
-                        onClick={() => navigate("/project")}
+                        onClick={() => navigate("/editproject")}
                         label="Create Project"
                       />
-                      <hr />
                       <MenuItem onClick={handleLogout} label="Logout" />
                     </>
                   ) : (
