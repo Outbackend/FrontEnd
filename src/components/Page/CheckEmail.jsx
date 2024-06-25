@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
+import userDetailStore from '../../variables/States/UserDetailStore';
+
 import UserInput from './Login/LoginUserInput';
 import LoginButton from './Login/LoginButton';
 
 const CheckEmail = () => {
+    const { fetchData, login } = userDetailStore();
+
     const navigation = useNavigate();
     const location = useLocation();
     const [ verifiyCode, setVerifiyCode ] = useState('');
@@ -20,6 +24,7 @@ const CheckEmail = () => {
                 process.env.REACT_APP_API_URL + '/user/resend',
                 { email : location.state.email }
             )
+            alert("이메일을 다시 전송했습니다.")
         } catch (e) {
             alert(e);
         }
@@ -33,8 +38,10 @@ const CheckEmail = () => {
                     email : location.state.email,
                     cert_number : verifiyCode
                 }
-            )
-            navigation('/')
+            );
+            alert("가입을 환영합니다!");
+            fetchData(response.data['userid']);
+            navigation('/');
         } catch (e) {
             alert(e);
         }

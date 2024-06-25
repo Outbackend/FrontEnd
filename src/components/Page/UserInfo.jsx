@@ -17,7 +17,7 @@ const UserInfo = (props) => {
     useEffect(() => {
         if (isInitialRender) {
             setIsInitialRender(false);
-            fetchData(id)
+            fetchData(id);
         }
     }, [isInitialRender]);
 

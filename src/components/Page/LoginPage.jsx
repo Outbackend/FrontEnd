@@ -34,6 +34,7 @@ const LoginPage = (props) => {
       }
     )
     .then((response) => {
+      console.log(response.data)
       login(response.data['token'], response.data['userid']);
       navigate('/');
     })
