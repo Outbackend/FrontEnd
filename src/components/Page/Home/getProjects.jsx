@@ -9,7 +9,7 @@ export const GetProjects = () => {
         const fetchData = async () => {
             try{
                 //const response = await axios.get('/dummy/ProjectList.json')
-                const response = await axios.get('http://13.212.106.4:5000/project/list')
+                const response = await axios.get(process.env.REACT_APP_API_URL + '/project/list')
                 setProject(response.data)
             } catch (error) {
                 console.error(error)

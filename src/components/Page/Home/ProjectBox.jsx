@@ -10,7 +10,7 @@ const ProjectBox = ({
     const [publisher, setPublisher] = useState({})
     const fetchUser = async () => {
         try{
-            const response = await axios.get(`http://13.212.106.4:5000/user/${data.publisher}`)
+            const response = await axios.get(process.env.REACT_APP_API_URL + `/user/${data.publisher}`)
             setPublisher(response.data)
             console.log(data.publisher)
         }catch(error){
