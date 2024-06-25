@@ -23,7 +23,7 @@ function App() {
             element={<UserInfoModify />}
           ></Route>
           <Route path="/project/:id" element={<ProjectPage />}></Route>
-          <Route path="/addproject" element={<EditProject />}></Route>
+          <Route path="/editproject" element={<EditProject />}></Route>
         </Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/auth" element={<AuthPage />}></Route>

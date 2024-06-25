@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useCallback, useEffect } from "react";
+import axios from "axios";
 
 import LoginStore from "../../variables/States/LoginStore";
-
 import Logo from "./header/Logo";
 import UserImg from "./header/LogoUser";
 import { Navigation } from "./header/Navigation";
@@ -31,9 +31,21 @@ const Header = () => {
     setIsOpen((value) => !value);
   }, []);
 
-  const handleLogout = () => {
-    logout();
-    window.location.reload();
+  useEffect(() => {
+    if(user){
+      fetchData(user)
+    }
+  },[user, fetchData])
+
+  const handleLogout = async () => {
+    try{
+        await axios.post(process.env.REACT_APP_API_URL + '/user/logout',null, 
+          {headers: {Authorization: 'Bearer ' + token}})
+        await logout()
+        window.location.reload()
+      } catch(e){
+      alert(e)
+    }
   };
 
   return (
@@ -77,18 +89,18 @@ const Header = () => {
                   {console.log(isAuthenticated, user, token)}
                   {isAuthenticated ? (
                     <>
-                      <div className="px-4 py-3 rounded-xl font-semibold">
-                        {userInfo.nickname}님
+                      <div className = "px-4 py-3 rounded-xl font-semibold">
+                        {userInfo.nickname} 님
                       </div>
+                      <hr />
                       <MenuItem
-                        onClick={() => navigate("/userinfo/" + user)}
+                        onClick={() => navigate(`/userinfo/${user}`)}
                         label="Profile"
                       />
                       <MenuItem
-                        onClick={() => navigate("/addproject")}
+                        onClick={() => navigate("/editproject")}
                         label="Create Project"
                       />
-                      <hr />
                       <MenuItem onClick={handleLogout} label="Logout" />
                     </>
                   ) : (
