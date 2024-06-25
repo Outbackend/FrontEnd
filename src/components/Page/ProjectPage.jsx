@@ -13,10 +13,7 @@ const ProjectDetail = () => {
   const [comment, setComment] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
-  const { isAuthenticated, user } = useLoginStore((state) => ({
-    isAuthenticated: state.isAuthenticated,
-    user: state.user,
-  }));
+  const { isAuthenticated, user } = useLoginStore();
 
   const getProject = async () => {
     try {
@@ -29,7 +26,7 @@ const ProjectDetail = () => {
         `${process.env.REACT_APP_API_URL}/project/${id}`
       );
       setProject(response.data);
-      console.log(user, token);
+      console.log(user);
     } catch (error) {
       console.log(error);
       setProject(null);

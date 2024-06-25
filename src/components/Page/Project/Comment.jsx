@@ -12,6 +12,7 @@ const Comment = ({ projectId, initialComments }) => {
   const { user } = useLoginStore((state) => ({ user: state.user }));
   const { fetchData } = userDetailStore();
   const navigate = useNavigate();
+  const nicknameCache = {}; // 캐시를 저장할 객체
 
   const handleCommentChange = (e) => {
     setNewComment(e.target.value);
@@ -72,9 +73,14 @@ const Comment = ({ projectId, initialComments }) => {
   };
 
   const fetchNickname = async (userId) => {
+    if (nicknameCache[userId]) {
+      return nicknameCache[userId];
+    }
     try {
       const response = await fetchData(userId);
-      return response.userInfo.nickname;
+      const nickname = response.userInfo.nickname;
+      nicknameCache[userId] = nickname; // 캐시에 저장
+      return nickname;
     } catch (error) {
       console.error("Error fetching user nickname:", error);
       return "Unknown";
@@ -112,7 +118,7 @@ const Comment = ({ projectId, initialComments }) => {
     };
 
     loadNicknames();
-  }, [comments]);
+  }, [initialComments]); // initialComments가 변경될 때만 다시 로드
 
   return (
     <div className="mt-8 w-full">
