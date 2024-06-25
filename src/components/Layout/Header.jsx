@@ -11,8 +11,18 @@ import MenuItem from "../Assets/MenuItem";
 import userDetailStore from "../../variables/States/UserDetailStore";
 
 const Header = () => {
-  const { isAuthenticated, logout, user, token } = LoginStore();
-  const {userInfo, fetchData} = userDetailStore();
+  const { isAuthenticated, user, token, logout } = LoginStore();
+  const { userInfo, fetchData } = userDetailStore();
+  const [isInitialRender, setIsInitialRender] = useState(true);
+
+  useEffect(() => {
+    if (isInitialRender) {
+      setIsInitialRender(false);
+      if (user !== null) {
+        fetchData(user);
+      }
+    }
+  }, [isInitialRender]);
 
   const navigate = useNavigate();
 
@@ -76,6 +86,7 @@ const Header = () => {
                             "
               >
                 <div className="flex flex-col">
+                  {console.log(isAuthenticated, user, token)}
                   {isAuthenticated ? (
                     <>
                       <div className = "px-4 py-3 rounded-xl font-semibold">

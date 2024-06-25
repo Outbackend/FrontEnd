@@ -18,7 +18,7 @@ const EditProject = ({ project, id }) => {
   const [recruit, setRecruit] = useState(project ? project.wanted : []); // 구인 분야 및 인원
   const [current, setCurrent] = useState(project ? project.inNow : []); // 현재 분야 및 인원
   const [status, setStatus] = useState(project ? project.status : "");
-  const { user } = LoginStore((state) => ({ user: state.user }));
+  const { user, token } = LoginStore();
 
   const navigate = useNavigate();
   const isNewProject = !project;
@@ -42,15 +42,25 @@ const EditProject = ({ project, id }) => {
       if (isNewProject) {
         await axios.post(
           `${process.env.REACT_APP_API_URL}/project/add`,
-          updatedProject
+          updatedProject,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         ); // 프로젝트 생성
       } else {
         await axios.post(
           `${process.env.REACT_APP_API_URL}/project/${id}`,
-          updatedProject
+          updatedProject,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         ); // 수정
+        window.location.reload();
       }
-      window.location.reload();
     } catch (error) {
       console.error("프로젝트 저장 중 오류 발생:", error);
     }
@@ -65,7 +75,11 @@ const EditProject = ({ project, id }) => {
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/project/${id}`); // 삭제
+      await axios.delete(`${process.env.REACT_APP_API_URL}/project/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }); // 삭제
       navigate("/"); // 홈 페이지로 이동
     } catch (error) {
       console.error("프로젝트 삭제 중 오류 발생:", error);
@@ -77,7 +91,8 @@ const EditProject = ({ project, id }) => {
   };
 
   return (
-    <div className="pt-5">
+    <div className="pt-32">
+      {console.log(user, token)}
       <div className="mb-4 flex pb-5 items-center text-center">
         <h2 className="text-2xl w-[100px] font-bold py-2">제목</h2>
         <input
