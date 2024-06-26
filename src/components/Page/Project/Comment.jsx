@@ -77,7 +77,7 @@ const Comment = ({ projectId, initialComments }) => {
     };
 
     fetchComments();
-  }, [projectId]);
+  }, [comments, projectId]);
 
   const renderComment = (comment) => (
     <div key={comment.id}>

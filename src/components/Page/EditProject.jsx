@@ -45,13 +45,16 @@ const EditProject = ({ project, id }) => {
           updatedProject,
           { headers: { Authorization: `Bearer ${token}` } }
         ); // 프로젝트 생성
+        alert("등록되었습니다.");
+        navigate("/");
       } else {
-        console.log(updatedProject);
+        alert(updatedProject.category);
         await axios.post(
-          process.env.REACT_APP_API_URL + "/project/" + id,
+          `${process.env.REACT_APP_API_URL}/project/${id}`,
           updatedProject,
           { headers: { Authorization: `Bearer ${token}` } }
         ); // 수정
+        alert("수정되었습니다");
         window.location.reload();
       }
     } catch (error) {
@@ -71,6 +74,7 @@ const EditProject = ({ project, id }) => {
       await axios.delete(process.env.REACT_APP_API_URL + "/project/" + id, {
         headers: { Authorization: `Bearer ${token}` },
       }); // 삭제
+      alert("삭제되었습니다.");
       navigate("/"); // 홈 페이지로 이동
     } catch (error) {
       console.error("프로젝트 삭제 중 오류 발생:", error);
