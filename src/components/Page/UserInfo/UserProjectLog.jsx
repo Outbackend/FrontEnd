@@ -13,9 +13,11 @@ const UserProjectLog = ({ projectList }) => {
             <div>
                 {projectList.map((project) => 
                     <ProjectLog
+                        key={ project.id }
                         name={ project.name }
                         description={ project.description }
                         status={ project.status }
+                        position={ project.position }
                     />
                 )}
             </div>

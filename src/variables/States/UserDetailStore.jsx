@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
+import ProjectLog from "../../components/Page/UserInfo/ProjectLog";
 
 const userDetailStore = create((set, get) => ({
     userInfo: null,
@@ -22,6 +23,7 @@ const userDetailStore = create((set, get) => ({
           },
           loading: false 
         });
+        console.log(response.data)
       } catch (error) {
         set({ error: error.message, loading: false });
       }
@@ -43,13 +45,18 @@ const userDetailStore = create((set, get) => ({
           "description": get().userInfo.description,
           "range": get().userInfo.rangeList,
           "position": get().userInfo.positionList,
-          "stack": get().userInfo.stackList
+          "stack": get().userInfo.stackList,
+          "projectLog": get().userInfo.projectLog
         }
         const response = await axios.post(
           process.env.REACT_APP_API_URL + '/user/' + id,
           data,
           { headers: { Authorization: `Bearer ${token}` } }
         )
+        set({
+          userInfo: {
+            ...get().userInfo,
+          }})
       } catch (error) {
         set({ error: error.message, loading: false });
       }
@@ -78,7 +85,26 @@ const userDetailStore = create((set, get) => ({
           stackList : [...state.userInfo.stackList, value]
         }
     })),
-    
+
+    updateProjectLog: async (token, id, value) => {
+      try {
+        console.log(value)
+        const response = await axios.post(
+          process.env.REACT_APP_API_URL + '/user/' + id + '/projectlog',
+          value,
+          { headers: { Authorization: `Bearer ${token}` } }
+        )
+        set((state) =>({
+          userInfo: {
+            ...state.userInfo,
+            projectLog : [...state.userInfo.projectLog, value]
+          }}))
+        console.log(response.data)
+      } catch (error) {
+        set({ error: error.message, loading: false });
+      }
+    },
+
     deleteRangeList : (value) =>
       set((state) => ({
         userInfo: {
@@ -100,6 +126,14 @@ const userDetailStore = create((set, get) => ({
         userInfo: {
           ...state.userInfo,
           stackList : state.userInfo.stackList.filter((i) => i !== value)
+        }
+      })),
+
+    deleteProjectLog : (value) =>
+      set((state) => ({
+        userInfo: {
+          ...state.userInfo,
+          projectLog : state.userInfo.projectLog.filter((i) => i.id !== value)
         }
       })),
 }));

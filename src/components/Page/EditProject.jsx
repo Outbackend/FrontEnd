@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import ConfirmationModal from "../Modals/Confirmation";
 import StatusSelect from "./Project/StatusSelect"; // 새로운 StatusSelect 컴포넌트를 임포트
 import LoginStore from "../../variables/States/LoginStore";
+import userDetailStore from "../../variables/States/UserDetailStore";
 
 const EditProject = ({ project, id }) => {
   const [title, setTitle] = useState(project ? project.name : ""); // 제목
@@ -19,6 +20,7 @@ const EditProject = ({ project, id }) => {
   const [current, setCurrent] = useState(project ? project.inNow : []); // 현재 분야 및 인원
   const [status, setStatus] = useState(project ? project.status : "");
   const { user, token } = LoginStore();
+  const { updateProjectLog } = userDetailStore();
 
   const navigate = useNavigate();
   const isNewProject = !project;
@@ -37,10 +39,9 @@ const EditProject = ({ project, id }) => {
       status: status,
       publisher: user, //user id
     };
-
     try {
       if (isNewProject) {
-        await axios.post(
+        const response = await axios.post(
           `${process.env.REACT_APP_API_URL}/project/add`,
           updatedProject,
           {
@@ -49,8 +50,10 @@ const EditProject = ({ project, id }) => {
             },
           }
         ); // 프로젝트 생성
+        updateProjectLog(token, user, {id: response.data.id, name: title, position: field, description: value, status: status});
+        navigate("/");
       } else {
-        await axios.post(
+        const response = await axios.post(
           `${process.env.REACT_APP_API_URL}/project/${id}`,
           updatedProject,
           {
@@ -92,7 +95,6 @@ const EditProject = ({ project, id }) => {
 
   return (
     <div className="pt-32">
-      {console.log(user, token)}
       <div className="mb-4 flex pb-5 items-center text-center">
         <h2 className="text-2xl w-[100px] font-bold py-2">제목</h2>
         <input
