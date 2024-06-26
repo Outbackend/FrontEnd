@@ -43,22 +43,18 @@ const EditProject = ({ project, id }) => {
         await axios.post(
           `${process.env.REACT_APP_API_URL}/project/add`,
           updatedProject,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          { headers: { Authorization: `Bearer ${token}` } }
         ); // 프로젝트 생성
+        alert("등록되었습니다.");
+        navigate("/");
       } else {
+        alert(updatedProject.category);
         await axios.post(
           `${process.env.REACT_APP_API_URL}/project/${id}`,
           updatedProject,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          { headers: { Authorization: `Bearer ${token}` } }
         ); // 수정
+        alert("수정되었습니다");
         window.location.reload();
       }
     } catch (error) {
@@ -75,11 +71,10 @@ const EditProject = ({ project, id }) => {
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/project/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      await axios.delete(process.env.REACT_APP_API_URL + "/project/" + id, {
+        headers: { Authorization: `Bearer ${token}` },
       }); // 삭제
+      alert("삭제되었습니다.");
       navigate("/"); // 홈 페이지로 이동
     } catch (error) {
       console.error("프로젝트 삭제 중 오류 발생:", error);
@@ -92,7 +87,6 @@ const EditProject = ({ project, id }) => {
 
   return (
     <div className="pt-32">
-      {console.log(user, token)}
       <div className="mb-4 flex pb-5 items-center text-center">
         <h2 className="text-2xl w-[100px] font-bold py-2">제목</h2>
         <input

@@ -7,13 +7,15 @@ const EditComment = ({ comment, token, onCommentEdited, onCancelEdit }) => {
   const handleEditComment = async () => {
     if (editContent.trim() === "") return;
 
+    const editwCommentObject = {
+      content: editContent,
+      id: comment.id,
+    };
+
     try {
-      const response = await axios.put(
+      const response = await axios.patch(
         `${process.env.REACT_APP_API_URL}/project/${comment.projectId}/comment`,
-        {
-          commentId: comment.id,
-          content: editContent,
-        },
+        editwCommentObject,
         {
           headers: {
             Authorization: `Bearer ${token}`,
