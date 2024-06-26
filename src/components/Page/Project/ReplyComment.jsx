@@ -9,9 +9,10 @@ const ReplyComment = ({ parentId, projectId, user, token, onReplyAdded }) => {
 
     const newReplyCommentObject = {
       content: replyContent,
-      projectId,
-      parentId,
+      projectId: Number(projectId),
+      parentId: Number(parentId),
       userId: user,
+      datetime: "2030-12-31 23:59:59",
     };
 
     try {
@@ -24,7 +25,7 @@ const ReplyComment = ({ parentId, projectId, user, token, onReplyAdded }) => {
           },
         }
       );
-      onReplyAdded(response.data);
+      onReplyAdded(newReplyCommentObject);
       setReplyContent("");
     } catch (error) {
       console.error("Error adding reply comment:", error);

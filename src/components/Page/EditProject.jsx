@@ -43,21 +43,14 @@ const EditProject = ({ project, id }) => {
         await axios.post(
           `${process.env.REACT_APP_API_URL}/project/add`,
           updatedProject,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          { headers: { Authorization: `Bearer ${token}` } }
         ); // 프로젝트 생성
       } else {
+        console.log(updatedProject);
         await axios.post(
-          `${process.env.REACT_APP_API_URL}/project/${id}`,
+          process.env.REACT_APP_API_URL + "/project/" + id,
           updatedProject,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          { headers: { Authorization: `Bearer ${token}` } }
         ); // 수정
         window.location.reload();
       }
@@ -75,10 +68,8 @@ const EditProject = ({ project, id }) => {
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/project/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      await axios.delete(process.env.REACT_APP_API_URL + "/project/" + id, {
+        headers: { Authorization: `Bearer ${token}` },
       }); // 삭제
       navigate("/"); // 홈 페이지로 이동
     } catch (error) {
@@ -92,7 +83,6 @@ const EditProject = ({ project, id }) => {
 
   return (
     <div className="pt-32">
-      {console.log(user, token)}
       <div className="mb-4 flex pb-5 items-center text-center">
         <h2 className="text-2xl w-[100px] font-bold py-2">제목</h2>
         <input
