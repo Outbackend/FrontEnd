@@ -6,9 +6,6 @@ import Container from "../Assets/Container";
 import Search from "./Search/Search";
 
 const Home = () => {
-  useEffect(() => {
-    window.location.reload();
-  });
 
   return (
     <Container>
