@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Project from "./Project/Project";
 import EditProject from "./EditProject";
 import Comment from "./Comment/Comment";
 import useLoginStore from "../../variables/States/LoginStore";
-import { useNavigate, useParams } from "react-router-dom";
 
 const ProjectDetail = () => {
   const { id } = useParams();
@@ -21,7 +21,6 @@ const ProjectDetail = () => {
         setProject(null);
         return;
       }
-      //const response = await axios.get(`/dummy/projects.json`);
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/project/${id}`
       );
@@ -37,7 +36,6 @@ const ProjectDetail = () => {
       setComment(null);
       return;
     }
-    //const response = await axios.get(`/dummy/comments.json`);
     const response = await axios.get(
       `${process.env.REACT_APP_API_URL}/project/${id}/comment`
     );
@@ -68,12 +66,11 @@ const ProjectDetail = () => {
         </div>
       ) : project ? (
         <div className="pt-[120px] w-[60vw] min-w-[800px] pb-10">
-          {isEditing ? ( //수정상태이면 EditProject
+          {isEditing ? (
             <div>
               <EditProject project={project} id={id} />
             </div>
           ) : (
-            // 수정하지 않는 상태이면 현상태 출력
             <div className="pt-32">
               <div className="flex items-center space-x-2 pt-4">
                 <div className="flex items-center space-x-2 w-full">
@@ -113,7 +110,6 @@ const ProjectDetail = () => {
           )}
         </div>
       ) : (
-        // 해당 id를 가진 project가 없는 경우
         <>
           {alert("존재하지 않는 프로젝트입니다.")}
           {navigate("/")}

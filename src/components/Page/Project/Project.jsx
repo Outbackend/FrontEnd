@@ -1,7 +1,6 @@
 import React from "react";
 import Recruit from "./Recruit";
 import MDEditor from "@uiw/react-md-editor";
-import ImageSlider from "./ImageSlider";
 
 const Project = ({ project }) => {
   return (
@@ -53,9 +52,6 @@ const Project = ({ project }) => {
       <hr className="my-8" />
       <div>
         <h2 className="text-2xl font-bold">프로젝트 설명</h2>
-        {/* <div className="flex flex-row space-x-8">
-          <ImageSlider images={project.project_image} />
-        </div> */}
         <br />
         <MDEditor.Markdown source={project.description} />
       </div>

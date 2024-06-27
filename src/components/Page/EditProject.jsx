@@ -1,23 +1,23 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AddRecruit from "./Project/AddRecruit";
-import MDEditor from "@uiw/react-md-editor";
 import SelectableTags from "./Project/AddTags";
 import FieldSelect from "./Project/FieldSelect";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import ConfirmationModal from "../Modals/Confirmation";
 import StatusSelect from "./Project/StatusSelect";
+import axios from "axios";
+import MDEditor from "@uiw/react-md-editor";
+import ConfirmationModal from "../Modals/Confirmation";
 import LoginStore from "../../variables/States/LoginStore";
 import userDetailStore from "../../variables/States/UserDetailStore";
 
 const EditProject = ({ project, id }) => {
-  const [title, setTitle] = useState(project ? project.name : ""); // 제목
-  const [value, setValue] = useState(project ? project.description : ""); // 설명
-  const [skillTag, setSkillTag] = useState(project ? project.stack : []); // 사용 스킬
-  const [deadline, setDeadline] = useState(project ? project.endDate : ""); // 마감일
-  const [field, setField] = useState(project ? project.category : ""); // 프로젝트 분야
-  const [recruit, setRecruit] = useState(project ? project.wanted : []); // 구인 분야 및 인원
-  const [current, setCurrent] = useState(project ? project.inNow : []); // 현재 분야 및 인원
+  const [title, setTitle] = useState(project ? project.name : "");
+  const [value, setValue] = useState(project ? project.description : "");
+  const [skillTag, setSkillTag] = useState(project ? project.stack : []);
+  const [deadline, setDeadline] = useState(project ? project.endDate : "");
+  const [field, setField] = useState(project ? project.category : "");
+  const [recruit, setRecruit] = useState(project ? project.wanted : []);
+  const [current, setCurrent] = useState(project ? project.inNow : []);
   const [status, setStatus] = useState(project ? project.status : "");
   const { user, token } = LoginStore();
   const { updateProjectLog } = userDetailStore();
@@ -26,7 +26,6 @@ const EditProject = ({ project, id }) => {
   const isNewProject = !project;
   const [showConfirmation, setShowConfirmation] = useState(false);
 
-  // 프로젝트 저장
   const handleSave = async () => {
     const updatedProject = {
       name: title,
@@ -37,7 +36,7 @@ const EditProject = ({ project, id }) => {
       wanted: recruit,
       inNow: current,
       status: status,
-      publisher: user, //user id
+      publisher: user,
     };
     try {
       if (isNewProject) {
@@ -45,9 +44,14 @@ const EditProject = ({ project, id }) => {
           `${process.env.REACT_APP_API_URL}/project/add`,
           updatedProject,
           { headers: { Authorization: `Bearer ${token}` } }
-        ); // 프로젝트 생성
-        const position = current?.[0]?.stack || ""
-        updateProjectLog(token, user, {id: response.data.id, name: title, description: value, position: position});
+        );
+        const position = current?.[0]?.stack || "";
+        updateProjectLog(token, user, {
+          id: response.data.id,
+          name: title,
+          description: value,
+          position: position,
+        });
         alert("등록되었습니다.");
         navigate("/");
       } else {
@@ -55,7 +59,7 @@ const EditProject = ({ project, id }) => {
           `${process.env.REACT_APP_API_URL}/project/${id}`,
           updatedProject,
           { headers: { Authorization: `Bearer ${token}` } }
-        ); // 수정
+        );
         alert("수정되었습니다");
         window.location.reload();
       }
@@ -64,7 +68,6 @@ const EditProject = ({ project, id }) => {
     }
   };
 
-  // 프로젝트 삭제
   const handleDelete = async () => {
     if (!isNewProject) {
       setShowConfirmation(true);
@@ -75,9 +78,9 @@ const EditProject = ({ project, id }) => {
     try {
       await axios.delete(process.env.REACT_APP_API_URL + "/project/" + id, {
         headers: { Authorization: `Bearer ${token}` },
-      }); // 삭제
+      });
       alert("삭제되었습니다.");
-      navigate("/"); // 홈 페이지로 이동
+      navigate("/");
     } catch (error) {
       console.error("프로젝트 삭제 중 오류 발생:", error);
     }

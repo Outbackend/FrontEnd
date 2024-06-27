@@ -39,7 +39,7 @@ const EditComment = ({ comment, token, onCommentEdited, onCancelEdit }) => {
         onChange={(e) => setEditContent(e.target.value)}
       />
       <button
-        className="mt-2 mr-2 text-sm text-green-500 hover:text-green-600 transition duration-200"
+        className="mt-2 mr-2 text-sm text-gray-500 hover:text-gray-600 transition duration-200"
         onClick={handleEditComment}
       >
         수정완료

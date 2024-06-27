@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import positionList from "../../../variables/PositionList";
-import ConfirmModal from "../../Modals/Confirmation"; // ConfirmModal 컴포넌트 임포트
+import ConfirmModal from "../../Modals/Confirmation";
 
 const AddRecruit = ({ recruit = [], onRecruitChange }) => {
   const [stack, setStack] = useState(null);
-  const [personal, setPersonal] = useState(0); // personal을 0으로 초기화
+  const [personal, setPersonal] = useState(0);
 
   // recruit 배열 초기화
   const [recruits, setRecruits] = useState(
@@ -16,8 +16,8 @@ const AddRecruit = ({ recruit = [], onRecruitChange }) => {
   );
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [showConfirmModal, setShowConfirmModal] = useState(false); // 확인 모달 상태 추가
-  const [deleteIndex, setDeleteIndex] = useState(null); // 삭제할 인덱스 상태 추가
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [deleteIndex, setDeleteIndex] = useState(null);
   const Position = positionList.map((position) => ({
     value: position,
     label: position,
@@ -46,7 +46,7 @@ const AddRecruit = ({ recruit = [], onRecruitChange }) => {
       );
       setErrorMessage("");
       setStack(null);
-      setPersonal(0); // personal을 0으로 초기화
+      setPersonal(0);
     } else {
       setErrorMessage("모든 필드를 입력하세요.");
     }
@@ -183,7 +183,6 @@ const AddRecruit = ({ recruit = [], onRecruitChange }) => {
         추가하기
       </button>
 
-      {/* Confirm Modal */}
       {showConfirmModal && (
         <ConfirmModal
           title="삭제 확인"

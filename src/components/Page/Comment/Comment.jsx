@@ -7,11 +7,6 @@ import ReplyComment from "./ReplyComment";
 import UserNickname from "./UserNickname";
 import axios from "axios";
 
-const formatDate = (datetime) =>
-  datetime !== "2030-12-31 23:59:59"
-    ? new Date(datetime).toLocaleString()
-    : "방금 등록되었습니다.";
-
 const Comment = ({ projectId, initialComments }) => {
   const [updateComments, setUpdateComments] = useState(false);
   const [comments, setComments] = useState(initialComments);
@@ -101,9 +96,7 @@ const Comment = ({ projectId, initialComments }) => {
             ) : (
               <>
                 <div className="mb-1">{comment.content}</div>
-                <div className="text-xs text-gray-500">
-                  {formatDate(comment.datetime)}
-                </div>
+                <div className="text-xs text-gray-500">{comment.datetime}</div>
               </>
             )}
           </div>
@@ -124,12 +117,12 @@ const Comment = ({ projectId, initialComments }) => {
               {user === comment.userId && (
                 <>
                   <button
-                    className="text-sm text-yellow-500 hover:text-yellow-600 transition duration-200"
+                    className="text-sm text-gray-500 hover:text-gray-600 transition duration-200"
                     onClick={() => setEditingCommentId(comment.id)}
                   >
                     수정
                   </button>
-                  {!hasReplies && ( // 답글이 없는 경우에만 삭제 버튼 표시
+                  {!hasReplies && (
                     <button
                       className="text-sm text-red-500 hover:text-red-600 transition duration-200"
                       onClick={() => handleDeleteComment(comment.id)}
