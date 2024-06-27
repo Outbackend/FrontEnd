@@ -1,40 +1,34 @@
 import { useCallback } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import queryString from 'query-string'
+import  useStackStore  from "../../../variables/States/StackStore"
 
-const CategoryBox = ({item, selected}) => {
-    const navigate = useNavigate();
-    const [params, setParams] = useSearchParams();
+const CategoryBox = ({item, selected, handleSelect}) => {
+
+    const { addStack, addPosition, addRange, resetStack } = useStackStore();
+
     const handleClick = useCallback(() => {
-        let Query = {}
-        if(params){
-            Query = queryString.parse(params.toString())
-        }
-
-        let updateQuery = {...Query}
-
-        if(params?.get(`${item.group}`) === item.value){
-            delete updateQuery[item.group]
-        }
-        else{
-            delete updateQuery.position
-            delete updateQuery.stack
-            delete updateQuery.range
-            if (item.value !== 'ALL') {
-                updateQuery[item.group] = item.value;
+        if (selected) {
+            resetStack()
+            handleSelect('ALL')
+        } else {
+            if(item.value === 'ALL'){
+                resetStack();
+                handleSelect('ALL');
+            }
+            else{
+                handleSelect(item.value);
+                if (item.group === 'stack') {
+                    resetStack();
+                    addStack(item.value);
+                } else if (item.group === 'position') {
+                    resetStack();
+                    addPosition(item.value);
+                } else if (item.group === 'range') {
+                    resetStack();
+                    addRange(item.value);
             }
         }
-
-        const url = queryString.stringifyUrl(
-            {
-                url : "/",
-                query: updateQuery
-            },
-            {skipNull: true}
-        )
-
-        navigate(url)
-    }, [item, params, navigate])
+        }
+    }, [selected, item, addStack, addPosition, addRange, resetStack, handleSelect]);
     
     return(
         <div

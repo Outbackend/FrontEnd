@@ -1,10 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CreatableSelect from "react-select/creatable";
 import rangeList from "../../../variables/RangeList";
 
 const FieldSelect = ({ initialField = "", onFieldChange }) => {
-  const [selectedField, setSelectedField] = useState(initialField);
+  const [selectedField, setSelectedField] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    if (initialField) {
+      const initialOption = Range.find(
+        (option) => option.label === initialField
+      );
+      setSelectedField(
+        initialOption || { value: initialField, label: initialField }
+      );
+    }
+  }, [initialField]);
 
   const Range = rangeList.map((range) => ({
     value: range,
@@ -17,26 +28,29 @@ const FieldSelect = ({ initialField = "", onFieldChange }) => {
       return;
     }
     setSelectedField(selectedOption);
-    onFieldChange(selectedOption.value);
+    onFieldChange(selectedOption.label);
     setErrorMessage("");
   };
 
   return (
-    <CreatableSelect
-      value={selectedField}
-      onChange={handleSelectChange}
-      options={Range}
-      placeholder={initialField}
-      isClearable
-      styles={{
-        control: (provided) => ({
-          ...provided,
-          border: "none",
-          boxShadow: "none",
-          width: "full",
-        }),
-      }}
-    />
+    <div>
+      <CreatableSelect
+        value={selectedField}
+        onChange={handleSelectChange}
+        options={Range}
+        styles={{
+          control: (provided) => ({
+            ...provided,
+            border: "none",
+            boxShadow: "none",
+            width: "100%",
+          }),
+        }}
+      />
+      {errorMessage && (
+        <div style={{ color: "red", marginTop: "5px" }}>{errorMessage}</div>
+      )}
+    </div>
   );
 };
 

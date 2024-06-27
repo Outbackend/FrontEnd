@@ -2,15 +2,26 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import TagModal from '../../Modals/TagModal';
 
+import userDetailStore from '../../../variables/States/UserDetailStore';
+import LoginStore from '../../../variables/States/LoginStore';
+
 import StackWrapper from '../UserInfo/StackWrapper';
 import ModifyButton from '../../Assets/ModifyButton';
 
-import userDetailStore from '../../../variables/States/UserDetailStore';
-
-const UserStackModify = () => {
-    const { userInfo, updateItem } = userDetailStore();
+const UserStackModify = ( { link } ) => {
+    const { userInfo, updateData, error } = userDetailStore();
+    const { token } = LoginStore();
 
     const [ modalOpen, setModalOpen ] = useState(false);
+
+    const updateHandler = async () => {
+        try {
+            updateData(token, link);
+        } catch (e) {
+            alert(error);
+        }
+        alert("저장되었습니다.");
+    }
 
     const toggleModal = () => {
         setModalOpen(!modalOpen);
@@ -24,10 +35,20 @@ const UserStackModify = () => {
                 </div>
             </div>
             <div className='w-1/2 h-[110px] float-right relative'>
-                <div className='absolute inset-y-0 right-5 top-[30%]'>
-                    <Link to='/userinfo'>
-                        <ModifyButton placeholder="저장"/>
-                    </Link>
+                <div className='w-[220px] absolute inset-y-0 right-3 top-[30%] flex'>
+                    <div className='w-[120px] h-[45px] py-2.5 px-5 me-2 mb-2 align-bottom'>
+                        <Link to={ '/userinfo/' + link }>
+                            <div className='text-base font-bold'>
+                                <a>돌아가기</a>
+                            </div>
+                        </Link>
+                    </div>
+                    <div className=''>
+                        <ModifyButton
+                            placeholder="저장"
+                            onclick={ updateHandler }
+                        />
+                    </div>
                 </div>
             </div>
             <div className='w-full top-[110px] relative'>
@@ -39,20 +60,18 @@ const UserStackModify = () => {
                                 <button type="button" 
                                     className="w-[70px] h-[25px] text-white focus:outline-none bg-[#7eb7ec] rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-[#7eb7ec] 
                                     dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                    onClick={toggleModal}
+                                    onClick={ toggleModal }
                                 >
                                     <p className='text-xs select-none'>수정</p>
                                 </button>
                                 {modalOpen && (
-                                    <TagModal open={modalOpen} close={toggleModal}>
-                                        fdsfsdsdg
-                                    </TagModal>
+                                    <TagModal open={modalOpen} close={ toggleModal } />
                                 )}
                             </div>
                         </div>
                         <div className='absolute max-h-[80px] top-[50px] left-4 flex flex-wrap overflow-auto'>
                             {userInfo.rangeList.map((item) => (
-                                <StackWrapper name={item} />
+                                <StackWrapper name={ item } />
                             ))}
                         </div>
                     </div>
@@ -62,7 +81,7 @@ const UserStackModify = () => {
                         </div>
                         <div className='absolute max-h-[80px] top-[50px] left-4 flex flex-wrap overflow-auto'>
                             {userInfo.positionList.map((item) => (
-                                <StackWrapper name={item} />
+                                <StackWrapper name={ item } />
                             ))}
                         </div>
                     </div>
@@ -72,7 +91,7 @@ const UserStackModify = () => {
                         </div>
                         <div className='absolute max-h-[80px] top-[50px] left-4 flex flex-wrap overflow-auto'>
                             {userInfo.stackList.map((item) => (
-                                <StackWrapper name={item} />
+                                <StackWrapper name={ item } />
                             ))}
                         </div>
                     </div>

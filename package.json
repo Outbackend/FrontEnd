@@ -9,6 +9,8 @@
     "@uiw/react-markdown-editor": "^6.1.1",
     "@uiw/react-md-editor": "^4.0.4",
     "axios": "^1.7.2",
+    "big.js": "^6.2.1",
+    "http-proxy-middleware": "^3.0.0",
     "parse5": "^7.1.2",
     "query-string": "^9.0.0",
     "react": "^18.3.1",

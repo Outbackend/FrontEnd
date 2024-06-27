@@ -3,12 +3,7 @@ import CreatableSelect from "react-select/creatable";
 import stackList from "../../../variables/StackList";
 
 const SearchableTags = ({ tags = [], onTagsChange }) => {
-  const [selectedTags, setSelectedTags] = useState(
-    tags.map((r) => ({
-      value: r,
-      label: r,
-    }))
-  );
+  const [selectedTags, setSelectedTags] = useState(tags);
   const [errorMessage, setErrorMessage] = useState("");
 
   const Stack = stackList.map((stack) => ({

@@ -1,74 +1,117 @@
 import { create } from "zustand";
 import axios from "axios";
+import ProjectLog from "../../components/Page/UserInfo/ProjectLog";
 
-const userDetailStore = create((set) => ({
-    userInfo: {
-        name: '닉네임',
-        note: '소개글',
-        description: '저는 현재 리액트에서 \`react-markdown\`를 이용하여 **마크다운**을 랜더링하고 있습니다.',
-        rangeList: ['웹'],
-        positionList: ['프론트엔드', '백엔드'],
-        stackList: ['JavaScript', 'React', 'Spring', 'Python'],
-        projectList: [
-          {
-            name: "프로젝트 이름",
-            description:"저는 현재 리액트에서 \`react-markdown\`를 이용하여 **마크다운**을 랜더링하고 있습니다.\n",
-            status: "진행중"
-          },
-          {
-            name: "프로젝트 이름",
-            description:"저는 현재 리액트에서 \`react-markdown\`를 이용하여 **마크다운**을 랜더링하고 있습니다.\n",
-            status: "진행중"
-          },
-          {
-            name: "프로젝트 이름",
-            description:"저는 현재 리액트에서 \`react-markdown\`를 이용하여 **마크다운**을 랜더링하고 있습니다.\n",
-            status: "진행중"
-          },
-        ],
-    },
+const userDetailStore = create((set, get) => ({
+  userInfo: null,
+  loading: false,
+  error: null,
 
-    fetchData: async () => {
+  fetchData: async (id) => {
+    set({ loading: true, error: null });
+    try {
+      const response = await axios.get(
+        process.env.REACT_APP_API_URL + "/user/" + id
+      );
+      set({
+        userInfo: {
+          nickname: response.data["nickname"],
+          note: response.data["note"],
+          description: response.data["description"],
+          rangeList:
+            response.data["range"] !== undefined ? response.data["range"] : [],
+          positionList:
+            response.data["position"] !== undefined
+              ? response.data["position"]
+              : [],
+          stackList:
+            response.data["stack"] !== undefined ? response.data["stack"] : [],
+          projectLog:
+            response.data["projectLog"] !== undefined
+              ? response.data["projectLog"]
+              : [],
+        },
+        loading: false,
+      });
+      return response.data["nickname"];
+    } catch (error) {
+      set({ error: error.message, loading: false });
+    }
+  },
+
+  updateItem: (key, value) =>
+    set((state) => ({
+      userInfo: {
+        ...state.userInfo,
+        [key]: value,
+      },
+    })),
+
+  updateData: async (token, id) => {
+    try {
+      const data = {
+        nickname: get().userInfo.nickname,
+        note: get().userInfo.note,
+        description: get().userInfo.description,
+        range: get().userInfo.rangeList,
+        position: get().userInfo.positionList,
+        stack: get().userInfo.stackList,
+      };
+      const response = await axios.post(
+        process.env.REACT_APP_API_URL + "/user/" + id,
+        data,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+    } catch (error) {
+      set({ error: error.message, loading: false });
+    }
+  },
+
+  insertRangeList: (value) =>
+    set((state) => ({
+      userInfo: {
+        ...state.userInfo,
+        rangeList: [...state.userInfo.rangeList, value],
+      },
+    })),
+
+  insertPositionList: (value) =>
+    set((state) => ({
+      userInfo: {
+        ...state.userInfo,
+        positionList: [...state.userInfo.positionList, value],
+      },
+    })),
+
+  insertStackList: (value) =>
+    set((state) => ({
+      userInfo: {
+        ...state.userInfo,
+        stackList: [...state.userInfo.stackList, value],
+      },
+    })),
+
+    updateProjectLog: async (token, id, value) => {
       try {
-        const response = await axios.get(process.env.API_SERVER_URL);
-        set({ userInfo: response.data });
+        const response = await axios.post(
+          process.env.REACT_APP_API_URL + '/user/' + id + '/projectlog',
+          { id : value.id,
+            name : value.name,
+            position : value.position,
+          },
+          { headers: { Authorization: `Bearer ${token}` } }
+        )
+        set((state) =>({
+          userInfo: {
+            ...state.userInfo,
+            projectLog : [...state.userInfo.projectLog, value]
+          }}))
+        console.log(response.data)
       } catch (error) {
-        console.error('Error fetching data:', error);
+        set({ error: error.message, loading: false });
       }
     },
 
-    updateItem: (key, value) =>
-      set((state) => ({
-        userInfo: {
-          ...state.userInfo,
-          [key] : value,
-        },
-    })),
-
-    insertRangeList : (value) => 
-      set((state) => ({
-        userInfo: {
-          ...state.userInfo,
-          rangeList : [...state.userInfo.rangeList, value]
-        }
-    })),
-
-    insertPositionList : (value) => 
-      set((state) => ({
-        userInfo: {
-          ...state.userInfo,
-          positionList : [...state.userInfo.positionList, value]
-        }
-    })),
-
-    insertStackList : (value) => 
-      set((state) => ({
-        userInfo: {
-          ...state.userInfo,
-          stackList : [...state.userInfo.stackList, value]
-        }
-    })),
-    
     deleteRangeList : (value) =>
       set((state) => ({
         userInfo: {
@@ -77,21 +120,21 @@ const userDetailStore = create((set) => ({
         }
       })),
 
-    deletePositionList : (value) =>
-      set((state) => ({
-        userInfo: {
-          ...state.userInfo,
-          positionList : state.userInfo.positionList.filter((i) => i !== value)
-        }
-      })),
+  deletePositionList: (value) =>
+    set((state) => ({
+      userInfo: {
+        ...state.userInfo,
+        positionList: state.userInfo.positionList.filter((i) => i !== value),
+      },
+    })),
 
-    deleteStackList : (value) =>
-      set((state) => ({
-        userInfo: {
-          ...state.userInfo,
-          stackList : state.userInfo.stackList.filter((i) => i !== value)
-        }
-      })),
+  deleteStackList: (value) =>
+    set((state) => ({
+      userInfo: {
+        ...state.userInfo,
+        stackList: state.userInfo.stackList.filter((i) => i !== value),
+      },
+    })),
 }));
 
 export default userDetailStore;

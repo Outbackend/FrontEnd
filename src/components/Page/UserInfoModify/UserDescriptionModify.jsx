@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import MarkdownEditor from '@uiw/react-markdown-editor'
 
 import userDetailStore from '../../../variables/States/UserDetailStore';

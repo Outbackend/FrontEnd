@@ -1,24 +1,24 @@
-import axios from 'axios'
-import { useEffect, useState} from 'react'
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-export const GetProjects = ({params}) => {
+export const GetProjects = () => {
+  const [Project, setProject] = useState([]);
 
-    const [Project, setProject] = useState([])
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          process.env.REACT_APP_API_URL + "/project/list"
+        );
+        setProject(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try{
-                //const response = await axios.get('/dummy/ProjectList.json')
-                const response = await axios.get('/project/list')
-                setProject(response.data)
-            } catch (error) {
-                console.error(error)
-            }
-        }
-        fetchData()
-    },[params])
+  return Project;
+};
 
-    return Project
-}
-
-export default GetProjects
+export default GetProjects;

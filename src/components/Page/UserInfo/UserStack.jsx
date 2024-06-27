@@ -7,7 +7,7 @@ import userDetailStore from '../../../variables/States/UserDetailStore';
 import StackWrapper from './StackWrapper';
 import ModifyButton from '../../Assets/ModifyButton';
 
-const UserStack = () => {
+const UserStack = ({ link }) => {
     const { isAuthenticated, user } = LoginStore();
     const { userInfo } = userDetailStore();
 
@@ -19,9 +19,9 @@ const UserStack = () => {
                 </div>
             </div>
             <div className='w-1/2 h-[110px] float-right relative'>
-                {isAuthenticated ? 
+                {isAuthenticated && user == link ? 
                     <div className='absolute inset-y-0 right-5 top-[30%]'>
-                    <Link to='/userinfomodify'>
+                    <Link to={ '/userinfomodify/' + link }>
                         <ModifyButton placeholder="수정"/>
                     </Link>
                     </div>

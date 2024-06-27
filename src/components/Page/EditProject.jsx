@@ -1,65 +1,97 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AddRecruit from "./Project/AddRecruit";
-import MDEditor from "@uiw/react-md-editor";
 import SelectableTags from "./Project/AddTags";
 import FieldSelect from "./Project/FieldSelect";
-import AddImage from "./Project/AddImage";
+import StatusSelect from "./Project/StatusSelect";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import MDEditor from "@uiw/react-md-editor";
+import ConfirmationModal from "../Modals/Confirmation";
+import LoginStore from "../../variables/States/LoginStore";
+import userDetailStore from "../../variables/States/UserDetailStore";
 
-const EditProject = ({ project }) => {
-  const [title, setTitle] = useState(project ? project.title : ""); // 제목
-  const [value, setValue] = useState(project ? project.content : ""); // 설명
-  const [skillTag, setSkillTag] = useState(project ? project.skillTagList : []); // 사용 스킬
-  const [deadline, setDeadline] = useState(project ? project.deadline : ""); // 마감일
-  const [field, setField] = useState(project ? project.field : ""); // 프로젝트 분야
-  const [recruit, setRecruit] = useState(project ? project.recruit : []); // 구인 분야 및 인원
-  const [current, setCurrent] = useState(project ? project.current : []); // 현재 분야 및 인원
-  const [images, setImages] = useState(project ? project.project_image : []); // 프로젝트 관련 이미지
+const EditProject = ({ project, id }) => {
+  const [title, setTitle] = useState(project ? project.name : "");
+  const [value, setValue] = useState(project ? project.description : "");
+  const [skillTag, setSkillTag] = useState(project ? project.stack : []);
+  const [deadline, setDeadline] = useState(project ? project.endDate : "");
+  const [field, setField] = useState(project ? project.category : "");
+  const [recruit, setRecruit] = useState(project ? project.wanted : []);
+  const [current, setCurrent] = useState(project ? project.inNow : []);
+  const [status, setStatus] = useState(project ? project.status : "");
+  const { user, token } = LoginStore();
+  const { updateProjectLog } = userDetailStore();
+
   const navigate = useNavigate();
   const isNewProject = !project;
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
-  // 프로젝트 생성 및 수정
   const handleSave = async () => {
     const updatedProject = {
-      title: title,
-      content: value,
-      deadline: deadline,
-      skillTagList: skillTag,
-      field: field,
-      recruit: recruit,
-      current: current,
+      name: title,
+      description: value,
+      endDate: deadline,
+      stack: skillTag,
+      category: field,
+      wanted: recruit,
+      inNow: current,
+      status: status,
+      publisher: user,
     };
-
     try {
       if (isNewProject) {
-        await axios.post("/api/projects", updatedProject); // 프로젝트 생성
+        const response = await axios.post(
+          `${process.env.REACT_APP_API_URL}/project/add`,
+          updatedProject,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        const position = current?.[0]?.stack || "";
+        updateProjectLog(token, user, {
+          id: response.data.id,
+          name: title,
+          description: value,
+          position: position,
+        });
+        alert("등록되었습니다.");
+        navigate("/");
       } else {
-        await axios.patch(
-          `/api/projects/${project.project_id}`,
-          updatedProject
-        ); //수정
+        const response = await axios.post(
+          `${process.env.REACT_APP_API_URL}/project/${id}`,
+          updatedProject,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        alert("수정되었습니다");
+        window.location.reload();
       }
-      navigate(`/projects/${project.project_id}`);
     } catch (error) {
       console.error("프로젝트 저장 중 오류 발생:", error);
     }
   };
 
-  // 프로젝트 삭제
   const handleDelete = async () => {
     if (!isNewProject) {
-      try {
-        await axios.delete(`/api/projects/${project.project_id}`); //삭제
-        navigate("/"); // Navigate to the home page or another appropriate page
-      } catch (error) {
-        console.error("프로젝트 삭제 중 오류 발생:", error);
-      }
+      setShowConfirmation(true);
     }
   };
 
+  const confirmDelete = async () => {
+    try {
+      await axios.delete(process.env.REACT_APP_API_URL + "/project/" + id, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      alert("삭제되었습니다.");
+      navigate("/");
+    } catch (error) {
+      console.error("프로젝트 삭제 중 오류 발생:", error);
+    }
+  };
+
+  const cancelDelete = () => {
+    setShowConfirmation(false);
+  };
+
   return (
-    <div className="pt-5">
+    <div className="pt-32">
       <div className="mb-4 flex pb-5 items-center text-center">
         <h2 className="text-2xl w-[100px] font-bold py-2">제목</h2>
         <input
@@ -71,7 +103,7 @@ const EditProject = ({ project }) => {
         <button
           type="button"
           onClick={handleSave}
-          className=" float-right w-[100px] mt-4 px-6 py-2 text-gray-500 rounded-full hover:font-bold"
+          className="float-right w-[100px] mt-4 px-6 py-2 text-gray-500 rounded-full hover:font-bold"
         >
           저장
         </button>
@@ -85,15 +117,24 @@ const EditProject = ({ project }) => {
           </button>
         )}
       </div>
-      <div className="flex mb-6 ml-[75%] items-center text-center ">
-        <h2 className="text-2xl font-bold">마감일</h2>
-        <input
-          type="date"
-          value={deadline}
-          onChange={(e) => setDeadline(e.target.value)}
-          className="p-2 rounded-lg focus:outline-none "
-        />
+      <div className="flex-1 items-center justify-between mb-6">
+        <div className="flex items-center space-x-8">
+          <div className="flex items-center space-x-4">
+            <h2 className="text-2xl font-bold">모집 상태</h2>
+            <StatusSelect status={status} onStatusChange={setStatus} />
+          </div>
+          <div className="flex items-center space-x-4 float-right">
+            <h2 className="text-2xl font-bold">마감일</h2>
+            <input
+              type="date"
+              value={deadline}
+              onChange={(e) => setDeadline(e.target.value)}
+              className="p-2 rounded-lg  border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+        </div>
       </div>
+
       <div className="flex flex-row space-x-6 p-2">
         <div className="flex-1 pl-4">
           <h2 className="text-2xl font-bold mb-4 text-center">분야</h2>
@@ -115,10 +156,17 @@ const EditProject = ({ project }) => {
       </div>
       <hr className="my-8" />
       <h2 className="text-2xl font-bold mb-4">프로젝트 설명</h2>
-      <AddImage image={images} onImagesChange={setImages} />
       <br />
       <MDEditor value={value} onChange={setValue} />
       <div className="pb-10"></div>
+
+      {showConfirmation && (
+        <ConfirmationModal
+          message="정말로 삭제하시겠습니까?"
+          onCancel={cancelDelete}
+          onConfirm={confirmDelete}
+        />
+      )}
     </div>
   );
 };

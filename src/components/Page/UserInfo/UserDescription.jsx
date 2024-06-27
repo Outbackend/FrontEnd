@@ -1,6 +1,6 @@
 import React from 'react';
-import Markdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import MDEditor from '@uiw/react-md-editor';
+
 
 const UserDescription = ({ description }) => {
     return (
@@ -11,12 +11,7 @@ const UserDescription = ({ description }) => {
                 </div>
             </div>
             <div className='px-4 pb-8'>
-                <Markdown
-                    remarkPlugins={[ remarkGfm ]}
-                    components={{ img: ({node, ...props}) => <img style={{maxWidth: '100%'}}{...props} alt=""/> }}
-                >
-                    { description }
-                </Markdown>
+                <MDEditor.Markdown source={ description }/>
             </div>
         </div>
     );

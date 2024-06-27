@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
+import axios from "axios";
 
 import LoginStore from "../../variables/States/LoginStore";
-
 import Logo from "./header/Logo";
 import UserImg from "./header/LogoUser";
 import { Navigation } from "./header/Navigation";
@@ -11,8 +11,18 @@ import MenuItem from "../Assets/MenuItem";
 import userDetailStore from "../../variables/States/UserDetailStore";
 
 const Header = () => {
-  const { isAuthenticated, logout } = LoginStore();
-  const {userInfo} = userDetailStore();
+  const { isAuthenticated, user, token, logout } = LoginStore();
+  const { userInfo, fetchData } = userDetailStore();
+  const [isInitialRender, setIsInitialRender] = useState(true);
+
+  useEffect(() => {
+    if (isInitialRender) {
+      setIsInitialRender(false);
+      if (user !== null) {
+        fetchData(user);
+      }
+    }
+  }, [isInitialRender]);
 
   const navigate = useNavigate();
 
@@ -21,9 +31,15 @@ const Header = () => {
     setIsOpen((value) => !value);
   }, []);
 
-  const handleLogout = () => {
-    logout();
-    window.location.reload();
+  const handleLogout = async () => {
+    try{
+        await axios.post(process.env.REACT_APP_API_URL + '/user/logout',null, 
+          {headers: {Authorization: 'Bearer ' + token}})
+        await logout()
+        window.location.reload()
+      } catch(e){
+      alert(e)
+    }
   };
 
   return (
@@ -67,17 +83,17 @@ const Header = () => {
                   {isAuthenticated ? (
                     <>
                       <div className = "px-4 py-3 rounded-xl font-semibold">
-                        {userInfo.nickname}님
+                        {userInfo.nickname} 님
                       </div>
+                      <hr />
                       <MenuItem
-                        onClick={() => navigate("/userinfo")}
+                        onClick={() => navigate(`/userinfo/${user}`)}
                         label="Profile"
                       />
                       <MenuItem
-                        onClick={() => navigate("/project")}
+                        onClick={() => navigate("/editproject")}
                         label="Create Project"
                       />
-                      <hr />
                       <MenuItem onClick={handleLogout} label="Logout" />
                     </>
                   ) : (

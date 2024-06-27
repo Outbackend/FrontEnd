@@ -1,31 +1,37 @@
 import React, { useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import positionList from "../../../variables/PositionList";
+import ConfirmModal from "../../Modals/Confirmation";
 
 const AddRecruit = ({ recruit = [], onRecruitChange }) => {
-  const [type, setType] = useState(null);
-  const [wanted, setWanted] = useState("");
+  const [stack, setStack] = useState(null);
+  const [personal, setPersonal] = useState(0);
+
+  // recruit 배열 초기화
   const [recruits, setRecruits] = useState(
     recruit.map((r) => ({
-      type: { value: r.type, label: r.type },
-      wanted: r.wanted.toString(),
+      stack: { value: r.stack, label: r.stack },
+      personal: r.personal,
     }))
   );
+
   const [errorMessage, setErrorMessage] = useState("");
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [deleteIndex, setDeleteIndex] = useState(null);
   const Position = positionList.map((position) => ({
     value: position,
     label: position,
   }));
 
   const handleAddRecruit = () => {
-    if (type && wanted) {
+    if (stack && personal) {
       if (recruits.length >= 5) {
         setErrorMessage("모집 분야는 최대 5개까지 추가할 수 있습니다.");
         return;
       }
 
       const existingRecruit = recruits.some(
-        (recruit) => recruit.type.value === type.value
+        (recruit) => recruit.stack.value === stack.value
       );
 
       if (existingRecruit) {
@@ -33,77 +39,104 @@ const AddRecruit = ({ recruit = [], onRecruitChange }) => {
         return;
       }
 
-      const newRecruits = [...recruits, { type, wanted }];
+      const newRecruits = [...recruits, { stack, personal }];
       setRecruits(newRecruits);
       onRecruitChange(
-        newRecruits.map((r) => ({ type: r.type.value, wanted: r.wanted }))
+        newRecruits.map((r) => ({ stack: r.stack.value, personal: r.personal }))
       );
       setErrorMessage("");
-      setType(null);
-      setWanted("");
+      setStack(null);
+      setPersonal(0);
     } else {
       setErrorMessage("모든 필드를 입력하세요.");
     }
   };
 
+  const openConfirmModal = (index) => {
+    setDeleteIndex(index);
+    setShowConfirmModal(true);
+  };
+
+  const closeConfirmModal = () => {
+    setShowConfirmModal(false);
+    console.log(showConfirmModal);
+  };
+
+  const deleteRecruit = () => {
+    const updatedRecruits = [...recruits];
+    updatedRecruits.splice(deleteIndex, 1);
+    setRecruits(updatedRecruits);
+    onRecruitChange(
+      updatedRecruits.map((r) => ({
+        stack: r.stack.value,
+        personal: r.personal,
+      }))
+    );
+    setShowConfirmModal(false);
+  };
+
   const incrementWanted = (index) => {
     setRecruits((prevRecruits) => {
       const updatedRecruits = [...prevRecruits];
-      const currentWanted = parseInt(updatedRecruits[index].wanted, 10);
-      updatedRecruits[index].wanted = (currentWanted + 1).toString();
+      const currentWanted = updatedRecruits[index].personal;
+      updatedRecruits[index].personal = currentWanted + 1;
       onRecruitChange(
-        updatedRecruits.map((r) => ({ type: r.type.value, wanted: r.wanted }))
+        updatedRecruits.map((r) => ({
+          stack: r.stack.value,
+          personal: r.personal,
+        }))
       );
       return updatedRecruits;
     });
   };
 
   const decrementWanted = (index) => {
-    setRecruits((prevRecruits) => {
-      const updatedRecruits = [...prevRecruits];
-      const currentWanted = parseInt(updatedRecruits[index].wanted, 10);
-      if (currentWanted > 1) {
-        updatedRecruits[index].wanted = (currentWanted - 1).toString();
-      } else {
-        if (window.confirm("삭제하시겠습니까?")) {
-          updatedRecruits.splice(index, 1);
-        } else {
-          updatedRecruits[index].wanted = "1";
-        }
-      }
-      onRecruitChange(
-        updatedRecruits.map((r) => ({ type: r.type.value, wanted: r.wanted }))
-      );
-      return updatedRecruits;
-    });
+    if (recruits[index].personal > 1) {
+      setRecruits((prevRecruits) => {
+        const updatedRecruits = [...prevRecruits];
+        updatedRecruits[index].personal -= 1;
+        onRecruitChange(
+          updatedRecruits.map((r) => ({
+            stack: r.stack.value,
+            personal: r.personal,
+          }))
+        );
+        return updatedRecruits;
+      });
+    }
   };
 
   return (
     <div>
       <ul className="space-y-4">
         {recruits.map((recruit, index) => (
-          <div
-            className="mb-2 flex items-center justify-between w-full"
-            key={index}
-          >
+          <div className="mb-2 flex items-center justify-between" key={index}>
             <div className="px-4 py-2 bg-blue-100 rounded-full">
               <span className="font-semibold text-gray-700">
-                {recruit.type.label}
+                {recruit.stack.label}
               </span>
             </div>
-            <div className="px-2 py-1 bg-gray-100 rounded-full flex items-center">
+            <div className=" flex items-center">
+              <div className="bg-gray-100 rounded-full px-2 py-1">
+                <button
+                  onClick={() => decrementWanted(index)}
+                  className="px-1 py-1 text-gray-500 hover:font-bold font-semibold rounded focus:outline-none"
+                >
+                  -
+                </button>
+                <span className="text-gray-700 mx-2">{recruit.personal}명</span>
+                <button
+                  onClick={() => incrementWanted(index)}
+                  className="px-1 py-1 text-gray-500 hover:font-bold font-semibold rounded focus:outline-none"
+                >
+                  +
+                </button>
+              </div>
               <button
-                onClick={() => decrementWanted(index)}
-                className="px-1 py-1 text-gray-500 hover:font-bold font-semibold rounded focus:outline-none"
+                className="text-red-500 pl-2"
+                onClick={() => openConfirmModal(index)}
               >
-                -
-              </button>
-              <span className="text-gray-700 mx-2">{recruit.wanted}명</span>
-              <button
-                onClick={() => incrementWanted(index)}
-                className="px-1 py-1 text-gray-500 hover:font-bold font-semibold rounded focus:outline-none"
-              >
-                +
+                x
               </button>
             </div>
           </div>
@@ -115,8 +148,8 @@ const AddRecruit = ({ recruit = [], onRecruitChange }) => {
             className="flex-grow"
             isClearable
             options={Position}
-            value={type}
-            onChange={(option) => setType(option)}
+            value={stack}
+            onChange={(option) => setStack(option)}
             styles={{
               control: (provided) => ({
                 ...provided,
@@ -128,9 +161,9 @@ const AddRecruit = ({ recruit = [], onRecruitChange }) => {
           />
         </div>
         <select
-          value={wanted}
-          onChange={(e) => setWanted(e.target.value)}
-          className="w-24 border-none border-gray-300 rounded focus:outline-none "
+          value={personal}
+          onChange={(e) => setPersonal(parseInt(e.target.value))}
+          className="w-24 border-none border-gray-300 rounded focus:outline-none"
         >
           <option className="text-gray-400" value="">
             인원
@@ -149,6 +182,15 @@ const AddRecruit = ({ recruit = [], onRecruitChange }) => {
       >
         추가하기
       </button>
+
+      {showConfirmModal && (
+        <ConfirmModal
+          title="삭제 확인"
+          message={`${recruits[deleteIndex].stack.label}을(를) 삭제하시겠습니까?`}
+          onCancel={closeConfirmModal}
+          onConfirm={deleteRecruit}
+        />
+      )}
     </div>
   );
 };
