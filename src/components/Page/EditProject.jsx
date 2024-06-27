@@ -50,7 +50,8 @@ const EditProject = ({ project, id }) => {
             },
           }
         ); // 프로젝트 생성
-        updateProjectLog(token, user, {id: response.data.id, name: title, position: field, description: value, status: status});
+        const position = current?.[0]?.stack || ""
+        updateProjectLog(token, user, {id: response.data.id, name: title, description: value, position: position});
         navigate("/");
       } else {
         const response = await axios.post(

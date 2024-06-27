@@ -27,7 +27,7 @@ const ProjectLog = ({ name, description, status, position }) => {
                 </div>
             </div>
             <div className='h-[150px]'>
-                <div className='h-[130px] px-5 text-ellipsis overflow-hidden'>
+                <div className='h-[130px] px-5 text-ellipsis overflow-y-auto'>
                     <Markdown
                         remarkPlugins={[ remarkGfm ]}
                         components={{ img: ({node, ...props}) => <img style={{maxWidth: '100%'}}{...props} alt=""/> }}

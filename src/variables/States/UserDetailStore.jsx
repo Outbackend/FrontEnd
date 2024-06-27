@@ -88,10 +88,12 @@ const userDetailStore = create((set, get) => ({
 
     updateProjectLog: async (token, id, value) => {
       try {
-        console.log(value)
         const response = await axios.post(
           process.env.REACT_APP_API_URL + '/user/' + id + '/projectlog',
-          value,
+          { id : value.id,
+            name : value.name,
+            position : value.position,
+          },
           { headers: { Authorization: `Bearer ${token}` } }
         )
         set((state) =>({

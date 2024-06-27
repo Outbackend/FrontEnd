@@ -33,8 +33,8 @@ const Header = () => {
 
   const handleLogout = async () => {
     try{
-        // await axios.post(process.env.REACT_APP_API_URL + '/user/logout',null, 
-        //   {headers: {Authorization: 'Bearer ' + token}})
+        await axios.post(process.env.REACT_APP_API_URL + '/user/logout',null, 
+          {headers: {Authorization: 'Bearer ' + token}})
         await logout()
         window.location.reload()
       } catch(e){
