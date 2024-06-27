@@ -52,6 +52,7 @@ const UserProjectLog = ({ projectList }) => {
                 {projects.map((project) => 
                     <ProjectLog
                         key={ project.id }
+                        id={project.id}
                         name={ project.name }
                         description={ project.description }
                         status={ project.status }
