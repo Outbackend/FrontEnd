@@ -6,7 +6,7 @@ import FieldSelect from "./Project/FieldSelect";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ConfirmationModal from "../Modals/Confirmation";
-import StatusSelect from "./Project/StatusSelect"; // 새로운 StatusSelect 컴포넌트를 임포트
+import StatusSelect from "./Project/StatusSelect";
 import LoginStore from "../../variables/States/LoginStore";
 
 const EditProject = ({ project, id }) => {
@@ -48,7 +48,6 @@ const EditProject = ({ project, id }) => {
         alert("등록되었습니다.");
         navigate("/");
       } else {
-        alert(updatedProject.category);
         await axios.post(
           `${process.env.REACT_APP_API_URL}/project/${id}`,
           updatedProject,
