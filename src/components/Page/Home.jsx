@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Categories from "./Home/Category";
 import ProjectList from "./Home/ProjectList";
@@ -6,6 +6,9 @@ import Container from "../Assets/Container";
 import Search from "./Search/Search";
 
 const Home = () => {
+  useEffect(() => {
+    window.location.reload();
+  });
 
   return (
     <Container>
