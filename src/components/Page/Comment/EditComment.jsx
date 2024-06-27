@@ -9,7 +9,10 @@ const EditComment = ({ comment, token, onCommentEdited, onCancelEdit }) => {
 
     const editwCommentObject = {
       content: editContent,
-      id: comment.id,
+      id: Number(comment.id),
+      projectId: Number(comment.projectId),
+      parentId: Number(comment.parentId),
+      userId: Number(comment.userId),
     };
 
     try {

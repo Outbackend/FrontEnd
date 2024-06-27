@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Project from "./Project/Project";
 import EditProject from "./EditProject";
-import Comment from "./Project/Comment";
+import Comment from "./Comment/Comment";
 import useLoginStore from "../../variables/States/LoginStore";
 import { useNavigate, useParams } from "react-router-dom";
 
