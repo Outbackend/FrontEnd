@@ -67,7 +67,7 @@ const ProjectDetail = () => {
           <img src={"/Spin.gif"} alt="로딩" width="10%" />
         </div>
       ) : project ? (
-        <div className="max-w-[1400px] min-w-[722px] m-auto pb-10">
+        <div className="pt-[120px] w-[60vw] min-w-[800px] pb-10">
           {isEditing ? ( //수정상태이면 EditProject
             <div>
               <EditProject project={project} id={id} />
