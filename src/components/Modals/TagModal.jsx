@@ -54,25 +54,14 @@ const TagModal = (props) => {
       insertStackList(value);
     }
   };
+
   return createPortal(
     <div
       className="fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-black/60 z-99"
       onClick={handleOverlayClick}
     >
       <div className="bg-white w-[1280px] h-[720px] rounded-2xl">
-        <div className="w-full h-[120px] border-b border-solid border-[#dfdfdf] flex items-center relative">
-          <div className="w-3/4 h-[60px] rounded-2xl mx-[60px] border-2 border-black">
-            <input
-              type="search"
-              className="w-full h-[55px] rounded-2xl p-5 outline-none"
-              placeholder="키워드로 찾아보기"
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
-            />
-          </div>
-          <div className="w-[60px] h-[60px] border-2 border-black rounded-full flex justify-center items-center">
-            <BiSearch size="30" />
-          </div>
+        <div className="w-full h-[30px] border-solid border-[#dfdfdf] flex items-center relative">
           <div
             className="absolute top-[30px] right-[30px] w-[30px] h-[30px] float-right flex justify-center items-center"
             onClick={close}

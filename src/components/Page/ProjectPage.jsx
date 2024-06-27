@@ -65,7 +65,7 @@ const ProjectDetail = () => {
           <img src={"/Spin.gif"} alt="로딩" width="10%" />
         </div>
       ) : project ? (
-        <div className="pt-[120px] w-[60vw] min-w-[800px] pb-10">
+        <div className="w-[60vw] min-w-[800px] pb-10">
           {isEditing ? (
             <div>
               <EditProject project={project} id={id} />

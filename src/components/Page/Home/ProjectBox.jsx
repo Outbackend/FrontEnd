@@ -48,7 +48,7 @@ const ProjectBox = ({ data }) => {
               style={{ width: "40px", height: "40px", borderRadius: "9999px" }}
             />
             <div className="font-semibold text-lg p-2">
-              {publisher.nickname}
+              {publisher.nickname || "탈퇴한 사용자"}
             </div>
             <div className="text-sm px-6 pt-1 my-2 ml-auto bg-white rounded-lg font-light border-2">
               {data.category}

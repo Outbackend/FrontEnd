@@ -186,7 +186,7 @@ const AddRecruit = ({ recruit = [], onRecruitChange }) => {
       {showConfirmModal && (
         <ConfirmModal
           title="삭제 확인"
-          message={`${recruits[deleteIndex].stack.label}을 삭제하시겠습니까?`}
+          message={`${recruits[deleteIndex].stack.label}을(를) 삭제하시겠습니까?`}
           onCancel={closeConfirmModal}
           onConfirm={deleteRecruit}
         />
