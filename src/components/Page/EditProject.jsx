@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import ConfirmationModal from "../Modals/Confirmation";
 import StatusSelect from "./Project/StatusSelect";
 import LoginStore from "../../variables/States/LoginStore";
+import userDetailStore from "../../variables/States/UserDetailStore";
 
 const EditProject = ({ project, id }) => {
   const [title, setTitle] = useState(project ? project.name : ""); // 제목
@@ -19,6 +20,7 @@ const EditProject = ({ project, id }) => {
   const [current, setCurrent] = useState(project ? project.inNow : []); // 현재 분야 및 인원
   const [status, setStatus] = useState(project ? project.status : "");
   const { user, token } = LoginStore();
+  const { updateProjectLog } = userDetailStore();
 
   const navigate = useNavigate();
   const isNewProject = !project;
@@ -37,18 +39,19 @@ const EditProject = ({ project, id }) => {
       status: status,
       publisher: user, //user id
     };
-
     try {
       if (isNewProject) {
-        await axios.post(
+        const response = await axios.post(
           `${process.env.REACT_APP_API_URL}/project/add`,
           updatedProject,
           { headers: { Authorization: `Bearer ${token}` } }
         ); // 프로젝트 생성
+        const position = current?.[0]?.stack || ""
+        updateProjectLog(token, user, {id: response.data.id, name: title, description: value, position: position});
         alert("등록되었습니다.");
         navigate("/");
       } else {
-        await axios.post(
+        const response = await axios.post(
           `${process.env.REACT_APP_API_URL}/project/${id}`,
           updatedProject,
           { headers: { Authorization: `Bearer ${token}` } }

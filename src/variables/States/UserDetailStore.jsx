@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
+import ProjectLog from "../../components/Page/UserInfo/ProjectLog";
 
 const userDetailStore = create((set, get) => ({
   userInfo: null,
@@ -90,13 +91,34 @@ const userDetailStore = create((set, get) => ({
       },
     })),
 
-  deleteRangeList: (value) =>
-    set((state) => ({
-      userInfo: {
-        ...state.userInfo,
-        rangeList: state.userInfo.rangeList.filter((i) => i !== value),
-      },
-    })),
+    updateProjectLog: async (token, id, value) => {
+      try {
+        const response = await axios.post(
+          process.env.REACT_APP_API_URL + '/user/' + id + '/projectlog',
+          { id : value.id,
+            name : value.name,
+            position : value.position,
+          },
+          { headers: { Authorization: `Bearer ${token}` } }
+        )
+        set((state) =>({
+          userInfo: {
+            ...state.userInfo,
+            projectLog : [...state.userInfo.projectLog, value]
+          }}))
+        console.log(response.data)
+      } catch (error) {
+        set({ error: error.message, loading: false });
+      }
+    },
+
+    deleteRangeList : (value) =>
+      set((state) => ({
+        userInfo: {
+          ...state.userInfo,
+          rangeList : state.userInfo.rangeList.filter((i) => i !== value)
+        }
+      })),
 
   deletePositionList: (value) =>
     set((state) => ({

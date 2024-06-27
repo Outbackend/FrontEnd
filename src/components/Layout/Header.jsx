@@ -31,12 +31,6 @@ const Header = () => {
     setIsOpen((value) => !value);
   }, []);
 
-  useEffect(() => {
-    if(user){
-      fetchData(user)
-    }
-  },[user, fetchData])
-
   const handleLogout = async () => {
     try{
         await axios.post(process.env.REACT_APP_API_URL + '/user/logout',null, 
@@ -86,7 +80,6 @@ const Header = () => {
                             "
               >
                 <div className="flex flex-col">
-                  {console.log(isAuthenticated, user, token)}
                   {isAuthenticated ? (
                     <>
                       <div className = "px-4 py-3 rounded-xl font-semibold">
