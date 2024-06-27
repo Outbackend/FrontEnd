@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import axios from "axios";
-import ProjectLog from "../../components/Page/UserInfo/ProjectLog";
 
 const userDetailStore = create((set, get) => ({
   userInfo: null,
@@ -57,7 +56,7 @@ const userDetailStore = create((set, get) => ({
         position: get().userInfo.positionList,
         stack: get().userInfo.stackList,
       };
-      const response = await axios.post(
+      await axios.post(
         process.env.REACT_APP_API_URL + "/user/" + id,
         data,
         { headers: { Authorization: `Bearer ${token}` } }

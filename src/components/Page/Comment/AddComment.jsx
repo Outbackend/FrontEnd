@@ -16,7 +16,7 @@ const AddComment = ({ projectId, user, token, onCommentAdded }) => {
     };
 
     try {
-      const response = await axios.post(
+      await axios.post(
         `${process.env.REACT_APP_API_URL}/project/${projectId}/comment`,
         newCommentObject,
         {

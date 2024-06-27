@@ -33,7 +33,7 @@ const AuthPage = () => {
         }
         else {
             try {
-                const response = await axios.post(
+                await axios.post(
                     process.env.REACT_APP_API_URL + '/user/auth',
                     {
                         email : authForm.email,
@@ -92,7 +92,7 @@ const AuthPage = () => {
                         value={ authForm.passwordCheck }
                     />
                     <div>
-                        <a className='text-xs select-none text-gray-300'>비밀번호는 영문 대소문자를 혼합하여 8자 이상으로 만들어주세요.</a>
+                        <a href="{()=>false}" className='text-xs select-none text-gray-300'>비밀번호는 영문 대소문자를 혼합하여 8자 이상으로 만들어주세요.</a>
                     </div>
                     <UserInput
                         type="text"

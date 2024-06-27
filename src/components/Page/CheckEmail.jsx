@@ -8,7 +8,7 @@ import UserInput from './Login/LoginUserInput';
 import LoginButton from './Login/LoginButton';
 
 const CheckEmail = () => {
-    const { fetchData, login } = userDetailStore();
+    const { fetchData } = userDetailStore();
 
     const navigation = useNavigate();
     const location = useLocation();
@@ -20,7 +20,7 @@ const CheckEmail = () => {
 
     const resendVerifyEmail = async () => {
         try {
-            const response = await axios.post(
+            await axios.post(
                 process.env.REACT_APP_API_URL + '/user/resend',
                 { email : location.state.email }
             )
@@ -64,7 +64,7 @@ const CheckEmail = () => {
                             className='w-[200px] absolute right-0 text-right'
                             onClick={ resendVerifyEmail }
                         >
-                            <a className='text-gray-500'>이메일 다시 전송하기</a>
+                            <a href="{()=>false}" className='text-gray-500'>이메일 다시 전송하기</a>
                         </div>
                     </div>
                     <UserInput

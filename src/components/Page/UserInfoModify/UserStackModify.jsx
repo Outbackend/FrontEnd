@@ -39,7 +39,7 @@ const UserStackModify = ( { link } ) => {
                     <div className='w-[120px] h-[45px] py-2.5 px-5 me-2 mb-2 align-bottom'>
                         <Link to={ '/userinfo/' + link }>
                             <div className='text-base font-bold'>
-                                <a>돌아가기</a>
+                                <a href='{()=>false}'>돌아가기</a>
                             </div>
                         </Link>
                     </div>

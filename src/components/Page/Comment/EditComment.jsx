@@ -16,7 +16,7 @@ const EditComment = ({ comment, token, onCommentEdited, onCancelEdit }) => {
     };
 
     try {
-      const response = await axios.patch(
+        await axios.patch(
         `${process.env.REACT_APP_API_URL}/project/${comment.projectId}/comment`,
         editwCommentObject,
         {

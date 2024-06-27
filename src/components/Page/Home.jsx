@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import Categories from "./Home/Category";
 import ProjectList from "./Home/ProjectList";

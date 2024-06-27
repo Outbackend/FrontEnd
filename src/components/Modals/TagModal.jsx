@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { createPortal } from "react-dom";
-import { BiSearch } from "react-icons/bi";
 import { VscChromeClose } from "react-icons/vsc";
 
 import userDetailStore from "../../variables/States/UserDetailStore";
@@ -22,8 +21,6 @@ const TagModal = (props) => {
   } = userDetailStore();
 
   const { close } = props;
-
-  const [keyword, setKeyword] = useState("");
 
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {

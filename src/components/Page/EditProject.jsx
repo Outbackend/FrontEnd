@@ -55,7 +55,7 @@ const EditProject = ({ project, id }) => {
         alert("등록되었습니다.");
         navigate("/");
       } else {
-        const response = await axios.post(
+        await axios.post(
           `${process.env.REACT_APP_API_URL}/project/${id}`,
           updatedProject,
           { headers: { Authorization: `Bearer ${token}` } }
