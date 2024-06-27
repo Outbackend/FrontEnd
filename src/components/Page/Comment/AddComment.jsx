@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const AddComment = ({ projectId, user, token, onCommentAdded }) => {
@@ -9,9 +9,10 @@ const AddComment = ({ projectId, user, token, onCommentAdded }) => {
 
     const newCommentObject = {
       content: newComment,
-      projectId,
-      parentId: null,
+      projectId: Number(projectId),
+      parentId: Number(projectId),
       userId: user,
+      datetime: "2030-12-31 23:59:59",
     };
 
     try {
@@ -24,7 +25,7 @@ const AddComment = ({ projectId, user, token, onCommentAdded }) => {
           },
         }
       );
-      onCommentAdded(response.data);
+      onCommentAdded(newCommentObject);
       setNewComment("");
     } catch (error) {
       console.error("Error adding comment:", error);

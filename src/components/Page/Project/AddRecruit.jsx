@@ -103,8 +103,6 @@ const AddRecruit = ({ recruit = [], onRecruitChange }) => {
         );
         return updatedRecruits;
       });
-    } else {
-      openConfirmModal(index);
     }
   };
 
@@ -112,28 +110,33 @@ const AddRecruit = ({ recruit = [], onRecruitChange }) => {
     <div>
       <ul className="space-y-4">
         {recruits.map((recruit, index) => (
-          <div
-            className="mb-2 flex items-center justify-between w-full"
-            key={index}
-          >
+          <div className="mb-2 flex items-center justify-between" key={index}>
             <div className="px-4 py-2 bg-blue-100 rounded-full">
               <span className="font-semibold text-gray-700">
                 {recruit.stack.label}
               </span>
             </div>
-            <div className="px-2 py-1 bg-gray-100 rounded-full flex items-center">
+            <div className=" flex items-center">
+              <div className="bg-gray-100 rounded-full px-2 py-1">
+                <button
+                  onClick={() => decrementWanted(index)}
+                  className="px-1 py-1 text-gray-500 hover:font-bold font-semibold rounded focus:outline-none"
+                >
+                  -
+                </button>
+                <span className="text-gray-700 mx-2">{recruit.personal}명</span>
+                <button
+                  onClick={() => incrementWanted(index)}
+                  className="px-1 py-1 text-gray-500 hover:font-bold font-semibold rounded focus:outline-none"
+                >
+                  +
+                </button>
+              </div>
               <button
-                onClick={() => decrementWanted(index)}
-                className="px-1 py-1 text-gray-500 hover:font-bold font-semibold rounded focus:outline-none"
+                className="text-red-500 pl-2"
+                onClick={() => openConfirmModal(index)}
               >
-                -
-              </button>
-              <span className="text-gray-700 mx-2">{recruit.personal}명</span>
-              <button
-                onClick={() => incrementWanted(index)}
-                className="px-1 py-1 text-gray-500 hover:font-bold font-semibold rounded focus:outline-none"
-              >
-                +
+                x
               </button>
             </div>
           </div>

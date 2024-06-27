@@ -6,7 +6,7 @@ import FieldSelect from "./Project/FieldSelect";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ConfirmationModal from "../Modals/Confirmation";
-import StatusSelect from "./Project/StatusSelect"; // 새로운 StatusSelect 컴포넌트를 임포트
+import StatusSelect from "./Project/StatusSelect";
 import LoginStore from "../../variables/States/LoginStore";
 import userDetailStore from "../../variables/States/UserDetailStore";
 
@@ -44,25 +44,19 @@ const EditProject = ({ project, id }) => {
         const response = await axios.post(
           `${process.env.REACT_APP_API_URL}/project/add`,
           updatedProject,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          { headers: { Authorization: `Bearer ${token}` } }
         ); // 프로젝트 생성
         const position = current?.[0]?.stack || ""
         updateProjectLog(token, user, {id: response.data.id, name: title, description: value, position: position});
+        alert("등록되었습니다.");
         navigate("/");
       } else {
         const response = await axios.post(
           `${process.env.REACT_APP_API_URL}/project/${id}`,
           updatedProject,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          { headers: { Authorization: `Bearer ${token}` } }
         ); // 수정
+        alert("수정되었습니다");
         window.location.reload();
       }
     } catch (error) {
@@ -79,11 +73,10 @@ const EditProject = ({ project, id }) => {
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/project/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      await axios.delete(process.env.REACT_APP_API_URL + "/project/" + id, {
+        headers: { Authorization: `Bearer ${token}` },
       }); // 삭제
+      alert("삭제되었습니다.");
       navigate("/"); // 홈 페이지로 이동
     } catch (error) {
       console.error("프로젝트 삭제 중 오류 발생:", error);

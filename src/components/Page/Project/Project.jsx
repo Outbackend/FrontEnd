@@ -7,7 +7,7 @@ const Project = ({ project }) => {
   return (
     <div className="">
       <span className="font-semibold mb-2 text-sm text-gray-400">
-        최종 수정 일자 {project.modifiedDate}
+        최종 수정 일시 {project.modifiedDate}
       </span>
       <div className="my-6" />
       <div className="flex flex-row space-x-8">
